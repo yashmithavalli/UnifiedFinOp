@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrackTN — Real-time Financial Intelligence</title>
+  <meta name="description" content="FinTrackTN: Tamil Nadu's unified FinOps platform for real-time departmental spending visibility and accountability. TN IMPACT 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LANDING PAGE (shown first, hidden after upload)
+  ═══════════════════════════════════════════════════════ -->
+  <div class="landing-page" id="landingPage">
+    <!-- Background grid -->
+    <div class="landing-bg-grid"></div>
+    <!-- Glow orbs -->
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="landing-content">
+      <!-- Logo -->
+      <div class="landing-logo">
+        <div class="landing-logo-mark">FT</div>
+        <div>
+          <h1 class="landing-brand">FinTrackTN</h1>
+          <span class="landing-badge">TN IMPACT 2026</span>
+        </div>
+      </div>
+
+      <p class="landing-tagline">Real-time Financial Intelligence<br />for Tamil Nadu Government</p>
+      <p class="landing-sub">Upload your departmental spending data to generate insights, charts, and budget analysis instantly.</p>
+
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" />
+        <div class="upload-icon-wrap">
+          <i class="bi bi-cloud-arrow-up-fill"></i>
+        </div>
+        <h3 class="upload-title">Drop your file here</h3>
+        <p class="upload-hint">or click to browse</p>
+        <p class="upload-formats">
+          <span><i class="bi bi-filetype-csv"></i> CSV</span>
+          <span><i class="bi bi-file-earmark-excel"></i> Excel (.xlsx)</span>
+        </p>
+      </div>
+
+      <!-- Upload progress (hidden until upload starts) -->
+      <div class="upload-progress" id="uploadProgress">
+        <div class="upload-spinner"></div>
+        <span id="uploadProgressText">Parsing file...</span>
+      </div>
+
+      <!-- Divider -->
+      <div class="landing-divider"><span>or</span></div>
+
+      <!-- Demo button -->
+      <button class="btn-demo" id="loadDemoBtn">
+        <i class="bi bi-play-circle"></i>
+        Try with sample data
+      </button>
+
+      <!-- Download sample -->
+      <a class="btn-sample" href="sample_data.csv" download>
+        <i class="bi bi-download"></i> Download sample_data.csv
+      </a>
+
+      <!-- Feature Chips -->
+      <div class="landing-features">
+        <span class="feature-chip"><i class="bi bi-graph-up-arrow"></i> Real-time Tracking</span>
+        <span class="feature-chip"><i class="bi bi-building"></i> Dept Analysis</span>
+        <span class="feature-chip"><i class="bi bi-bell"></i> Smart Alerts</span>
+        <span class="feature-chip"><i class="bi bi-pie-chart"></i> Visual Reports</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       DASHBOARD (hidden until data is uploaded)
+  ═══════════════════════════════════════════════════════ -->
+
+  <!-- Alert Banner (only shown when real data triggers it) -->
+  <div class="alert-banner" id="alertBanner" style="display:none;">
+    <div class="alert-inner">
+      <span class="alert-icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
+      <div class="alert-text">
+        <strong>⚠ Budget Alert:</strong>
+        <span id="alertMessage"></span>
+      </div>
+      <button class="alert-close" onclick="document.getElementById('alertBanner').classList.remove('show')">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Sidebar Strip -->
+  <aside class="sidebar-strip dashboard-only" id="sidebarStrip">
+    <div class="strip-logo">FT</div>
+    <nav class="strip-nav">
+      <a href="#" class="strip-item active" data-tooltip="Dashboard"><i class="bi bi-grid-fill"></i></a>
+      <a href="#" class="strip-item" data-tooltip="Departments"><i class="bi bi-building"></i></a>
+      <a href="#" class="strip-item" data-tooltip="Reports"><i class="bi bi-file-earmark-bar-graph"></i></a>
+      <a href="#" class="strip-item" data-tooltip="Alerts" id="sidebarAlertItem">
+        <i class="bi bi-bell"></i>
+        <span class="strip-badge" id="sidebarAlertBadge" style="display:none">0</span>
+      </a>
+      <a href="#" class="strip-item" data-tooltip="Upload Data" id="sidebarUploadBtn"><i class="bi bi-cloud-upload"></i></a>
+    </nav>
+    <div class="strip-bottom">
+      <a href="#" class="strip-item" data-tooltip="Settings"><i class="bi bi-gear"></i></a>
+    </div>
+  </aside>
+
+  <!-- Sidebar Panel -->
+  <aside class="sidebar-panel dashboard-only" id="sidebarPanel">
+    <div class="panel-header">
+      <h2 class="panel-title">FinTrackTN</h2>
+      <span class="panel-badge">TN IMPACT 2026</span>
+    </div>
+    <div class="panel-section">
+      <p class="panel-section-title">DASHBOARDS</p>
+      <a href="#" class="panel-item active"><i class="bi bi-speedometer2"></i> Finance Overview</a>
+      <a href="#" class="panel-item"><i class="bi bi-building"></i> Public Sector</a>
+      <a href="#" class="panel-item"><i class="bi bi-briefcase"></i> Enterprise</a>
+    </div>
+    <div class="panel-section">
+      <p class="panel-section-title">MANAGEMENT</p>
+      <a href="#" class="panel-item"><i class="bi bi-table"></i> Transactions</a>
+      <a href="#" class="panel-item"><i class="bi bi-bar-chart-line"></i> Analytics</a>
+      <a href="#" class="panel-item"><i class="bi bi-shield-check"></i> Audit Logs</a>
+      <a href="#" class="panel-item" id="panelUploadBtn"><i class="bi bi-cloud-upload"></i> Upload New Data</a>
+    </div>
+    <div class="panel-section">
+      <p class="panel-section-title">DATA SOURCE</p>
+      <div class="panel-data-source" id="dataSourceInfo">
+        <i class="bi bi-file-earmark-check" style="color:var(--green);"></i>
+        <span id="dataSourceName">—</span>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="panel-user">
+        <div class="user-avatar">A</div>
+        <div>
+          <p class="user-name">Admin</p>
+          <p class="user-role">Finance Controller</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Navbar -->
+  <nav class="topnav dashboard-only" id="topnav">
+    <div class="topnav-left">
+      <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="nav-breadcrumb">
+        <span>Finance</span>
+        <i class="bi bi-chevron-right"></i>
+        <span class="breadcrumb-active">Dashboard</span>
+      </div>
+    </div>
+    <div class="topnav-center">
+      <div class="search-bar">
+        <i class="bi bi-search"></i>
+        <input type="text" id="searchInput" placeholder="Search departments, transactions..." />
+        <kbd>/</kbd>
+      </div>
+    </div>
+    <div class="topnav-right">
+      <div class="live-indicator">
+        <span class="live-dot"></span>
+        <span>LIVE</span>
+      </div>
+      <span class="timestamp" id="lastUpdated">—</span>
+      <button class="nav-icon-btn" title="Notifications" id="navAlertBtn">
+        <i class="bi bi-bell"></i>
+        <span class="nav-badge" id="navAlertBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn" title="Upload New Data" id="navUploadBtn">
+        <i class="bi bi-cloud-upload"></i>
+      </button>
+      <div class="nav-user">
+        <div class="nav-avatar">A</div>
+        <span>Admin</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content dashboard-only" id="mainContent">
+
+    <!-- Page Header -->
+    <div class="page-header" data-aos="fade-down">
+      <div>
+        <h1 class="page-title">Finance Dashboard</h1>
+        <p class="page-subtitle" id="pageSubtitle">Tamil Nadu Government — FY 2025-26</p>
+      </div>
+      <div class="header-actions">
+        <span class="file-chip" id="fileChip"><i class="bi bi-file-earmark-check"></i> <span id="fileChipName">—</span></span>
+        <button class="btn btn-ghost" id="reuploadBtn"><i class="bi bi-arrow-repeat"></i> Re-upload</button>
+        <button class="btn btn-primary" id="exportBtn"><i class="bi bi-download"></i> Export</button>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid" data-aos="fade-up" data-aos-delay="80">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(0,212,255,0.12);color:var(--cyan);">
+          <i class="bi bi-wallet2"></i>
+        </div>
+        <div>
+          <p class="stat-label">Total Budget</p>
+          <h3 class="stat-value" id="statBudget">—</h3>
+          <p class="stat-change positive" id="statBudgetSub"><i class="bi bi-calendar3"></i> FY 2025-26</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(245,158,11,0.12);color:var(--amber);">
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+        <div>
+          <p class="stat-label">Total Spent</p>
+          <h3 class="stat-value" id="statSpent">—</h3>
+          <p class="stat-change warning"><i class="bi bi-arrow-up"></i> <span id="spentPct">—</span>% of budget</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(0,196,140,0.12);color:var(--green);">
+          <i class="bi bi-building"></i>
+        </div>
+        <div>
+          <p class="stat-label">Departments</p>
+          <h3 class="stat-value" id="statDepts">—</h3>
+          <p class="stat-change positive"><i class="bi bi-check-circle"></i> All active</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(239,68,68,0.12);color:var(--red);">
+          <i class="bi bi-exclamation-triangle"></i>
+        </div>
+        <div>
+          <p class="stat-label">Budget Alerts</p>
+          <h3 class="stat-value" id="statAlerts">—</h3>
+          <p class="stat-change danger" id="statAlertSub"><i class="bi bi-shield-check"></i> Within limits</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-grid" data-aos="fade-up" data-aos-delay="150">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Budget vs Actual Spending</h3>
+            <p class="card-subtitle">Monthly trend (₹ in Lakhs)</p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-chip active">All</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="areaChart"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Spend Distribution</h3>
+            <p class="card-subtitle">Department-wise</p>
+          </div>
+        </div>
+        <div class="chart-container donut-container">
+          <canvas id="donutChart"></canvas>
+        </div>
+        <div class="donut-total">
+          <span class="donut-label">Total Spent</span>
+          <span class="donut-value" id="donutTotalValue">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-grid" data-aos="fade-up" data-aos-delay="200">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Transaction Feed</h3>
+            <p class="card-subtitle" id="txCountLabel">—</p>
+          </div>
+          <div class="live-indicator small">
+            <span class="live-dot"></span>
+            <span>LIVE</span>
+          </div>
+        </div>
+        <div class="transaction-feed" id="transactionFeed"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">Department Budget Status</h3>
+            <p class="card-subtitle">Utilisation overview</p>
+          </div>
+        </div>
+        <div class="budget-bars" id="budgetBars"></div>
+      </div>
+    </div>
+
+    <!-- Impact Section -->
+    <div class="impact-section" data-aos="fade-up" data-aos-delay="250">
+      <div class="impact-card">
+        <h2 class="impact-number" id="counter-budget">—</h2>
+        <p class="impact-label">Total Budget Managed</p>
+      </div>
+      <div class="impact-card">
+        <h2 class="impact-number" id="counter-txns">—</h2>
+        <p class="impact-label">Total Transactions</p>
+      </div>
+      <div class="impact-card">
+        <h2 class="impact-number" id="counter-depts">—</h2>
+        <p class="impact-label">Departments Tracked</p>
+      </div>
+      <div class="impact-card">
+        <h2 class="impact-number" id="counter-pct">—</h2>
+        <p class="impact-label">Budget Utilisation</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>FinTrackTN &copy; 2026 &nbsp;·&nbsp; TN IMPACT Hackathon &nbsp;·&nbsp; Built for Tamil Nadu Government Financial Governance</p>
+    </footer>
+  </main>
+
+  <!-- Hidden file input for re-upload -->
+  <input type="file" id="reuploadInput" accept=".csv,.xlsx,.xls" style="display:none" />
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

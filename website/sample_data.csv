@@ -1,0 +1,31 @@
+Department,Category,Amount,Status,Month,Budget
+Health & Family Welfare,Medical Supplies,1420000,approved,Oct,20000000
+Health & Family Welfare,Staff Salary,2150000,approved,Nov,20000000
+Health & Family Welfare,Equipment Purchase,930000,approved,Dec,20000000
+Health & Family Welfare,Ambulance Service,320000,approved,Jan,20000000
+Health & Family Welfare,Vaccination Drive,680000,approved,Feb,20000000
+School Education,Infrastructure,860000,approved,Oct,18000000
+School Education,Teacher Training,1120000,approved,Nov,18000000
+School Education,Books & Materials,420000,approved,Dec,18000000
+School Education,Digital Classrooms,810000,approved,Jan,18000000
+School Education,Mid-Day Meal Program,740000,approved,Feb,18000000
+Infrastructure,Road Works,3210000,pending,Oct,25000000
+Infrastructure,Bridge Construction,4560000,pending,Nov,25000000
+Infrastructure,Metro Rail Work,2840000,pending,Dec,25000000
+Infrastructure,Flyover Maintenance,1870000,flagged,Jan,25000000
+Infrastructure,Highway Expansion,3200000,approved,Feb,25000000
+Agriculture,Fertilizer Subsidy,540000,approved,Oct,12000000
+Agriculture,Seed Distribution,290000,approved,Nov,12000000
+Agriculture,Irrigation Works,710000,approved,Dec,12000000
+Agriculture,Crop Insurance,450000,approved,Jan,12000000
+Agriculture,Farmer Training,380000,approved,Feb,12000000
+Transport,Fleet Maintenance,980000,approved,Oct,9000000
+Transport,Bus Fleet Upgrade,1890000,flagged,Nov,9000000
+Transport,Route Expansion,1410000,pending,Dec,9000000
+Transport,Driver Training,250000,approved,Jan,9000000
+Transport,Fuel Subsidy,670000,approved,Feb,9000000
+IT & Digital Services,Software License,1230000,approved,Oct,6000000
+IT & Digital Services,Cloud Storage Fees,560000,approved,Nov,6000000
+IT & Digital Services,Server Maintenance,670000,approved,Dec,6000000
+IT & Digital Services,Cybersecurity Audit,930000,approved,Jan,6000000
+IT & Digital Services,Portal Development,890000,approved,Feb,6000000
