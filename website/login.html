@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Unified FinOps Platform</title>
+  <meta name="description" content="Sign in to your Unified FinOps Platform account to access your financial dashboards and reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-mark">FO</div>
+      <div class="nav-brand-text">Unified<span>FinOps</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="index.html#features" class="nav-link">Features</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="login.html" class="nav-link active">Login</a>
+      <a href="register.html" class="nav-cta"><i class="bi bi-arrow-right-circle"></i> Get Started</a>
+    </div>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Toggle menu">
+      <i class="bi bi-list"></i>
+    </button>
+  </nav>
+
+  <!-- Login Card -->
+  <div class="auth-page">
+    <div class="auth-card" id="loginCard">
+      <div class="auth-logo">
+        <div class="auth-logo-mark">FO</div>
+        <div class="auth-logo-text">Unified<span>FinOps</span></div>
+      </div>
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-subtitle">Sign in to access your financial dashboards</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="you@company.com" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" autocomplete="current-password" required />
+        </div>
+        <div class="form-row">
+          <label class="form-checkbox">
+            <input type="checkbox" /> Remember me
+          </label>
+          <a href="#" class="form-forgot">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn-auth"><i class="bi bi-box-arrow-in-right"></i> Sign In</button>
+      </form>
+
+      <p class="auth-footer-text">Don't have an account? <a href="register.html">Create one</a></p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

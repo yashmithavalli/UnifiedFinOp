@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports — Unified FinOps Platform</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="dash-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header"><div class="sidebar-logo">FO</div><div class="sidebar-brand">Unified<span>FinOps</span></div></div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-title">Analytics</div>
+        <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+        <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
+        <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+        <div class="sidebar-section-title">Data</div>
+        <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="reports.html" class="sidebar-item active"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+        <div class="sidebar-section-title">Governance</div>
+        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">3</span></a>
+        <div class="sidebar-section-title">System</div>
+        <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
+      </nav>
+      <div class="sidebar-footer"><div class="sidebar-user"><div class="sidebar-avatar">A</div><div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Finance Controller</div></div></div></div>
+    </aside>
+
+    <main class="dash-main">
+      <div class="dash-topnav">
+        <div class="dash-topnav-left">
+          <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
+          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span class="dash-breadcrumb-active">Reports</span></div>
+        </div>
+        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a></div>
+      </div>
+
+      <div class="dash-content">
+        <div class="dash-page-header">
+          <div>
+            <h1 class="dash-page-title">Financial Reports</h1>
+            <p class="dash-page-subtitle">Generate and export financial reports for your organization</p>
+          </div>
+        </div>
+
+        <!-- Report Cards -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 30px;">
+          <!-- Department Spending Report -->
+          <div class="dash-card" style="text-align: center; padding: 28px 20px;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--blue); margin: 0 auto 14px;">
+              <i class="bi bi-building"></i>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Department Spending</div>
+            <div style="font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 16px;">Budget allocation, total spend, and utilization rates across all departments.</div>
+            <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="exportReport('department')">
+              <i class="bi bi-download"></i> Export CSV
+            </button>
+          </div>
+
+          <!-- Vendor Cost Report -->
+          <div class="dash-card" style="text-align: center; padding: 28px 20px;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--green); margin: 0 auto 14px;">
+              <i class="bi bi-shop"></i>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Vendor Cost Report</div>
+            <div style="font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 16px;">Total spend per vendor, transaction counts, and department-level vendor usage.</div>
+            <button class="btn-primary" style="width: 100%; justify-content: center; background: var(--green);" onclick="exportReport('vendor')">
+              <i class="bi bi-download"></i> Export CSV
+            </button>
+          </div>
+
+          <!-- Budget Utilization Report -->
+          <div class="dash-card" style="text-align: center; padding: 28px 20px;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--yellow-light); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #B06D00; margin: 0 auto 14px;">
+              <i class="bi bi-piggy-bank"></i>
+            </div>
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Budget Utilization</div>
+            <div style="font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 16px;">Budget vs actual spending, remaining balance, and status for each department.</div>
+            <button class="btn-primary" style="width: 100%; justify-content: center; background: #B06D00;" onclick="exportReport('budget')">
+              <i class="bi bi-download"></i> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Exports -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <div class="dash-card-title">All Transactions</div>
+              <div class="dash-card-subtitle">Complete transaction log</div>
+            </div>
+            <button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportDashboard()"><i class="bi bi-download"></i> Export All</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Department</th>
+                <th>Vendor</th>
+                <th>Project</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Mar 08</td><td>Engineering</td><td>AWS</td><td>Cloud Migration</td><td>Infrastructure</td><td>$12,400</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 07</td><td>Marketing</td><td>Google</td><td>Ad Campaign Q1</td><td>Advertising</td><td>$8,200</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 07</td><td>HR</td><td>Workday</td><td>HRIS Setup</td><td>Software</td><td>$15,600</td><td><span class="status-badge pending">Pending</span></td></tr>
+              <tr><td>Mar 06</td><td>Engineering</td><td>Microsoft</td><td>DevOps Tooling</td><td>Software</td><td>$6,300</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 05</td><td>Finance</td><td>Dell</td><td>Hardware Refresh</td><td>Hardware</td><td>$22,100</td><td><span class="status-badge flagged">Flagged</span></td></tr>
+              <tr><td>Mar 04</td><td>Engineering</td><td>Google Cloud</td><td>AI Platform</td><td>Infrastructure</td><td>$9,800</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 03</td><td>Marketing</td><td>Facebook</td><td>Social Media</td><td>Advertising</td><td>$4,500</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 02</td><td>HR</td><td>LinkedIn</td><td>Recruiting</td><td>Services</td><td>$3,200</td><td><span class="status-badge approved">Approved</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

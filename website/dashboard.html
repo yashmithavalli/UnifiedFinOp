@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Unified FinOps Platform</title>
+  <meta name="description" content="Financial analytics dashboard with AI-powered insights." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="dash-layout">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">FO</div>
+        <div class="sidebar-brand">Unified<span>FinOps</span></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-title">Analytics</div>
+        <a href="dashboard.html" class="sidebar-item active"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+        <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
+        <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+
+        <div class="sidebar-section-title">Data</div>
+        <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+
+        <div class="sidebar-section-title">Governance</div>
+        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">5</span></a>
+
+        <div class="sidebar-section-title">System</div>
+        <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div>
+            <div class="sidebar-user-name">Admin</div>
+            <div class="sidebar-user-role">Finance Controller</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="dash-main">
+      <!-- Top Bar -->
+      <div class="dash-topnav">
+        <div class="dash-topnav-left">
+          <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
+          <div class="dash-breadcrumb">
+            <span>FinOps</span>
+            <i class="bi bi-chevron-right"></i>
+            <span class="dash-breadcrumb-active">Dashboard</span>
+          </div>
+        </div>
+        <div class="dash-topnav-right">
+          <div class="dash-search">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search transactions..." />
+          </div>
+          <button class="dash-icon-btn" title="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="notif-dot"></span>
+          </button>
+          <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div class="dash-content">
+        <!-- Page Header -->
+        <div class="dash-page-header">
+          <div>
+            <h1 class="dash-page-title">Financial Overview</h1>
+            <p class="dash-page-subtitle">Organization spending analytics — FY 2025-26</p>
+          </div>
+          <div class="dash-header-actions">
+            <button class="btn-secondary" onclick="exportDashboard()"><i class="bi bi-download"></i> Export</button>
+            <a href="upload.html" class="btn-primary"><i class="bi bi-cloud-arrow-up"></i> Upload Data</a>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             1. EXECUTIVE FINANCIAL SUMMARY
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Executive Financial Summary</div>
+          <div class="fi-ai-badge"><i class="bi bi-lightning-charge-fill"></i> LIVE</div>
+        </div>
+        <div class="exec-grid">
+          <div class="exec-card blue">
+            <div class="exec-label">Total Organizational Spending</div>
+            <div class="exec-value" style="color: var(--blue);">$2.4M</div>
+            <div class="exec-sub"><i class="bi bi-arrow-up-short" style="color: var(--red);"></i> 12% vs last quarter</div>
+          </div>
+          <div class="exec-card red">
+            <div class="exec-label">Top Spending Department</div>
+            <div class="exec-value">Engineering</div>
+            <div class="exec-sub"><span class="health-dot critical"></span> 42% of total spend</div>
+          </div>
+          <div class="exec-card yellow">
+            <div class="exec-label">Top Vendor</div>
+            <div class="exec-value">AWS</div>
+            <div class="exec-sub"><i class="bi bi-arrow-up-short" style="color: var(--red);"></i> $120K this quarter</div>
+          </div>
+          <div class="exec-card green">
+            <div class="exec-label">Budget Utilization</div>
+            <div class="exec-value" style="color: var(--green);">79%</div>
+            <div class="exec-sub"><span class="health-dot warning"></span> On track</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             2. FINANCIAL INSIGHTS PANEL
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Financial Insights</div>
+          <div class="fi-ai-badge"><i class="bi bi-cpu"></i> AI GENERATED</div>
+        </div>
+        <div class="insight-grid">
+          <div class="insight-card blue">
+            <div class="insight-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="insight-text"><strong>Cloud costs increased by 18%</strong> compared to last month. AWS and Google Cloud are the primary drivers.</div>
+          </div>
+          <div class="insight-card red">
+            <div class="insight-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-exclamation-triangle"></i></div>
+            <div class="insight-text"><strong>Marketing department</strong> spending is approaching its budget limit — currently at <strong>93% utilization</strong>.</div>
+          </div>
+          <div class="insight-card yellow">
+            <div class="insight-icon" style="background: var(--yellow-light); color: #B06D00;"><i class="bi bi-trophy"></i></div>
+            <div class="insight-text"><strong>AWS is currently the highest cost vendor</strong> at $120K, representing 48% of total vendor spending.</div>
+          </div>
+          <div class="insight-card green">
+            <div class="insight-icon" style="background: var(--green-light); color: var(--green);"><i class="bi bi-pie-chart"></i></div>
+            <div class="insight-text"><strong>Engineering department</strong> accounts for <strong>42% of total spend</strong> — highest across all departments.</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             3. KPI CARDS + BUDGET HEALTH
+        ══════════════════════════════════════════════════ -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-wallet2"></i></div>
+              <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 12%</div>
+            </div>
+            <div class="kpi-value">$2.4M</div>
+            <div class="kpi-label">Total Spend</div>
+            <div class="kpi-health">
+              <span class="health-dot warning"></span>
+              <div class="kpi-health-bar"><div class="kpi-health-fill" style="width: 79%; background: var(--yellow);"></div></div>
+              <span>79%</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-icon" style="background: var(--green-light); color: var(--green);"><i class="bi bi-piggy-bank"></i></div>
+              <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 8%</div>
+            </div>
+            <div class="kpi-value">$620K</div>
+            <div class="kpi-label">Budget Remaining</div>
+            <div class="kpi-health">
+              <span class="health-dot healthy"></span>
+              <div class="kpi-health-bar"><div class="kpi-health-fill" style="width: 21%; background: var(--green);"></div></div>
+              <span>21%</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-icon" style="background: var(--yellow-light); color: #B06D00;"><i class="bi bi-building"></i></div>
+              <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 2</div>
+            </div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-label">Departments Active</div>
+            <div class="kpi-health">
+              <span class="health-dot healthy"></span>
+              <div class="kpi-health-bar"><div class="kpi-health-fill" style="width: 100%; background: var(--green);"></div></div>
+              <span>All active</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-diagram-3"></i></div>
+              <div class="kpi-change down"><i class="bi bi-arrow-down-short"></i> 3</div>
+            </div>
+            <div class="kpi-value">24</div>
+            <div class="kpi-label">Projects Tracked</div>
+            <div class="kpi-health">
+              <span class="health-dot healthy"></span>
+              <div class="kpi-health-bar"><div class="kpi-health-fill" style="width: 85%; background: var(--blue);"></div></div>
+              <span>85%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             4. ANOMALY DETECTION + SPEND FORECAST
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Anomaly Detection</div>
+          <div class="fi-ai-badge"><i class="bi bi-shield-exclamation"></i> MONITORING</div>
+        </div>
+        <div class="fi-three-col">
+          <div>
+            <div class="anomaly-grid" style="grid-template-columns: 1fr; margin-bottom: 0;">
+              <div class="anomaly-card critical">
+                <div class="anomaly-header"><span class="anomaly-type critical">Critical</span></div>
+                <div class="anomaly-title">Spending Spike — Engineering</div>
+                <div class="anomaly-desc">Engineering department spending increased by <strong>32%</strong> this week compared to average. Exceeds 25% anomaly threshold.</div>
+                <div class="anomaly-meta">
+                  <span><i class="bi bi-building"></i> Engineering</span>
+                  <span><i class="bi bi-currency-dollar"></i> $68K this week</span>
+                  <span><i class="bi bi-clock"></i> 2 hours ago</span>
+                </div>
+              </div>
+              <div class="anomaly-card warning">
+                <div class="anomaly-header"><span class="anomaly-type warning">Warning</span></div>
+                <div class="anomaly-title">Unusual Vendor Transaction — Dell</div>
+                <div class="anomaly-desc">Single transaction of <strong>$22,100</strong> exceeds the $10,000 auto-approval threshold. Requires manual review.</div>
+                <div class="anomaly-meta">
+                  <span><i class="bi bi-shop"></i> Dell</span>
+                  <span><i class="bi bi-currency-dollar"></i> $22,100</span>
+                  <span><i class="bi bi-clock"></i> 1 day ago</span>
+                </div>
+              </div>
+              <div class="anomaly-card warning">
+                <div class="anomaly-header"><span class="anomaly-type warning">Warning</span></div>
+                <div class="anomaly-title">Budget Overrun — Marketing</div>
+                <div class="anomaly-desc">Marketing department has used <strong>93%</strong> of its allocated budget. Projected to exceed limit within 5 business days.</div>
+                <div class="anomaly-meta">
+                  <span><i class="bi bi-building"></i> Marketing</span>
+                  <span><i class="bi bi-piggy-bank"></i> $20K remaining</span>
+                  <span><i class="bi bi-clock"></i> 3 hours ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spend Forecast Widget -->
+          <div>
+            <div class="dash-card" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+              <div class="dash-card-header" style="margin-bottom: 10px;">
+                <div>
+                  <div class="dash-card-title">Spending Forecast</div>
+                  <div class="dash-card-subtitle">Linear trend projection</div>
+                </div>
+                <div class="fi-ai-badge" style="font-size: 9px;"><i class="bi bi-graph-up"></i> PREDICTIVE</div>
+              </div>
+              <div class="forecast-card" style="border: none; padding: 0; margin-bottom: 16px;">
+                <div class="forecast-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                <div>
+                  <div class="forecast-label">Projected Next Month Spend</div>
+                  <div class="forecast-value">$248K</div>
+                  <div class="forecast-trend up"><i class="bi bi-arrow-up-short"></i> 5.2% vs current month</div>
+                </div>
+              </div>
+              <div style="font-size: 11.5px; color: var(--text2); line-height: 1.6; padding: 12px; background: var(--bg); border-radius: var(--r-sm);">
+                <div style="margin-bottom: 6px;"><strong style="color: var(--text);">Forecast Summary</strong></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;"><span>Q1 Avg Monthly:</span> <strong style="color: var(--text);">$215K</strong></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 3px;"><span>Q2 Projection:</span> <strong style="color: var(--text);">$255K</strong></div>
+                <div style="display: flex; justify-content: space-between;"><span>Annual Estimate:</span> <strong style="color: var(--blue);">$2.82M</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             5. COST OPTIMIZATION RECOMMENDATIONS
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Cost Optimization Recommendations</div>
+          <div class="fi-ai-badge"><i class="bi bi-lightbulb"></i> SUGGESTIONS</div>
+        </div>
+        <div class="optim-grid">
+          <div class="optim-card">
+            <div class="optim-icon-wrap" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-cloud"></i></div>
+            <div class="optim-title">Review AWS Cloud Usage</div>
+            <div class="optim-desc">AWS represents <strong>48%</strong> of vendor spending. Consider reserved instances or right-sizing underutilized resources.</div>
+            <div class="optim-saving"><i class="bi bi-piggy-bank"></i> Potential savings: $18K/mo</div>
+          </div>
+          <div class="optim-card">
+            <div class="optim-icon-wrap" style="background: var(--yellow-light); color: #B06D00;"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="optim-title">Marketing Spend Growth</div>
+            <div class="optim-desc">Marketing spending has grown <strong>35% this quarter</strong>. Review campaign ROI and consolidate ad platforms.</div>
+            <div class="optim-saving"><i class="bi bi-piggy-bank"></i> Potential savings: $8K/mo</div>
+          </div>
+          <div class="optim-card">
+            <div class="optim-icon-wrap" style="background: var(--red-light); color: var(--red);"><i class="bi bi-shop"></i></div>
+            <div class="optim-title">Low-Usage High-Cost Vendors</div>
+            <div class="optim-desc">Workday has only <strong>8 transactions</strong> but costs $32K. Consider renegotiating or exploring alternatives.</div>
+            <div class="optim-saving"><i class="bi bi-piggy-bank"></i> Potential savings: $12K/mo</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             6. CHARTS (Spending Trend + Department Dist)
+        ══════════════════════════════════════════════════ -->
+        <div class="chart-grid">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <div class="dash-card-title">Monthly Spending Trend</div>
+                <div class="dash-card-subtitle">Last 12 months — Budget vs Actual</div>
+              </div>
+            </div>
+            <div class="chart-wrap"><canvas id="spendTrendChart"></canvas></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <div class="dash-card-title">Department Distribution</div>
+                <div class="dash-card-subtitle">Expense by department</div>
+              </div>
+            </div>
+            <div class="chart-wrap"><canvas id="deptDistChart"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div class="chart-grid-equal">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <div class="dash-card-title">Project Cost Breakdown</div>
+                <div class="dash-card-subtitle">Top projects by spending</div>
+              </div>
+            </div>
+            <div class="chart-wrap short"><canvas id="projectChart"></canvas></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <div class="dash-card-title">Top Vendors by Spending</div>
+                <div class="dash-card-subtitle">Total vendor costs</div>
+              </div>
+            </div>
+            <div class="chart-wrap short"><canvas id="vendorChart"></canvas></div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             7. SMART ALERTS CENTER
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Smart Alerts Center</div>
+          <div class="fi-ai-badge"><i class="bi bi-bell"></i> 5 ACTIVE</div>
+        </div>
+        <div class="smart-alerts-list">
+          <div class="smart-alert">
+            <div class="smart-alert-severity critical"></div>
+            <div class="smart-alert-content">
+              <div class="smart-alert-title">Budget Exceeded — Marketing Department</div>
+              <div class="smart-alert-detail">Marketing • $280K spent of $300K budget • Google Ads, Facebook</div>
+            </div>
+            <div class="smart-alert-meta">
+              <div class="smart-alert-time">2 hours ago</div>
+              <span class="smart-alert-badge" style="background: var(--red-light); color: var(--red);">Critical</span>
+            </div>
+          </div>
+          <div class="smart-alert">
+            <div class="smart-alert-severity critical"></div>
+            <div class="smart-alert-content">
+              <div class="smart-alert-title">Unusual Spending Spike — Engineering</div>
+              <div class="smart-alert-detail">Engineering • +32% vs average • AWS Cloud Migration • $68K this week</div>
+            </div>
+            <div class="smart-alert-meta">
+              <div class="smart-alert-time">3 hours ago</div>
+              <span class="smart-alert-badge" style="background: var(--red-light); color: var(--red);">Critical</span>
+            </div>
+          </div>
+          <div class="smart-alert">
+            <div class="smart-alert-severity warning"></div>
+            <div class="smart-alert-content">
+              <div class="smart-alert-title">Policy Violation — Large Purchase Unapproved</div>
+              <div class="smart-alert-detail">Finance • Dell Hardware Refresh • $22,100 • Exceeds $10K threshold</div>
+            </div>
+            <div class="smart-alert-meta">
+              <div class="smart-alert-time">1 day ago</div>
+              <span class="smart-alert-badge" style="background: var(--yellow-light); color: #B06D00;">Warning</span>
+            </div>
+          </div>
+          <div class="smart-alert">
+            <div class="smart-alert-severity warning"></div>
+            <div class="smart-alert-content">
+              <div class="smart-alert-title">Vendor Cost Surge — AWS</div>
+              <div class="smart-alert-detail">Engineering • AWS costs +18% MoM • Cloud Migration project • $24K increase</div>
+            </div>
+            <div class="smart-alert-meta">
+              <div class="smart-alert-time">2 days ago</div>
+              <span class="smart-alert-badge" style="background: var(--yellow-light); color: #B06D00;">Warning</span>
+            </div>
+          </div>
+          <div class="smart-alert">
+            <div class="smart-alert-severity info"></div>
+            <div class="smart-alert-content">
+              <div class="smart-alert-title">Budget Utilization Update — Finance</div>
+              <div class="smart-alert-detail">Finance • 92% budget used • $20K remaining • Dell, SAP</div>
+            </div>
+            <div class="smart-alert-meta">
+              <div class="smart-alert-time">3 days ago</div>
+              <span class="smart-alert-badge" style="background: var(--blue-light); color: var(--blue);">Info</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             8. RECENT TRANSACTIONS
+        ══════════════════════════════════════════════════ -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <div class="dash-card-title">Recent Transactions</div>
+              <div class="dash-card-subtitle">Latest financial activities</div>
+            </div>
+            <a href="reports.html" class="btn-secondary" style="padding: 6px 14px; font-size: 12px;">View All</a>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Department</th>
+                <th>Vendor</th>
+                <th>Project</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentTransactions">
+              <tr><td>Mar 08</td><td>Engineering</td><td>AWS</td><td>Cloud Migration</td><td>$12,400</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 07</td><td>Marketing</td><td>Google</td><td>Ad Campaign Q1</td><td>$8,200</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 07</td><td>HR</td><td>Workday</td><td>HRIS Setup</td><td>$15,600</td><td><span class="status-badge pending">Pending</span></td></tr>
+              <tr><td>Mar 06</td><td>Engineering</td><td>Microsoft</td><td>DevOps Tooling</td><td>$6,300</td><td><span class="status-badge approved">Approved</span></td></tr>
+              <tr><td>Mar 05</td><td>Finance</td><td>Dell</td><td>Hardware Refresh</td><td>$22,100</td><td><span class="status-badge flagged">Flagged</span></td></tr>
+              <tr><td>Mar 04</td><td>Engineering</td><td>Google Cloud</td><td>AI Platform</td><td>$9,800</td><td><span class="status-badge approved">Approved</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
