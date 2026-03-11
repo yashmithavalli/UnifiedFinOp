@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spend Ownership Graph — Unified FinOps Platform</title>
+    <meta name="description" content="Trace every expense to its vendor, project, department, and business owner." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="dash-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">FO</div>
+                <div class="sidebar-brand">Unified<span>FinOps</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-title">Analytics</div>
+                <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+                <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
+                <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+                <a href="ownership.html" class="sidebar-item active"><i class="bi bi-diagram-3"></i> Spend Graph</a>
+                <div class="sidebar-section-title">Data</div>
+                <a href="upload.html" class="sidebar-item"><i class="bi bi-database-gear"></i> Data Lake</a>
+                <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
+                <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+                <div class="sidebar-section-title">Governance</div>
+                <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
+                <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+                        class="badge">3</span></a>
+                <div class="sidebar-section-title">System</div>
+                <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">A</div>
+                    <div>
+                        <div class="sidebar-user-name">Admin</div>
+                        <div class="sidebar-user-role">Finance Controller</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dash-main">
+            <div class="dash-topnav">
+                <div class="dash-topnav-left">
+                    <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
+                    <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
+                            class="dash-breadcrumb-active">Spend Ownership Graph</span></div>
+                </div>
+                <div class="dash-topnav-right">
+                    <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
+                </div>
+            </div>
+
+            <div class="dash-content">
+                <!-- Page Header -->
+                <div class="dash-page-header">
+                    <div>
+                        <h1 class="dash-page-title">Spend Ownership Graph</h1>
+                        <p class="dash-page-subtitle">Who spent what, where, and why? — Trace every expense to its owner
+                        </p>
+                    </div>
+                    <div class="dash-header-actions">
+                        <button class="btn-secondary" onclick="resetFilters()"><i
+                                class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- ── Spend Traceability Search ───────────────────── -->
+                <div class="dash-card trace-search-section">
+                    <div class="dash-card-header">
+                        <div>
+                            <div class="dash-card-title"><i class="bi bi-search" style="margin-right: 6px;"></i>Spend
+                                Traceability</div>
+                            <div class="dash-card-subtitle">Search an expense, vendor, or project to instantly see the
+                                full ownership chain</div>
+                        </div>
+                    </div>
+                    <div class="trace-search-box">
+                        <i class="bi bi-search"></i>
+                        <input type="text" id="traceSearch"
+                            placeholder="Try &quot;L&amp;T&quot;, &quot;Metro&quot;, &quot;TCS&quot;, &quot;TIDCO&quot;..." />
+                    </div>
+                    <div class="trace-search-result" id="searchResult">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- ── Filters ─────────────────────────────────────── -->
+                <div class="ownership-filters">
+                    <span class="ownership-filter-label"><i class="bi bi-funnel"></i> Filter by:</span>
+                    <select class="ownership-filter-select" id="filterDept">
+                        <option value="all">All Departments</option>
+                        <option value="transport">Transport Infrastructure</option>
+                        <option value="industrial">Industrial Development</option>
+                    </select>
+                    <select class="ownership-filter-select" id="filterVendor">
+                        <option value="all">All Vendors</option>
+                        <option value="lt">Larsen & Toubro</option>
+                        <option value="tcs">Tata Consulting Services</option>
+                    </select>
+                    <select class="ownership-filter-select" id="filterOwner">
+                        <option value="all">All Owners</option>
+                        <option value="metro-dir">Project Director – Metro</option>
+                        <option value="tidco-mgr">TIDCO Project Manager</option>
+                    </select>
+                </div>
+
+                <!-- ── Traceability Chains ─────────────────────────── -->
+                <div class="trace-grid" id="traceGrid">
+
+                    <!-- ─── Chain 1: L&T / Metro Phase 2 ─────────────── -->
+                    <div class="trace-chain" data-dept="transport" data-vendor="lt" data-owner="metro-dir" id="chain1">
+                        <div class="trace-chain-header">
+                            <div>
+                                <div class="trace-chain-label">Total Expense</div>
+                                <div class="trace-chain-amount">₹2.3 Cr</div>
+                            </div>
+                            <span class="trace-chain-id"><i class="bi bi-hash"></i> EXP-2026-00147</span>
+                        </div>
+                        <div class="trace-nodes">
+                            <!-- Expense -->
+                            <div class="trace-node" data-detail="detail-1-expense">
+                                <div class="trace-node-icon expense"><i class="bi bi-currency-rupee"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Expense</div>
+                                    <div class="trace-node-value">₹2,30,00,000</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-1-expense">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Budget Allocated</div>
+                                        <div class="trace-detail-item-value">₹3.0 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Budget Used</div>
+                                        <div class="trace-detail-item-value red">76.7%</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Remaining</div>
+                                        <div class="trace-detail-item-value green">₹70 L</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Vendor -->
+                            <div class="trace-node" data-detail="detail-1-vendor">
+                                <div class="trace-node-icon vendor"><i class="bi bi-shop"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Vendor</div>
+                                    <div class="trace-node-value">Larsen & Toubro</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-1-vendor">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Contract Value</div>
+                                        <div class="trace-detail-item-value">₹8.5 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Invoices Paid</div>
+                                        <div class="trace-detail-item-value">12 of 18</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Rating</div>
+                                        <div class="trace-detail-item-value green">A+ Compliant</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Project -->
+                            <div class="trace-node" data-detail="detail-1-project">
+                                <div class="trace-node-icon project"><i class="bi bi-folder2-open"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Project</div>
+                                    <div class="trace-node-value">Chennai Metro Phase 2 Infrastructure</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-1-project">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Total Budget</div>
+                                        <div class="trace-detail-item-value">₹12.0 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Timeline</div>
+                                        <div class="trace-detail-item-value">2024 – 2027</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Status</div>
+                                        <div class="trace-detail-item-value green">On Track</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Department -->
+                            <div class="trace-node" data-detail="detail-1-dept">
+                                <div class="trace-node-icon dept"><i class="bi bi-building"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Department</div>
+                                    <div class="trace-node-value">Transport Infrastructure</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-1-dept">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">FY Budget</div>
+                                        <div class="trace-detail-item-value">₹42 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Active Projects</div>
+                                        <div class="trace-detail-item-value">7</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Approval Level</div>
+                                        <div class="trace-detail-item-value">Secretary</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Owner -->
+                            <div class="trace-node" data-detail="detail-1-owner">
+                                <div class="trace-node-icon owner"><i class="bi bi-person-badge"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Business Owner</div>
+                                    <div class="trace-node-value">Project Director – Metro Development</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-1-owner">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Approval Authority</div>
+                                        <div class="trace-detail-item-value">Up to ₹5 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Pending Approvals</div>
+                                        <div class="trace-detail-item-value red">3</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Last Reviewed</div>
+                                        <div class="trace-detail-item-value">08 Mar 2026</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ─── Chain 2: TCS / TIDCO Smart Park ──────────── -->
+                    <div class="trace-chain" data-dept="industrial" data-vendor="tcs" data-owner="tidco-mgr"
+                        id="chain2">
+                        <div class="trace-chain-header">
+                            <div>
+                                <div class="trace-chain-label">Total Expense</div>
+                                <div class="trace-chain-amount">₹1.1 Cr</div>
+                            </div>
+                            <span class="trace-chain-id"><i class="bi bi-hash"></i> EXP-2026-00203</span>
+                        </div>
+                        <div class="trace-nodes">
+                            <!-- Expense -->
+                            <div class="trace-node" data-detail="detail-2-expense">
+                                <div class="trace-node-icon expense"><i class="bi bi-currency-rupee"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Expense</div>
+                                    <div class="trace-node-value">₹1,10,00,000</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-2-expense">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Budget Allocated</div>
+                                        <div class="trace-detail-item-value">₹1.6 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Budget Used</div>
+                                        <div class="trace-detail-item-value">68.8%</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Remaining</div>
+                                        <div class="trace-detail-item-value green">₹50 L</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Vendor -->
+                            <div class="trace-node" data-detail="detail-2-vendor">
+                                <div class="trace-node-icon vendor"><i class="bi bi-shop"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Vendor</div>
+                                    <div class="trace-node-value">Tata Consulting Services</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-2-vendor">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Contract Value</div>
+                                        <div class="trace-detail-item-value">₹4.2 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Invoices Paid</div>
+                                        <div class="trace-detail-item-value">6 of 10</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Rating</div>
+                                        <div class="trace-detail-item-value green">A Compliant</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Project -->
+                            <div class="trace-node" data-detail="detail-2-project">
+                                <div class="trace-node-icon project"><i class="bi bi-folder2-open"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Project</div>
+                                    <div class="trace-node-value">TIDCO Smart Industrial Park Development</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-2-project">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Total Budget</div>
+                                        <div class="trace-detail-item-value">₹5.8 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Timeline</div>
+                                        <div class="trace-detail-item-value">2025 – 2028</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Status</div>
+                                        <div class="trace-detail-item-value green">On Track</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Department -->
+                            <div class="trace-node" data-detail="detail-2-dept">
+                                <div class="trace-node-icon dept"><i class="bi bi-building"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Department</div>
+                                    <div class="trace-node-value">Industrial Development</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-2-dept">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">FY Budget</div>
+                                        <div class="trace-detail-item-value">₹18 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Active Projects</div>
+                                        <div class="trace-detail-item-value">4</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Approval Level</div>
+                                        <div class="trace-detail-item-value">Managing Director</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="trace-connector"><span class="trace-connector-icon"><i
+                                        class="bi bi-arrow-down-short"></i></span></div>
+
+                            <!-- Owner -->
+                            <div class="trace-node" data-detail="detail-2-owner">
+                                <div class="trace-node-icon owner"><i class="bi bi-person-badge"></i></div>
+                                <div class="trace-node-content">
+                                    <div class="trace-node-label">Business Owner</div>
+                                    <div class="trace-node-value">TIDCO Project Manager</div>
+                                </div>
+                                <i class="bi bi-chevron-right trace-node-arrow"></i>
+                            </div>
+                            <div class="trace-node-detail" id="detail-2-owner">
+                                <div class="trace-detail-grid">
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Approval Authority</div>
+                                        <div class="trace-detail-item-value">Up to ₹2 Cr</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Pending Approvals</div>
+                                        <div class="trace-detail-item-value">1</div>
+                                    </div>
+                                    <div class="trace-detail-item">
+                                        <div class="trace-detail-item-label">Last Reviewed</div>
+                                        <div class="trace-detail-item-value">10 Mar 2026</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/dashboard.js"></script>
+    <script src="js/ownership.js"></script>
+</body>
+
+</html>

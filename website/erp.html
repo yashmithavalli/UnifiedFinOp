@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,6 +17,7 @@
       gap: 16px;
       margin-bottom: 28px;
     }
+
     .erp-connector {
       background: var(--card);
       border: 1px solid var(--border);
@@ -24,55 +26,92 @@
       transition: all 0.25s;
       position: relative;
     }
-    .erp-connector:hover { box-shadow: var(--shadow); }
+
+    .erp-connector:hover {
+      box-shadow: var(--shadow);
+    }
+
     .erp-connector-banner {
       height: 5px;
       width: 100%;
     }
+
     .erp-connector-body {
       padding: 20px;
     }
+
     .erp-connector-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
     }
+
     .erp-connector-logo {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 20px;
       flex-shrink: 0;
     }
+
     .erp-connector-name {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 2px;
     }
+
     .erp-connector-type {
       font-size: 11px;
       color: var(--text3);
     }
+
     .erp-status-dot {
-      width: 10px; height: 10px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       display: inline-block;
       margin-right: 5px;
     }
-    .erp-status-dot.connected { background: var(--green); box-shadow: 0 0 6px rgba(52,168,83,0.4); }
-    .erp-status-dot.syncing { background: var(--blue); animation: erp-pulse 1.5s infinite; }
-    .erp-status-dot.disconnected { background: var(--text3); }
-    @keyframes erp-pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
+
+    .erp-status-dot.connected {
+      background: var(--green);
+      box-shadow: 0 0 6px rgba(52, 168, 83, 0.4);
     }
+
+    .erp-status-dot.syncing {
+      background: var(--blue);
+      animation: erp-pulse 1.5s infinite;
+    }
+
+    .erp-status-dot.disconnected {
+      background: var(--text3);
+    }
+
+    @keyframes erp-pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+      }
+    }
+
     .erp-status-text {
       font-size: 12px;
       font-weight: 600;
       display: flex;
       align-items: center;
     }
+
     .erp-stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -82,18 +121,24 @@
       background: var(--bg);
       border-radius: var(--r-sm);
     }
-    .erp-stat-item { text-align: center; }
+
+    .erp-stat-item {
+      text-align: center;
+    }
+
     .erp-stat-num {
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.3px;
     }
+
     .erp-stat-desc {
       font-size: 10px;
       color: var(--text3);
       text-transform: uppercase;
       letter-spacing: 0.3px;
     }
+
     .erp-meta-row {
       display: flex;
       justify-content: space-between;
@@ -101,10 +146,12 @@
       color: var(--text3);
       margin-bottom: 12px;
     }
+
     .erp-actions {
       display: flex;
       gap: 8px;
     }
+
     .erp-actions button {
       flex: 1;
       padding: 8px 12px;
@@ -121,12 +168,18 @@
       justify-content: center;
       gap: 4px;
     }
-    .erp-actions button:hover { background: var(--bg2); color: var(--text); }
+
+    .erp-actions button:hover {
+      background: var(--bg2);
+      color: var(--text);
+    }
+
     .erp-actions button.primary {
       background: var(--blue);
       color: #fff;
       border-color: var(--blue);
     }
+
     .erp-actions button.primary:hover {
       background: #3b78e7;
     }
@@ -137,6 +190,7 @@
       overflow-y: auto;
       scrollbar-width: thin;
     }
+
     .feed-item {
       display: flex;
       align-items: center;
@@ -146,11 +200,23 @@
       font-size: 12.5px;
       animation: feed-in 0.4s ease;
     }
-    .feed-item:last-child { border-bottom: none; }
-    @keyframes feed-in {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .feed-item:last-child {
+      border-bottom: none;
     }
+
+    @keyframes feed-in {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .feed-source {
       font-size: 10px;
       font-weight: 700;
@@ -162,13 +228,41 @@
       min-width: 55px;
       text-align: center;
     }
-    .feed-source.sap { background: #E3F2FD; color: #0053B4; }
-    .feed-source.oracle { background: #FFF3E0; color: #C74634; }
-    .feed-source.netsuite { background: #E8F5E9; color: #1B5E20; }
-    .feed-text { flex: 1; color: var(--text); }
-    .feed-text strong { font-weight: 600; }
-    .feed-amount { font-weight: 700; white-space: nowrap; }
-    .feed-time { font-size: 10px; color: var(--text3); white-space: nowrap; }
+
+    .feed-source.sap {
+      background: #E3F2FD;
+      color: #0053B4;
+    }
+
+    .feed-source.oracle {
+      background: #FFF3E0;
+      color: #C74634;
+    }
+
+    .feed-source.netsuite {
+      background: #E8F5E9;
+      color: #1B5E20;
+    }
+
+    .feed-text {
+      flex: 1;
+      color: var(--text);
+    }
+
+    .feed-text strong {
+      font-weight: 600;
+    }
+
+    .feed-amount {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .feed-time {
+      font-size: 10px;
+      color: var(--text3);
+      white-space: nowrap;
+    }
 
     /* ── Mapping Table ─────────────────────────────────── */
     .mapping-arrow {
@@ -178,6 +272,7 @@
       color: var(--blue);
       font-size: 16px;
     }
+
     .mapping-field {
       display: inline-flex;
       align-items: center;
@@ -190,9 +285,10 @@
       font-weight: 500;
       font-family: 'Consolas', 'Monaco', monospace;
     }
+
     .mapping-finops {
       background: var(--blue-light);
-      border-color: rgba(66,133,244,0.2);
+      border-color: rgba(66, 133, 244, 0.2);
       color: var(--blue);
     }
 
@@ -202,12 +298,15 @@
       align-items: center;
       gap: 8px;
     }
+
     .sync-bar-track {
-      flex: 1; height: 6px;
+      flex: 1;
+      height: 6px;
       background: var(--bg);
       border-radius: 3px;
       overflow: hidden;
     }
+
     .sync-bar-fill {
       height: 100%;
       border-radius: 3px;
@@ -218,29 +317,58 @@
     .erp-modal-overlay {
       display: none;
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
       z-index: 1000;
       align-items: center;
       justify-content: center;
     }
-    .erp-modal-overlay.open { display: flex; }
+
+    .erp-modal-overlay.open {
+      display: flex;
+    }
+
     .erp-modal {
       background: var(--card);
       border-radius: var(--r);
       padding: 28px;
       width: 480px;
       max-width: 90vw;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
       animation: modal-in 0.3s ease;
     }
+
     @keyframes modal-in {
-      from { opacity: 0; transform: scale(0.95) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
-    .erp-modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .erp-modal-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
-    .erp-field { margin-bottom: 14px; }
+
+    .erp-modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .erp-modal-sub {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 20px;
+    }
+
+    .erp-field {
+      margin-bottom: 14px;
+    }
+
     .erp-field label {
       display: block;
       font-size: 12px;
@@ -248,7 +376,9 @@
       color: var(--text2);
       margin-bottom: 4px;
     }
-    .erp-field input, .erp-field select {
+
+    .erp-field input,
+    .erp-field select {
       width: 100%;
       padding: 9px 12px;
       border: 1px solid var(--border);
@@ -260,10 +390,13 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .erp-field input:focus, .erp-field select:focus {
+
+    .erp-field input:focus,
+    .erp-field select:focus {
       border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(66,133,244,0.1);
+      box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
     }
+
     .erp-modal-actions {
       display: flex;
       justify-content: flex-end;
@@ -283,17 +416,37 @@
       margin-bottom: 8px;
       transition: all 0.2s;
     }
-    .quality-meter:hover { box-shadow: var(--shadow-sm); }
+
+    .quality-meter:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
     .quality-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 15px;
       flex-shrink: 0;
     }
-    .quality-info { flex: 1; }
-    .quality-label { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
-    .quality-desc { font-size: 11px; color: var(--text2); }
+
+    .quality-info {
+      flex: 1;
+    }
+
+    .quality-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .quality-desc {
+      font-size: 11px;
+      color: var(--text2);
+    }
+
     .quality-score {
       font-size: 18px;
       font-weight: 700;
@@ -301,10 +454,13 @@
     }
 
     @media (max-width: 1100px) {
-      .erp-connector-grid { grid-template-columns: 1fr; }
+      .erp-connector-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="dash-layout">
 
@@ -319,15 +475,17 @@
         <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
         <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
         <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+        <a href="ownership.html" class="sidebar-item"><i class="bi bi-diagram-3"></i> Spend Graph</a>
 
         <div class="sidebar-section-title">Data</div>
-        <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="upload.html" class="sidebar-item"><i class="bi bi-database-gear"></i> Data Lake</a>
         <a href="erp.html" class="sidebar-item active"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
 
         <div class="sidebar-section-title">Governance</div>
-        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
-        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">5</span></a>
+        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+            class="badge">5</span></a>
 
         <div class="sidebar-section-title">System</div>
         <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
@@ -355,7 +513,8 @@
           </div>
         </div>
         <div class="dash-topnav-right">
-          <button class="dash-icon-btn" title="Notifications"><i class="bi bi-bell"></i><span class="notif-dot"></span></button>
+          <button class="dash-icon-btn" title="Notifications"><i class="bi bi-bell"></i><span
+              class="notif-dot"></span></button>
           <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
         </div>
       </div>
@@ -368,7 +527,8 @@
             <p class="dash-page-subtitle">Connect enterprise systems to automate financial data ingestion</p>
           </div>
           <div class="dash-header-actions">
-            <button class="btn-primary" onclick="openConfigModal('new')"><i class="bi bi-plus-lg"></i> Add Connector</button>
+            <button class="btn-primary" onclick="openConfigModal('new')"><i class="bi bi-plus-lg"></i> Add
+              Connector</button>
           </div>
         </div>
 
@@ -387,7 +547,8 @@
             <div class="erp-connector-body">
               <div class="erp-connector-header">
                 <div style="display:flex;align-items:center;gap:12px;">
-                  <div class="erp-connector-logo" style="background: #E3F2FD; color: #0053B4;"><i class="bi bi-box-seam"></i></div>
+                  <div class="erp-connector-logo" style="background: #E3F2FD; color: #0053B4;"><i
+                      class="bi bi-box-seam"></i></div>
                   <div>
                     <div class="erp-connector-name">SAP S/4HANA</div>
                     <div class="erp-connector-type">Financial Accounting & Procurement</div>
@@ -416,7 +577,8 @@
                 <span><i class="bi bi-arrow-repeat"></i> Auto-sync: Every 30 min</span>
               </div>
               <div class="erp-actions">
-                <button class="primary" onclick="simulateSync('sap')"><i class="bi bi-arrow-repeat"></i> Sync Now</button>
+                <button class="primary" onclick="simulateSync('sap')"><i class="bi bi-arrow-repeat"></i> Sync
+                  Now</button>
                 <button onclick="openConfigModal('sap')"><i class="bi bi-gear"></i> Configure</button>
               </div>
             </div>
@@ -428,7 +590,8 @@
             <div class="erp-connector-body">
               <div class="erp-connector-header">
                 <div style="display:flex;align-items:center;gap:12px;">
-                  <div class="erp-connector-logo" style="background: #FFF3E0; color: #C74634;"><i class="bi bi-database"></i></div>
+                  <div class="erp-connector-logo" style="background: #FFF3E0; color: #C74634;"><i
+                      class="bi bi-database"></i></div>
                   <div>
                     <div class="erp-connector-name">Oracle Financials</div>
                     <div class="erp-connector-type">Budget Management & GL Posting</div>
@@ -457,7 +620,8 @@
                 <span><i class="bi bi-arrow-repeat"></i> Auto-sync: Every 1 hr</span>
               </div>
               <div class="erp-actions">
-                <button class="primary" onclick="simulateSync('oracle')"><i class="bi bi-arrow-repeat"></i> Sync Now</button>
+                <button class="primary" onclick="simulateSync('oracle')"><i class="bi bi-arrow-repeat"></i> Sync
+                  Now</button>
                 <button onclick="openConfigModal('oracle')"><i class="bi bi-gear"></i> Configure</button>
               </div>
             </div>
@@ -469,7 +633,8 @@
             <div class="erp-connector-body">
               <div class="erp-connector-header">
                 <div style="display:flex;align-items:center;gap:12px;">
-                  <div class="erp-connector-logo" style="background: #E8F5E9; color: #1B5E20;"><i class="bi bi-cloud-check"></i></div>
+                  <div class="erp-connector-logo" style="background: #E8F5E9; color: #1B5E20;"><i
+                      class="bi bi-cloud-check"></i></div>
                   <div>
                     <div class="erp-connector-name">Oracle NetSuite</div>
                     <div class="erp-connector-type">Expense Reports & Procurement</div>
@@ -498,7 +663,8 @@
                 <span><i class="bi bi-arrow-repeat"></i> Auto-sync: Every 2 hrs</span>
               </div>
               <div class="erp-actions">
-                <button class="primary" onclick="simulateSync('netsuite')"><i class="bi bi-arrow-repeat"></i> Sync Now</button>
+                <button class="primary" onclick="simulateSync('netsuite')"><i class="bi bi-arrow-repeat"></i> Sync
+                  Now</button>
                 <button onclick="openConfigModal('netsuite')"><i class="bi bi-gear"></i> Configure</button>
               </div>
             </div>
@@ -515,9 +681,12 @@
               <div class="fi-ai-badge" id="feedBadge"><i class="bi bi-broadcast"></i> STREAMING</div>
             </div>
             <div class="dash-card" style="padding: 0;">
-              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 12px; color: var(--text2);"><i class="bi bi-funnel"></i> Showing latest transactions from all ERP systems</span>
-                <button class="btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="toggleFeed()" id="feedToggle"><i class="bi bi-pause"></i> Pause</button>
+              <div
+                style="padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 12px; color: var(--text2);"><i class="bi bi-funnel"></i> Showing latest
+                  transactions from all ERP systems</span>
+                <button class="btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="toggleFeed()"
+                  id="feedToggle"><i class="bi bi-pause"></i> Pause</button>
               </div>
               <div class="live-feed-container" id="liveFeed">
                 <!-- Populated by JS -->
@@ -530,7 +699,8 @@
               <div class="fi-section-title">Data Quality</div>
             </div>
             <div class="quality-meter">
-              <div class="quality-icon" style="background: var(--green-light); color: var(--green);"><i class="bi bi-check-circle"></i></div>
+              <div class="quality-icon" style="background: var(--green-light); color: var(--green);"><i
+                  class="bi bi-check-circle"></i></div>
               <div class="quality-info">
                 <div class="quality-label">Record Completeness</div>
                 <div class="quality-desc">All required fields present</div>
@@ -538,7 +708,8 @@
               <div class="quality-score" style="color: var(--green);">97.6%</div>
             </div>
             <div class="quality-meter">
-              <div class="quality-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-shield-check"></i></div>
+              <div class="quality-icon" style="background: var(--blue-light); color: var(--blue);"><i
+                  class="bi bi-shield-check"></i></div>
               <div class="quality-info">
                 <div class="quality-label">Duplicate Detection</div>
                 <div class="quality-desc">12 potential duplicates flagged</div>
@@ -546,7 +717,8 @@
               <div class="quality-score" style="color: var(--blue);">99.1%</div>
             </div>
             <div class="quality-meter">
-              <div class="quality-icon" style="background: var(--yellow-light); color: #B06D00;"><i class="bi bi-exclamation-triangle"></i></div>
+              <div class="quality-icon" style="background: var(--yellow-light); color: #B06D00;"><i
+                  class="bi bi-exclamation-triangle"></i></div>
               <div class="quality-info">
                 <div class="quality-label">Format Validation</div>
                 <div class="quality-desc">8 records with formatting issues</div>
@@ -554,7 +726,8 @@
               <div class="quality-score" style="color: #B06D00;">95.3%</div>
             </div>
             <div class="quality-meter">
-              <div class="quality-icon" style="background: var(--green-light); color: var(--green);"><i class="bi bi-link-45deg"></i></div>
+              <div class="quality-icon" style="background: var(--green-light); color: var(--green);"><i
+                  class="bi bi-link-45deg"></i></div>
               <div class="quality-info">
                 <div class="quality-label">Cross-System Match Rate</div>
                 <div class="quality-desc">Records matched across ERP systems</div>
@@ -591,7 +764,8 @@
             </thead>
             <tbody>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: BUKRS</span></td>
+                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: BUKRS</span>
+                </td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-diagram-3"></i> Domain</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">Company Code → Domain Lookup</span></td>
@@ -599,7 +773,8 @@
                 <td><span class="status-badge approved">Active</span></td>
               </tr>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: AUFNR</span></td>
+                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: AUFNR</span>
+                </td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-folder2-open"></i> Project</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">Internal Order → Project ID</span></td>
@@ -607,7 +782,8 @@
                 <td><span class="status-badge approved">Active</span></td>
               </tr>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: SAKNR</span></td>
+                <td><span class="mapping-field"><i class="bi bi-box-seam" style="color:#0053B4;"></i> SAP: SAKNR</span>
+                </td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-currency-rupee"></i> Category</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">GL Account → Spending Category</span></td>
@@ -615,7 +791,8 @@
                 <td><span class="status-badge approved">Active</span></td>
               </tr>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-database" style="color:#C74634;"></i> Oracle: VENDOR_ID</span></td>
+                <td><span class="mapping-field"><i class="bi bi-database" style="color:#C74634;"></i> Oracle:
+                    VENDOR_ID</span></td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-shop"></i> Contractor</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">Vendor ID → Contractor Name</span></td>
@@ -623,7 +800,8 @@
                 <td><span class="status-badge approved">Active</span></td>
               </tr>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-database" style="color:#C74634;"></i> Oracle: INVOICE_AMT</span></td>
+                <td><span class="mapping-field"><i class="bi bi-database" style="color:#C74634;"></i> Oracle:
+                    INVOICE_AMT</span></td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-cash-stack"></i> Amount (₹)</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">Direct 1:1 mapping</span></td>
@@ -631,7 +809,8 @@
                 <td><span class="status-badge approved">Active</span></td>
               </tr>
               <tr>
-                <td><span class="mapping-field"><i class="bi bi-cloud-check" style="color:#1B5E20;"></i> NetSuite: EXPENSE_TYPE</span></td>
+                <td><span class="mapping-field"><i class="bi bi-cloud-check" style="color:#1B5E20;"></i> NetSuite:
+                    EXPENSE_TYPE</span></td>
                 <td class="mapping-arrow"><i class="bi bi-arrow-right-circle-fill"></i></td>
                 <td><span class="mapping-field mapping-finops"><i class="bi bi-tag"></i> Sub-Category</span></td>
                 <td><span style="font-size:11px;color:var(--text2);">Expense Type → Category Enrichment</span></td>
@@ -689,13 +868,76 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>Mar 11, 10:30 AM</td><td><span class="feed-source sap">SAP</span></td><td>342</td><td>28</td><td>314</td><td>0</td><td>4.2s</td><td><span class="status-badge approved">Success</span></td></tr>
-              <tr><td>Mar 11, 10:00 AM</td><td><span class="feed-source sap">SAP</span></td><td>318</td><td>15</td><td>303</td><td>2</td><td>3.8s</td><td><span class="status-badge approved">Success</span></td></tr>
-              <tr><td>Mar 11, 09:00 AM</td><td><span class="feed-source oracle">Oracle</span></td><td>456</td><td>42</td><td>410</td><td>4</td><td>6.1s</td><td><span class="status-badge approved">Success</span></td></tr>
-              <tr><td>Mar 11, 08:00 AM</td><td><span class="feed-source netsuite">NetSuite</span></td><td>189</td><td>22</td><td>167</td><td>0</td><td>2.3s</td><td><span class="status-badge approved">Success</span></td></tr>
-              <tr><td>Mar 10, 06:00 PM</td><td><span class="feed-source sap">SAP</span></td><td>295</td><td>18</td><td>272</td><td>5</td><td>5.4s</td><td><span class="status-badge pending">Partial</span></td></tr>
-              <tr><td>Mar 10, 05:00 PM</td><td><span class="feed-source oracle">Oracle</span></td><td>412</td><td>35</td><td>377</td><td>0</td><td>5.8s</td><td><span class="status-badge approved">Success</span></td></tr>
-              <tr><td>Mar 10, 04:00 PM</td><td><span class="feed-source netsuite">NetSuite</span></td><td>176</td><td>19</td><td>157</td><td>0</td><td>2.1s</td><td><span class="status-badge approved">Success</span></td></tr>
+              <tr>
+                <td>Mar 11, 10:30 AM</td>
+                <td><span class="feed-source sap">SAP</span></td>
+                <td>342</td>
+                <td>28</td>
+                <td>314</td>
+                <td>0</td>
+                <td>4.2s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
+              <tr>
+                <td>Mar 11, 10:00 AM</td>
+                <td><span class="feed-source sap">SAP</span></td>
+                <td>318</td>
+                <td>15</td>
+                <td>303</td>
+                <td>2</td>
+                <td>3.8s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
+              <tr>
+                <td>Mar 11, 09:00 AM</td>
+                <td><span class="feed-source oracle">Oracle</span></td>
+                <td>456</td>
+                <td>42</td>
+                <td>410</td>
+                <td>4</td>
+                <td>6.1s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
+              <tr>
+                <td>Mar 11, 08:00 AM</td>
+                <td><span class="feed-source netsuite">NetSuite</span></td>
+                <td>189</td>
+                <td>22</td>
+                <td>167</td>
+                <td>0</td>
+                <td>2.3s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
+              <tr>
+                <td>Mar 10, 06:00 PM</td>
+                <td><span class="feed-source sap">SAP</span></td>
+                <td>295</td>
+                <td>18</td>
+                <td>272</td>
+                <td>5</td>
+                <td>5.4s</td>
+                <td><span class="status-badge pending">Partial</span></td>
+              </tr>
+              <tr>
+                <td>Mar 10, 05:00 PM</td>
+                <td><span class="feed-source oracle">Oracle</span></td>
+                <td>412</td>
+                <td>35</td>
+                <td>377</td>
+                <td>0</td>
+                <td>5.8s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
+              <tr>
+                <td>Mar 10, 04:00 PM</td>
+                <td><span class="feed-source netsuite">NetSuite</span></td>
+                <td>176</td>
+                <td>19</td>
+                <td>157</td>
+                <td>0</td>
+                <td>2.1s</td>
+                <td><span class="status-badge approved">Success</span></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -719,7 +961,8 @@
               <div style="font-size: 22px; font-weight: 700; color: var(--green);">9,471</div>
               <div style="font-size: 11px; color: var(--text2); margin-top: 2px;">Matched Records</div>
             </div>
-            <div style="padding: 14px; background: var(--yellow-light); border-radius: var(--r-sm); text-align: center;">
+            <div
+              style="padding: 14px; background: var(--yellow-light); border-radius: var(--r-sm); text-align: center;">
               <div style="font-size: 22px; font-weight: 700; color: #B06D00;">142</div>
               <div style="font-size: 11px; color: var(--text2); margin-top: 2px;">Pending Review</div>
             </div>
@@ -744,28 +987,32 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>PO-4521 — L&T Infra</strong><br><span style="font-size:11px;color:var(--text2);">Chennai Aerospace Park</span></td>
+                <td><strong>PO-4521 — L&T Infra</strong><br><span style="font-size:11px;color:var(--text2);">Chennai
+                    Aerospace Park</span></td>
                 <td>₹18,50,000</td>
                 <td>₹18,50,000</td>
                 <td style="color: var(--green); font-weight: 600;">₹0</td>
                 <td><span class="status-badge approved"><i class="bi bi-check-lg"></i> Matched</span></td>
               </tr>
               <tr>
-                <td><strong>PO-4522 — Afcons Infrastructure</strong><br><span style="font-size:11px;color:var(--text2);">CMRL Phase-II</span></td>
+                <td><strong>PO-4522 — Afcons Infrastructure</strong><br><span
+                    style="font-size:11px;color:var(--text2);">CMRL Phase-II</span></td>
                 <td>₹12,75,000</td>
                 <td>₹12,75,000</td>
                 <td style="color: var(--green); font-weight: 600;">₹0</td>
                 <td><span class="status-badge approved"><i class="bi bi-check-lg"></i> Matched</span></td>
               </tr>
               <tr class="row-critical">
-                <td><strong>PO-4525 — BHEL</strong><br><span style="font-size:11px;color:var(--text2);">Power Grid Upgrade</span></td>
+                <td><strong>PO-4525 — BHEL</strong><br><span style="font-size:11px;color:var(--text2);">Power Grid
+                    Upgrade</span></td>
                 <td>₹8,40,000</td>
                 <td>₹8,65,000</td>
                 <td style="color: var(--red); font-weight: 600;">₹25,000</td>
                 <td><span class="status-badge flagged"><i class="bi bi-exclamation-triangle"></i> Mismatch</span></td>
               </tr>
               <tr>
-                <td><strong>PO-4528 — Tata Projects</strong><br><span style="font-size:11px;color:var(--text2);">Madurai Smart City</span></td>
+                <td><strong>PO-4528 — Tata Projects</strong><br><span style="font-size:11px;color:var(--text2);">Madurai
+                    Smart City</span></td>
                 <td>₹5,20,000</td>
                 <td>₹5,20,000</td>
                 <td style="color: var(--green); font-weight: 600;">₹0</td>
@@ -823,4 +1070,5 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="js/erp.js"></script>
 </body>
+
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Upload — Unified FinOps Platform</title>
+  <title>Data Lake Connectors — Unified FinOps Platform</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
@@ -22,12 +22,13 @@
         <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
         <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
         <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+        <a href="ownership.html" class="sidebar-item"><i class="bi bi-diagram-3"></i> Spend Graph</a>
         <div class="sidebar-section-title">Data</div>
-        <a href="upload.html" class="sidebar-item active"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="upload.html" class="sidebar-item active"><i class="bi bi-database-gear"></i> Data Lake</a>
         <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
-        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
+        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
         <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
             class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
@@ -49,7 +50,7 @@
         <div class="dash-topnav-left">
           <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
           <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
-              class="dash-breadcrumb-active">Data Upload</span></div>
+              class="dash-breadcrumb-active">Data Lake Connectors</span></div>
         </div>
         <div class="dash-topnav-right">
           <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
@@ -59,157 +60,232 @@
       <div class="dash-content">
         <div class="dash-page-header">
           <div>
-            <h1 class="dash-page-title">Data Upload</h1>
-            <p class="dash-page-subtitle">Upload financial datasets to the platform</p>
+            <h1 class="dash-page-title">Data Lake Connectors</h1>
+            <p class="dash-page-subtitle">Aggregate fragmented financial data into a unified data lake</p>
           </div>
         </div>
 
-        <!-- Upload Zone -->
+        <!-- ── Connector Grid ──────────────────────────────── -->
         <div class="dash-card" style="margin-bottom: 20px;">
-          <div class="upload-zone" id="uploadZone">
+          <div class="connector-section-header">
+            <div class="connector-section-title">
+              <i class="bi bi-diagram-3"></i>
+              <h2>Integration Sources</h2>
+            </div>
+            <span class="connector-source-count"><i class="bi bi-check-circle-fill"></i> 3 of 7 connected</span>
+          </div>
+
+          <div class="connector-grid">
+            <!-- SAP ERP — Connected -->
+            <div class="connector-card sap">
+              <div class="connector-card-top">
+                <div class="connector-logo sap"><i class="bi bi-box-seam"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">SAP ERP</div>
+                  <div class="connector-desc">Enterprise resource planning</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-clock"></i> Synced 2 min ago</span>
+                <span class="connector-status connected"><span class="sync-dot green"></span> Connected</span>
+              </div>
+            </div>
+
+            <!-- Oracle Financials — Syncing -->
+            <div class="connector-card oracle">
+              <div class="connector-card-top">
+                <div class="connector-logo oracle"><i class="bi bi-database"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">Oracle Financials</div>
+                  <div class="connector-desc">Financial management suite</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-arrow-repeat"></i> Pulling records…</span>
+                <span class="connector-status syncing"><span class="sync-dot blue"></span> Syncing live…</span>
+              </div>
+            </div>
+
+            <!-- AWS Billing API — Connected -->
+            <div class="connector-card aws">
+              <div class="connector-card-top">
+                <div class="connector-logo aws"><i class="bi bi-cloud"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">AWS Billing API</div>
+                  <div class="connector-desc">Cloud cost & usage reports</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-clock"></i> Synced 5 min ago</span>
+                <span class="connector-status connected"><span class="sync-dot green"></span> Connected</span>
+              </div>
+            </div>
+
+            <!-- Azure Cost Management — Syncing -->
+            <div class="connector-card azure">
+              <div class="connector-card-top">
+                <div class="connector-logo azure"><i class="bi bi-microsoft"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">Azure Cost Mgmt</div>
+                  <div class="connector-desc">Cloud spend analytics</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-arrow-repeat"></i> Ingesting data…</span>
+                <span class="connector-status syncing"><span class="sync-dot blue"></span> Syncing live…</span>
+              </div>
+            </div>
+
+            <!-- Procurement System — Disconnected -->
+            <div class="connector-card procure">
+              <div class="connector-card-top">
+                <div class="connector-logo procure"><i class="bi bi-cart4"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">Procurement System</div>
+                  <div class="connector-desc">Purchase orders & invoices</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-slash-circle"></i> Not connected</span>
+                <span class="connector-status disconnected"><i class="bi bi-plug"></i> Connect</span>
+              </div>
+            </div>
+
+            <!-- Corporate Credit Cards — Connected -->
+            <div class="connector-card credit">
+              <div class="connector-card-top">
+                <div class="connector-logo credit"><i class="bi bi-credit-card-2-front"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">Corporate Credit Cards</div>
+                  <div class="connector-desc">Employee card transactions</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-clock"></i> Synced 12 min ago</span>
+                <span class="connector-status connected"><span class="sync-dot green"></span> Connected</span>
+              </div>
+            </div>
+
+            <!-- TNEB Vendor Portal — Disconnected -->
+            <div class="connector-card tneb">
+              <div class="connector-card-top">
+                <div class="connector-logo tneb"><i class="bi bi-building"></i></div>
+                <div class="connector-info">
+                  <div class="connector-name">TNEB Vendor Portal</div>
+                  <div class="connector-desc">Utility bill payments</div>
+                </div>
+              </div>
+              <div class="connector-card-bottom">
+                <span class="connector-meta"><i class="bi bi-slash-circle"></i> Not connected</span>
+                <span class="connector-status disconnected"><i class="bi bi-plug"></i> Connect</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Data Pipeline ───────────────────────────────── -->
+        <div class="dash-card" style="margin-bottom: 20px;">
+          <div class="dash-card-header">
+            <div>
+              <div class="dash-card-title">Data Pipeline</div>
+              <div class="dash-card-subtitle">How your data flows from connectors to insights</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 0;">
+            <div
+              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
+              <i class="bi bi-plug"></i> Connectors
+            </div>
+            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
+            <div
+              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
+              <i class="bi bi-file-earmark-code"></i> Parse & Extract
+            </div>
+            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
+            <div
+              style="padding: 8px 16px; background: var(--yellow-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: #B06D00;">
+              <i class="bi bi-check2-circle"></i> Validate & Clean
+            </div>
+            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
+            <div
+              style="padding: 8px 16px; background: var(--red-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--red);">
+              <i class="bi bi-funnel"></i> Normalize Schema
+            </div>
+            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
+            <div
+              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
+              <i class="bi bi-database"></i> Unified Data Lake
+            </div>
+            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
+            <div
+              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
+              <i class="bi bi-bar-chart-line"></i> AI Insights
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Manual CSV Upload ───────────────────────────── -->
+        <div class="dash-card">
+          <div class="manual-upload-header">
+            <i class="bi bi-cloud-arrow-up" style="font-size: 18px; color: var(--text2);"></i>
+            <h3>Manual CSV Upload</h3>
+            <span class="upload-chip">Demo Data</span>
+          </div>
+          <div class="upload-zone-compact" id="uploadZone">
             <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden />
-            <div class="upload-zone-icon"><i class="bi bi-cloud-arrow-up"></i></div>
-            <div class="upload-zone-title">Drag and drop your file here</div>
-            <div class="upload-zone-hint">or click to browse — max 10MB</div>
-            <div class="upload-zone-formats">
+            <div class="upload-icon-sm"><i class="bi bi-cloud-arrow-up"></i></div>
+            <div class="upload-text">
+              <div class="upload-text-title">Drag and drop your file here, or click to browse</div>
+              <div class="upload-text-hint">Supports CSV and Excel files — max 10 MB</div>
+            </div>
+            <div class="upload-formats">
               <span class="upload-format-chip"><i class="bi bi-filetype-csv"></i> CSV</span>
               <span class="upload-format-chip"><i class="bi bi-filetype-xlsx"></i> Excel</span>
             </div>
           </div>
           <div id="uploadStatus" style="display: none; margin-top: 16px;"></div>
         </div>
-
-        <!-- Expected Format -->
-        <div class="dash-card" style="margin-bottom: 20px;">
-          <div class="dash-card-header">
-            <div>
-              <div class="dash-card-title">Expected Dataset Format</div>
-              <div class="dash-card-subtitle">Your CSV/Excel file should contain these columns</div>
-            </div>
-          </div>
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Column</th>
-                <th>Type</th>
-                <th>Example</th>
-                <th>Required</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Date</td>
-                <td>Date</td>
-                <td>2026-03-08</td>
-                <td><span class="status-badge active">Required</span></td>
-              </tr>
-              <tr>
-                <td>Department</td>
-                <td>Text</td>
-                <td>Highways Dept</td>
-                <td><span class="status-badge active">Required</span></td>
-              </tr>
-              <tr>
-                <td>Vendor</td>
-                <td>Text</td>
-                <td>L&T Infra</td>
-                <td><span class="status-badge active">Required</span></td>
-              </tr>
-              <tr>
-                <td>Project</td>
-                <td>Text</td>
-                <td>NH Road Expansion</td>
-                <td><span class="status-badge pending">Optional</span></td>
-              </tr>
-              <tr>
-                <td>Amount</td>
-                <td>Number</td>
-                <td>12400</td>
-                <td><span class="status-badge active">Required</span></td>
-              </tr>
-              <tr>
-                <td>Category</td>
-                <td>Text</td>
-                <td>Infrastructure</td>
-                <td><span class="status-badge pending">Optional</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Pipeline -->
-        <div class="dash-card" style="margin-bottom: 20px;">
-          <div class="dash-card-header">
-            <div>
-              <div class="dash-card-title">Data Pipeline</div>
-              <div class="dash-card-subtitle">How your data is processed</div>
-            </div>
-          </div>
-          <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 0;">
-            <div
-              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
-              <i class="bi bi-upload"></i> Upload File</div>
-            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div
-              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
-              <i class="bi bi-file-earmark-code"></i> Parse Dataset</div>
-            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div
-              style="padding: 8px 16px; background: var(--yellow-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: #B06D00;">
-              <i class="bi bi-check2-circle"></i> Validate Columns</div>
-            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div
-              style="padding: 8px 16px; background: var(--red-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--red);">
-              <i class="bi bi-funnel"></i> Normalize Data</div>
-            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div
-              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
-              <i class="bi bi-database"></i> Store in MongoDB</div>
-            <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div
-              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
-              <i class="bi bi-bar-chart-line"></i> Generate Insights</div>
-          </div>
-        </div>
-
-        <!-- Mock API Integration -->
-        <div class="dash-card">
-          <div class="dash-card-header">
-            <div>
-              <div class="dash-card-title">Mock API Integration</div>
-              <div class="dash-card-subtitle">Future connectors for live data sources</div>
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <div
-              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
-              <i class="bi bi-box" style="font-size: 24px; color: var(--blue); display: block; margin-bottom: 8px;"></i>
-              <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">ERP Systems</div>
-              <div style="font-size: 11px; color: var(--text2);">SAP, Oracle, NetSuite</div>
-              <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
-            </div>
-            <div
-              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
-              <i class="bi bi-cloud"
-                style="font-size: 24px; color: var(--green); display: block; margin-bottom: 8px;"></i>
-              <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">Cloud Billing</div>
-              <div style="font-size: 11px; color: var(--text2);">AWS, GCP, Azure</div>
-              <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
-            </div>
-            <div
-              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
-              <i class="bi bi-credit-card"
-                style="font-size: 24px; color: var(--red); display: block; margin-bottom: 8px;"></i>
-              <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">Procurement</div>
-              <div style="font-size: 11px; color: var(--text2);">Coupa, Ariba</div>
-              <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   </div>
   <script src="js/dashboard.js"></script>
+  <script>
+    (function () {
+      // Handle Connect button clicks
+      document.querySelectorAll('.connector-status.disconnected').forEach(btn => {
+        btn.style.cursor = 'pointer';
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          const card = this.closest('.connector-card');
+          const metaEl = card.querySelector('.connector-meta');
+          const statusEl = this;
+
+          // Step 1: Connecting...
+          statusEl.className = 'connector-status syncing';
+          statusEl.innerHTML = '<span class="sync-dot blue"></span> Connecting…';
+          metaEl.innerHTML = '<i class="bi bi-hourglass-split"></i> Authenticating…';
+
+          // Step 2: Syncing (after 1.5s)
+          setTimeout(() => {
+            statusEl.innerHTML = '<span class="sync-dot blue"></span> Syncing live…';
+            metaEl.innerHTML = '<i class="bi bi-arrow-repeat"></i> Pulling records…';
+          }, 1500);
+
+          // Step 3: Connected (after 3s)
+          setTimeout(() => {
+            statusEl.className = 'connector-status connected';
+            statusEl.innerHTML = '<span class="sync-dot green"></span> Connected';
+            metaEl.innerHTML = '<i class="bi bi-clock"></i> Synced just now';
+
+            // Update count badge
+            const count = document.querySelectorAll('.connector-status.connected').length;
+            const badge = document.querySelector('.connector-source-count');
+            if (badge) badge.innerHTML = '<i class="bi bi-check-circle-fill"></i> ' + count + ' of 7 connected';
+          }, 3000);
+        });
+      });
+    })();
+  </script>
 </body>
 
 </html>

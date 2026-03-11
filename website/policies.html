@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Policies & Alerts — Unified FinOps Platform</title>
+  <title>Policy Automation Engine — Unified FinOps Platform</title>
+  <meta name="description"
+    content="Smart-contract style financial governance rules for automated spending enforcement." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
@@ -22,13 +24,14 @@
         <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
         <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
         <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+        <a href="ownership.html" class="sidebar-item"><i class="bi bi-diagram-3"></i> Spend Graph</a>
         <div class="sidebar-section-title">Data</div>
-        <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="upload.html" class="sidebar-item"><i class="bi bi-database-gear"></i> Data Lake</a>
         <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
-        <a href="policies.html" class="sidebar-item active"><i class="bi bi-shield-check"></i> Policies</a>
-        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+        <a href="policies.html" class="sidebar-item active"><i class="bi bi-shield-check"></i> Policy Engine</a>
+        <a href="policies.html#events" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
             class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
         <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
@@ -49,132 +52,398 @@
         <div class="dash-topnav-left">
           <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
           <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
-              class="dash-breadcrumb-active">Policies & Alerts</span></div>
+              class="dash-breadcrumb-active">Policy Automation Engine</span></div>
         </div>
-        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i
-              class="bi bi-house"></i></a></div>
+        <div class="dash-topnav-right">
+          <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
+        </div>
       </div>
 
       <div class="dash-content">
-        <!-- Policy Engine -->
+        <!-- Page Header -->
         <div class="dash-page-header">
           <div>
-            <h1 class="dash-page-title">Policy Engine</h1>
-            <p class="dash-page-subtitle">Financial rules that govern spending across your organization</p>
+            <h1 class="dash-page-title">Policy Automation Engine</h1>
+            <p class="dash-page-subtitle">Smart-contract style financial governance — automated spending enforcement</p>
           </div>
           <div class="dash-header-actions">
-            <button class="btn-primary"><i class="bi bi-plus-lg"></i> Add Rule</button>
+            <button class="btn-primary"><i class="bi bi-plus-lg"></i> Add Policy</button>
           </div>
         </div>
 
-        <!-- Active Policies -->
-        <div style="margin-bottom: 30px;">
-          <div class="policy-card">
-            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i
-                class="bi bi-exclamation-triangle"></i></div>
-            <div class="policy-info">
-              <div class="policy-name">Budget Overrun Alert</div>
-              <div class="policy-desc">If department spending exceeds 90% of allocated budget → trigger alert to Finance
-                Manager</div>
-            </div>
-            <div class="policy-toggle active"></div>
-          </div>
-          <div class="policy-card">
-            <div class="policy-icon" style="background: var(--yellow-light); color: #B06D00;"><i
-                class="bi bi-shield-exclamation"></i></div>
-            <div class="policy-info">
-              <div class="policy-name">Large Purchase Approval</div>
-              <div class="policy-desc">If single purchase amount exceeds ₹10,00,000 → require Admin approval before
-                processing</div>
-            </div>
-            <div class="policy-toggle active"></div>
-          </div>
-          <div class="policy-card">
-            <div class="policy-icon" style="background: var(--blue-light); color: var(--blue);"><i
-                class="bi bi-graph-up-arrow"></i></div>
-            <div class="policy-info">
-              <div class="policy-name">Spending Anomaly Detection</div>
-              <div class="policy-desc">If a vendor's monthly cost increases by more than 30% compared to previous month
-                → flag for review</div>
-            </div>
-            <div class="policy-toggle active"></div>
-          </div>
-          <div class="policy-card">
-            <div class="policy-icon" style="background: var(--green-light); color: var(--green);"><i
-                class="bi bi-clock-history"></i></div>
-            <div class="policy-info">
-              <div class="policy-name">Duplicate Transaction Check</div>
-              <div class="policy-desc">If similar transaction (same vendor, amount, department) occurs within 24 hours →
-                hold for verification</div>
-            </div>
-            <div class="policy-toggle"></div>
-          </div>
-          <div class="policy-card">
-            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-lock"></i>
-            </div>
-            <div class="policy-info">
-              <div class="policy-name">Quarterly Budget Freeze</div>
-              <div class="policy-desc">If department has used 100% of quarterly budget → block new transactions until
-                next quarter</div>
-            </div>
-            <div class="policy-toggle"></div>
-          </div>
-        </div>
-
-        <!-- Alerts -->
-        <div id="alerts">
-          <div class="dash-page-header" style="margin-top: 16px;">
+        <!-- ── KPI Summary ─────────────────────────────────── -->
+        <div class="pe-kpi-row">
+          <div class="pe-kpi">
+            <div class="pe-kpi-icon" style="background: var(--green-light); color: var(--green);"><i
+                class="bi bi-check-circle"></i></div>
             <div>
-              <h2 class="dash-page-title" style="font-size: 18px;">Active Alerts</h2>
-              <p class="dash-page-subtitle">Recent policy violations and spending alerts</p>
+              <div class="pe-kpi-value" id="kpiActive">3</div>
+              <div class="pe-kpi-label">Active Policies</div>
+            </div>
+          </div>
+          <div class="pe-kpi">
+            <div class="pe-kpi-icon" style="background: var(--red-light); color: var(--red);"><i
+                class="bi bi-exclamation-octagon"></i></div>
+            <div>
+              <div class="pe-kpi-value" id="kpiTriggered">1</div>
+              <div class="pe-kpi-label">Triggered</div>
+            </div>
+          </div>
+          <div class="pe-kpi">
+            <div class="pe-kpi-icon" style="background: var(--yellow-light); color: #B06D00;"><i
+                class="bi bi-exclamation-triangle"></i></div>
+            <div>
+              <div class="pe-kpi-value" id="kpiWarning">1</div>
+              <div class="pe-kpi-label">Warnings</div>
+            </div>
+          </div>
+          <div class="pe-kpi">
+            <div class="pe-kpi-icon" style="background: var(--blue-light); color: var(--blue);"><i
+                class="bi bi-shield-lock"></i></div>
+            <div>
+              <div class="pe-kpi-value">5</div>
+              <div class="pe-kpi-label">Total Rules</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Data Lake Connection Indicator ──────────────── -->
+        <div class="pe-datalake-bar">
+          <i class="bi bi-database-check"></i>
+          <span>These policies run on top of the <strong>Unified FinOps Data Lake</strong> — aggregating SAP ERP, Oracle
+            Financials, AWS, Azure, and procurement data in real-time.</span>
+        </div>
+
+        <!-- ── Policy Cards ────────────────────────────────── -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Governance Policies</div>
+          <div class="fi-ai-badge"><i class="bi bi-cpu"></i> AUTOMATED</div>
+        </div>
+
+        <div class="pe-grid">
+
+          <!-- Policy 1: Department Budget Limit -->
+          <div class="pe-card" data-status="triggered">
+            <div class="pe-card-accent" style="background: var(--red);"></div>
+            <div class="pe-card-body">
+              <div class="pe-card-header">
+                <div>
+                  <div class="pe-card-title-row">
+                    <div class="pe-card-icon" style="background: var(--red-light); color: var(--red);"><i
+                        class="bi bi-wallet2"></i></div>
+                    <div class="pe-card-name">Department Budget Limit</div>
+                  </div>
+                  <div class="pe-card-desc">Automatically enforce department spending caps and trigger approval
+                    workflows when budgets are exceeded.</div>
+                </div>
+                <label class="pe-toggle">
+                  <input type="checkbox" checked />
+                  <div class="pe-toggle-track"></div>
+                  <div class="pe-toggle-thumb"></div>
+                </label>
+              </div>
+              <div class="pe-rule-block">
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+                  Department spending exceeds allocated budget
+                </div>
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+                  Trigger approval request &amp; notify finance team
+                </div>
+              </div>
+              <div class="pe-card-footer">
+                <span class="pe-status triggered"><i class="bi bi-exclamation-circle-fill"></i> Triggered</span>
+                <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-clock"></i> TNEB — 2h ago</span>
+              </div>
             </div>
           </div>
 
-          <div class="alert-item">
-            <div class="alert-dot critical"></div>
-            <div style="flex: 1;">
-              <div class="alert-title">Budget Exceeded — TNEB</div>
-              <div class="alert-desc">TNEB has used 93% of their ₹2.5 Cr budget. Projected to exceed limit by end of
-                month.</div>
-              <div class="alert-time"><i class="bi bi-clock"></i> 2 hours ago</div>
+          <!-- Policy 2: Vendor Approval Policy -->
+          <div class="pe-card" data-status="active">
+            <div class="pe-card-accent" style="background: var(--green);"></div>
+            <div class="pe-card-body">
+              <div class="pe-card-header">
+                <div>
+                  <div class="pe-card-title-row">
+                    <div class="pe-card-icon" style="background: var(--green-light); color: var(--green);"><i
+                        class="bi bi-person-check"></i></div>
+                    <div class="pe-card-name">Vendor Approval Policy</div>
+                  </div>
+                  <div class="pe-card-desc">Block unapproved vendor transactions and require finance team sign-off
+                    before processing.</div>
+                </div>
+                <label class="pe-toggle">
+                  <input type="checkbox" checked />
+                  <div class="pe-toggle-track"></div>
+                  <div class="pe-toggle-thumb"></div>
+                </label>
+              </div>
+              <div class="pe-rule-block">
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+                  Vendor is not in the approved vendor list
+                </div>
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+                  Block transaction &amp; require finance approval
+                </div>
+              </div>
+              <div class="pe-card-footer">
+                <span class="pe-status active"><i class="bi bi-check-circle-fill"></i> Active</span>
+                <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-activity"></i> 3 blocked this
+                  month</span>
+              </div>
             </div>
-            <span class="status-badge flagged">Critical</span>
           </div>
-          <div class="alert-item">
-            <div class="alert-dot warning"></div>
-            <div style="flex: 1;">
-              <div class="alert-title">Irregular Spending Detected — Highways Department</div>
-              <div class="alert-desc">L&T Infra costs increased by 35% this month compared to average. Review
-                recommended.</div>
-              <div class="alert-time"><i class="bi bi-clock"></i> 1 day ago</div>
+
+          <!-- Policy 3: Duplicate Tool Detection -->
+          <div class="pe-card" data-status="warning">
+            <div class="pe-card-accent" style="background: var(--yellow);"></div>
+            <div class="pe-card-body">
+              <div class="pe-card-header">
+                <div>
+                  <div class="pe-card-title-row">
+                    <div class="pe-card-icon" style="background: var(--yellow-light); color: #B06D00;"><i
+                        class="bi bi-layers"></i></div>
+                    <div class="pe-card-name">Duplicate SaaS Detection</div>
+                  </div>
+                  <div class="pe-card-desc">Identify duplicate software subscriptions across departments and recommend
+                    consolidation.</div>
+                </div>
+                <label class="pe-toggle">
+                  <input type="checkbox" checked />
+                  <div class="pe-toggle-track"></div>
+                  <div class="pe-toggle-thumb"></div>
+                </label>
+              </div>
+              <div class="pe-rule-block">
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+                  Multiple SaaS tools with similar functionality across departments
+                </div>
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+                  Alert finance team &amp; suggest tool consolidation
+                </div>
+              </div>
+              <div class="pe-card-footer">
+                <span class="pe-status warning"><i class="bi bi-exclamation-triangle-fill"></i> Warning</span>
+                <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-eye"></i> 2 duplicates found</span>
+              </div>
             </div>
-            <span class="status-badge pending">Warning</span>
           </div>
-          <div class="alert-item">
-            <div class="alert-dot warning"></div>
-            <div style="flex: 1;">
-              <div class="alert-title">Unapproved Vendor — Large Purchase Pending Approval</div>
-              <div class="alert-desc">Local Contractor XYZ station infrastructure purchase of ₹18,50,000 by Chennai
-                Metro Rail dept requires Admin approval.</div>
-              <div class="alert-time"><i class="bi bi-clock"></i> 2 days ago</div>
+
+          <!-- Policy 4: Unused SaaS License Detection -->
+          <div class="pe-card" data-status="active">
+            <div class="pe-card-accent" style="background: var(--blue);"></div>
+            <div class="pe-card-body">
+              <div class="pe-card-header">
+                <div>
+                  <div class="pe-card-title-row">
+                    <div class="pe-card-icon" style="background: var(--blue-light); color: var(--blue);"><i
+                        class="bi bi-clock-history"></i></div>
+                    <div class="pe-card-name">Unused License Detection</div>
+                  </div>
+                  <div class="pe-card-desc">Monitor SaaS licenses for inactivity and recommend cancellation to reduce
+                    wasted spend.</div>
+                </div>
+                <label class="pe-toggle">
+                  <input type="checkbox" checked />
+                  <div class="pe-toggle-track"></div>
+                  <div class="pe-toggle-thumb"></div>
+                </label>
+              </div>
+              <div class="pe-rule-block">
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+                  SaaS license inactive for more than 30 days
+                </div>
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+                  Recommend cancellation or reduce license count
+                </div>
+              </div>
+              <div class="pe-card-footer">
+                <span class="pe-status active"><i class="bi bi-check-circle-fill"></i> Active</span>
+                <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-currency-rupee"></i> ₹4.2L saved
+                  this quarter</span>
+              </div>
             </div>
-            <span class="status-badge pending">Pending</span>
           </div>
-          <div class="alert-item">
-            <div class="alert-dot info"></div>
-            <div style="flex: 1;">
-              <div class="alert-title">Policy Rule Triggered — Budget Freeze Warning</div>
-              <div class="alert-desc">Chennai Metro Rail department approaching 92% budget utilization. Spending
-                controls may activate soon.</div>
-              <div class="alert-time"><i class="bi bi-clock"></i> 3 days ago</div>
+
+          <!-- Policy 5: Abnormal Spend Detection -->
+          <div class="pe-card" data-status="active">
+            <div class="pe-card-accent" style="background: #6C63FF;"></div>
+            <div class="pe-card-body">
+              <div class="pe-card-header">
+                <div>
+                  <div class="pe-card-title-row">
+                    <div class="pe-card-icon" style="background: #EDE7F6; color: #6C63FF;"><i
+                        class="bi bi-graph-up-arrow"></i></div>
+                    <div class="pe-card-name">Abnormal Spend Detection</div>
+                  </div>
+                  <div class="pe-card-desc">AI-powered anomaly detection flags spending patterns that deviate
+                    significantly from historical averages.</div>
+                </div>
+                <label class="pe-toggle">
+                  <input type="checkbox" checked />
+                  <div class="pe-toggle-track"></div>
+                  <div class="pe-toggle-thumb"></div>
+                </label>
+              </div>
+              <div class="pe-rule-block">
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+                  Current spending significantly exceeds historical average (30%+)
+                </div>
+                <div class="pe-rule-row">
+                  <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+                  Trigger anomaly alert &amp; flag for review
+                </div>
+              </div>
+              <div class="pe-card-footer">
+                <span class="pe-status active"><i class="bi bi-check-circle-fill"></i> Active</span>
+                <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-lightning"></i> 1 anomaly this
+                  week</span>
+              </div>
             </div>
-            <span class="status-badge active">Info</span>
+          </div>
+
+        </div>
+
+        <!-- ── Recent Policy Events ────────────────────────── -->
+        <div id="events">
+          <div class="fi-section-header">
+            <div class="fi-section-title">Recent Policy Events</div>
+            <div class="fi-ai-badge"><i class="bi bi-broadcast"></i> LIVE</div>
+          </div>
+
+          <div class="pe-events-list">
+            <div class="pe-event">
+              <div class="pe-event-sev critical"></div>
+              <div class="pe-event-content">
+                <div class="pe-event-title">Budget Limit Triggered — TNEB Department</div>
+                <div class="pe-event-desc">TNEB has used 93% of ₹2.5 Cr budget. Approval request sent to Finance
+                  Controller for remaining expenditures.</div>
+              </div>
+              <div class="pe-event-meta">
+                <div class="pe-event-time"><i class="bi bi-clock"></i> 2 hours ago</div>
+                <span class="pe-status triggered" style="font-size: 9px; padding: 2px 8px;">Triggered</span>
+              </div>
+            </div>
+
+            <div class="pe-event">
+              <div class="pe-event-sev warning"></div>
+              <div class="pe-event-content">
+                <div class="pe-event-title">Duplicate SaaS Detected — Project Management Tools</div>
+                <div class="pe-event-desc">Highways Dept uses Jira, TIDCO uses Asana. Consolidation could save ₹1.8L/yr.
+                </div>
+              </div>
+              <div class="pe-event-meta">
+                <div class="pe-event-time"><i class="bi bi-clock"></i> 6 hours ago</div>
+                <span class="pe-status warning" style="font-size: 9px; padding: 2px 8px;">Warning</span>
+              </div>
+            </div>
+
+            <div class="pe-event">
+              <div class="pe-event-sev warning"></div>
+              <div class="pe-event-content">
+                <div class="pe-event-title">Abnormal Spend — L&T Infra Costs Spiked</div>
+                <div class="pe-event-desc">Highways Dept: L&T monthly invoice ₹48L vs historical avg ₹32L — 50% increase
+                  flagged.</div>
+              </div>
+              <div class="pe-event-meta">
+                <div class="pe-event-time"><i class="bi bi-clock"></i> 1 day ago</div>
+                <span class="pe-status warning" style="font-size: 9px; padding: 2px 8px;">Review</span>
+              </div>
+            </div>
+
+            <div class="pe-event">
+              <div class="pe-event-sev info"></div>
+              <div class="pe-event-content">
+                <div class="pe-event-title">Vendor Blocked — Unapproved Contractor</div>
+                <div class="pe-event-desc">Transaction ₹18.5L from "Local Contractor XYZ" blocked. Requires finance
+                  approval for Chennai Metro Rail.</div>
+              </div>
+              <div class="pe-event-meta">
+                <div class="pe-event-time"><i class="bi bi-clock"></i> 2 days ago</div>
+                <span class="pe-status active" style="font-size: 9px; padding: 2px 8px;">Enforced</span>
+              </div>
+            </div>
+
+            <div class="pe-event">
+              <div class="pe-event-sev info"></div>
+              <div class="pe-event-content">
+                <div class="pe-event-title">Unused Licenses Found — Cloud Monitoring Tool</div>
+                <div class="pe-event-desc">3 seats inactive for 45 days in TIDCO department. Recommended reduction saves
+                  ₹4.2L/yr.</div>
+              </div>
+              <div class="pe-event-meta">
+                <div class="pe-event-time"><i class="bi bi-clock"></i> 3 days ago</div>
+                <span class="pe-status active" style="font-size: 9px; padding: 2px 8px;">Resolved</span>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </main>
   </div>
   <script src="js/dashboard.js"></script>
+  <script>
+    (function () {
+      // Toggle on/off for policies
+      document.querySelectorAll('.pe-toggle input').forEach(toggle => {
+        toggle.addEventListener('change', function () {
+          const card = this.closest('.pe-card');
+          const statusBadge = card.querySelector('.pe-status');
+          const accent = card.querySelector('.pe-card-accent');
+          if (!this.checked) {
+            card.style.opacity = '0.55';
+            statusBadge.className = 'pe-status';
+            statusBadge.innerHTML = '<i class="bi bi-pause-circle"></i> Paused';
+            statusBadge.style.background = 'var(--bg)';
+            statusBadge.style.color = 'var(--text3)';
+            accent.style.background = 'var(--border2)';
+          } else {
+            card.style.opacity = '1';
+            const status = card.getAttribute('data-status');
+            accent.style.background = '';
+            statusBadge.style.background = '';
+            statusBadge.style.color = '';
+            if (status === 'triggered') {
+              statusBadge.className = 'pe-status triggered';
+              statusBadge.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Triggered';
+            } else if (status === 'warning') {
+              statusBadge.className = 'pe-status warning';
+              statusBadge.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Warning';
+            } else {
+              statusBadge.className = 'pe-status active';
+              statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Active';
+            }
+          }
+          // Update KPI counts
+          updateKPIs();
+        });
+      });
+
+      function updateKPIs() {
+        let active = 0, triggered = 0, warning = 0;
+        document.querySelectorAll('.pe-card').forEach(card => {
+          const toggle = card.querySelector('.pe-toggle input');
+          if (!toggle.checked) return;
+          const s = card.getAttribute('data-status');
+          if (s === 'active') active++;
+          else if (s === 'triggered') triggered++;
+          else if (s === 'warning') warning++;
+        });
+        document.getElementById('kpiActive').textContent = active;
+        document.getElementById('kpiTriggered').textContent = triggered;
+        document.getElementById('kpiWarning').textContent = warning;
+      }
+    })();
+  </script>
 </body>
 
 </html>
