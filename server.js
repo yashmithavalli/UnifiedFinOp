@@ -5,19 +5,19 @@
  * and data ingestion APIs.
  */
 
-const express  = require('express');
-const session  = require('express-session');
-const bcrypt   = require('bcryptjs');
+const express = require('express');
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 const { MongoClient, ObjectId } = require('mongodb');
-const multer   = require('multer');
-const csv      = require('csv-parser');
-const path     = require('path');
-const fs       = require('fs');
+const multer = require('multer');
+const csv = require('csv-parser');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
 const MONGO_URI = 'mongodb://localhost:27017';
-const DB_NAME   = 'finops';
+const DB_NAME = 'finops';
 
 // ── Middleware ────────────────────────────────────────────
 app.use(express.json());
@@ -52,7 +52,7 @@ async function connectDB() {
     if (policyCount === 0) {
       await db.collection('policies').insertMany([
         { name: 'Budget Overrun Alert', desc: 'If spending exceeds 90% of budget → alert', active: true, type: 'alert', threshold: 90 },
-        { name: 'Large Purchase Approval', desc: 'If amount > $10,000 → require approval', active: true, type: 'approval', threshold: 10000 },
+        { name: 'Large Purchase Approval', desc: 'If amount > ₹10,00,000 → require approval', active: true, type: 'approval', threshold: 1000000 },
         { name: 'Spending Anomaly Detection', desc: 'If vendor cost increases > 30% → review', active: true, type: 'anomaly', threshold: 30 },
         { name: 'Duplicate Transaction Check', desc: 'Similar transaction in 24h → verify', active: false, type: 'duplicate', threshold: 24 },
         { name: 'Quarterly Budget Freeze', desc: '100% budget used → block transactions', active: false, type: 'freeze', threshold: 100 },
@@ -204,11 +204,11 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
           // Run policy checks
           const alerts = [];
           for (const txn of results) {
-            if (txn.amount > 10000) {
+            if (txn.amount > 1000000) {
               alerts.push({
                 type: 'warning',
                 title: 'Large Purchase Detected',
-                desc: `${txn.vendor || 'Unknown'} — $${txn.amount.toLocaleString()} by ${txn.department || 'Unknown'}`,
+                desc: `${txn.vendor || 'Unknown'} — ₹${txn.amount.toLocaleString('en-IN')} by ${txn.department || 'Unknown'}`,
                 createdAt: new Date()
               });
             }
@@ -224,7 +224,7 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
         res.json({
           success: true,
           records: results.length,
-          alerts: results.filter(r => r.amount > 10000).length
+          alerts: results.filter(r => r.amount > 1000000).length
         });
       })
       .on('error', (err) => {

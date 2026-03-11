@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,10 +9,14 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
+
 <body>
   <div class="dash-layout">
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header"><div class="sidebar-logo">FO</div><div class="sidebar-brand">Unified<span>FinOps</span></div></div>
+      <div class="sidebar-header">
+        <div class="sidebar-logo">FO</div>
+        <div class="sidebar-brand">Unified<span>FinOps</span></div>
+      </div>
       <nav class="sidebar-nav">
         <div class="sidebar-section-title">Analytics</div>
         <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
@@ -19,23 +24,35 @@
         <a href="vendors.html" class="sidebar-item active"><i class="bi bi-shop"></i> Vendors</a>
         <div class="sidebar-section-title">Data</div>
         <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
         <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
-        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">3</span></a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+            class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
         <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
       </nav>
-      <div class="sidebar-footer"><div class="sidebar-user"><div class="sidebar-avatar">A</div><div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Finance Controller</div></div></div></div>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div>
+            <div class="sidebar-user-name">Admin</div>
+            <div class="sidebar-user-role">Finance Controller</div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <main class="dash-main">
       <div class="dash-topnav">
         <div class="dash-topnav-left">
           <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
-          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span class="dash-breadcrumb-active">Vendors</span></div>
+          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
+              class="dash-breadcrumb-active">Vendors</span></div>
         </div>
-        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a></div>
+        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i
+              class="bi bi-house"></i></a></div>
       </div>
 
       <div class="dash-content">
@@ -50,35 +67,38 @@
         <div class="kpi-grid">
           <div class="kpi-card">
             <div class="kpi-header">
-              <div class="kpi-icon" style="background: #FFF3E0; color: #FF9900;"><i class="bi bi-cloud"></i></div>
+              <div class="kpi-icon" style="background: #FFF3E0; color: #FF9900;"><i class="bi bi-truck"></i></div>
               <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 15%</div>
             </div>
-            <div class="kpi-value">$120K</div>
-            <div class="kpi-label">AWS</div>
+            <div class="kpi-value">₹9.8 Cr</div>
+            <div class="kpi-label">L&T Infra</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-header">
-              <div class="kpi-icon" style="background: #E3F2FD; color: #00A4EF;"><i class="bi bi-microsoft"></i></div>
+              <div class="kpi-icon" style="background: #E3F2FD; color: #00A4EF;"><i
+                  class="bi bi-gear-wide-connected"></i></div>
               <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 8%</div>
             </div>
-            <div class="kpi-value">$85K</div>
-            <div class="kpi-label">Microsoft</div>
+            <div class="kpi-value">₹6.9 Cr</div>
+            <div class="kpi-label">BHEL</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-header">
-              <div class="kpi-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-google"></i></div>
+              <div class="kpi-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-cpu"></i>
+              </div>
               <div class="kpi-change up"><i class="bi bi-arrow-up-short"></i> 12%</div>
             </div>
-            <div class="kpi-value">$68K</div>
-            <div class="kpi-label">Google Cloud</div>
+            <div class="kpi-value">₹5.5 Cr</div>
+            <div class="kpi-label">ELCOT</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-header">
-              <div class="kpi-icon" style="background: #E8EAF6; color: #007DB8;"><i class="bi bi-pc-display"></i></div>
+              <div class="kpi-icon" style="background: #E8EAF6; color: #007DB8;"><i class="bi bi-person-vcard"></i>
+              </div>
               <div class="kpi-change down"><i class="bi bi-arrow-down-short"></i> 5%</div>
             </div>
-            <div class="kpi-value">$45K</div>
-            <div class="kpi-label">Dell</div>
+            <div class="kpi-value">₹3.7 Cr</div>
+            <div class="kpi-label">Local Contractor XYZ</div>
           </div>
         </div>
 
@@ -115,11 +135,46 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>AWS</strong></td><td>$120,000</td><td>45</td><td>Engineering</td><td>Operations, Finance</td><td><span class="status-badge flagged">↑ 15%</span></td></tr>
-              <tr><td><strong>Microsoft</strong></td><td>$85,000</td><td>32</td><td>Engineering</td><td>Finance, HR</td><td><span class="status-badge active">↑ 8%</span></td></tr>
-              <tr><td><strong>Google Cloud</strong></td><td>$68,000</td><td>28</td><td>Engineering</td><td>Marketing</td><td><span class="status-badge active">↑ 12%</span></td></tr>
-              <tr><td><strong>Dell</strong></td><td>$45,000</td><td>12</td><td>Finance</td><td>HR, Engineering</td><td><span class="status-badge approved">↓ 5%</span></td></tr>
-              <tr><td><strong>Workday</strong></td><td>$32,000</td><td>8</td><td>HR</td><td>—</td><td><span class="status-badge pending">→ 0%</span></td></tr>
+              <tr>
+                <td><strong>L&T Infra</strong></td>
+                <td>₹9,80,00,000</td>
+                <td>45</td>
+                <td>Highways Dept</td>
+                <td>TN Transport Corp, Chennai Metro Rail</td>
+                <td><span class="status-badge flagged">↑ 15%</span></td>
+              </tr>
+              <tr>
+                <td><strong>BHEL</strong></td>
+                <td>₹6,90,00,000</td>
+                <td>32</td>
+                <td>Highways Dept</td>
+                <td>Chennai Metro Rail, TIDCO</td>
+                <td><span class="status-badge active">↑ 8%</span></td>
+              </tr>
+              <tr>
+                <td><strong>ELCOT</strong></td>
+                <td>₹5,50,00,000</td>
+                <td>28</td>
+                <td>Highways Dept</td>
+                <td>TNEB</td>
+                <td><span class="status-badge active">↑ 12%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Local Contractor XYZ</strong></td>
+                <td>₹3,70,00,000</td>
+                <td>12</td>
+                <td>Chennai Metro Rail</td>
+                <td>TIDCO, Highways Dept</td>
+                <td><span class="status-badge approved">↓ 5%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Ashok Leyland</strong></td>
+                <td>₹2,60,00,000</td>
+                <td>8</td>
+                <td>TN Transport Corp</td>
+                <td>—</td>
+                <td><span class="status-badge pending">→ 0%</span></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -129,4 +184,5 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
+
 </html>

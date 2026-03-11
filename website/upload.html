@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
+
 <body>
   <div class="dash-layout">
     <aside class="sidebar" id="sidebar">
@@ -22,21 +24,32 @@
         <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
         <div class="sidebar-section-title">Data</div>
         <a href="upload.html" class="sidebar-item active"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
         <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policies</a>
-        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">3</span></a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+            class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
         <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
       </nav>
-      <div class="sidebar-footer"><div class="sidebar-user"><div class="sidebar-avatar">A</div><div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Finance Controller</div></div></div></div>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div>
+            <div class="sidebar-user-name">Admin</div>
+            <div class="sidebar-user-role">Finance Controller</div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <main class="dash-main">
       <div class="dash-topnav">
         <div class="dash-topnav-left">
           <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
-          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span class="dash-breadcrumb-active">Data Upload</span></div>
+          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
+              class="dash-breadcrumb-active">Data Upload</span></div>
         </div>
         <div class="dash-topnav-right">
           <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
@@ -84,12 +97,42 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>Date</td><td>Date</td><td>2026-03-08</td><td><span class="status-badge active">Required</span></td></tr>
-              <tr><td>Department</td><td>Text</td><td>Engineering</td><td><span class="status-badge active">Required</span></td></tr>
-              <tr><td>Vendor</td><td>Text</td><td>AWS</td><td><span class="status-badge active">Required</span></td></tr>
-              <tr><td>Project</td><td>Text</td><td>Cloud Migration</td><td><span class="status-badge pending">Optional</span></td></tr>
-              <tr><td>Amount</td><td>Number</td><td>12400</td><td><span class="status-badge active">Required</span></td></tr>
-              <tr><td>Category</td><td>Text</td><td>Infrastructure</td><td><span class="status-badge pending">Optional</span></td></tr>
+              <tr>
+                <td>Date</td>
+                <td>Date</td>
+                <td>2026-03-08</td>
+                <td><span class="status-badge active">Required</span></td>
+              </tr>
+              <tr>
+                <td>Department</td>
+                <td>Text</td>
+                <td>Highways Dept</td>
+                <td><span class="status-badge active">Required</span></td>
+              </tr>
+              <tr>
+                <td>Vendor</td>
+                <td>Text</td>
+                <td>L&T Infra</td>
+                <td><span class="status-badge active">Required</span></td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>Text</td>
+                <td>NH Road Expansion</td>
+                <td><span class="status-badge pending">Optional</span></td>
+              </tr>
+              <tr>
+                <td>Amount</td>
+                <td>Number</td>
+                <td>12400</td>
+                <td><span class="status-badge active">Required</span></td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>Text</td>
+                <td>Infrastructure</td>
+                <td><span class="status-badge pending">Optional</span></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -103,17 +146,29 @@
             </div>
           </div>
           <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 0;">
-            <div style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);"><i class="bi bi-upload"></i> Upload File</div>
+            <div
+              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
+              <i class="bi bi-upload"></i> Upload File</div>
             <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);"><i class="bi bi-file-earmark-code"></i> Parse Dataset</div>
+            <div
+              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
+              <i class="bi bi-file-earmark-code"></i> Parse Dataset</div>
             <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div style="padding: 8px 16px; background: var(--yellow-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: #B06D00;"><i class="bi bi-check2-circle"></i> Validate Columns</div>
+            <div
+              style="padding: 8px 16px; background: var(--yellow-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: #B06D00;">
+              <i class="bi bi-check2-circle"></i> Validate Columns</div>
             <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div style="padding: 8px 16px; background: var(--red-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--red);"><i class="bi bi-funnel"></i> Normalize Data</div>
+            <div
+              style="padding: 8px 16px; background: var(--red-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--red);">
+              <i class="bi bi-funnel"></i> Normalize Data</div>
             <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);"><i class="bi bi-database"></i> Store in MongoDB</div>
+            <div
+              style="padding: 8px 16px; background: var(--green-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--green);">
+              <i class="bi bi-database"></i> Store in MongoDB</div>
             <i class="bi bi-arrow-right" style="color: var(--border2);"></i>
-            <div style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);"><i class="bi bi-bar-chart-line"></i> Generate Insights</div>
+            <div
+              style="padding: 8px 16px; background: var(--blue-light); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--blue);">
+              <i class="bi bi-bar-chart-line"></i> Generate Insights</div>
           </div>
         </div>
 
@@ -126,20 +181,25 @@
             </div>
           </div>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <div style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
+            <div
+              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
               <i class="bi bi-box" style="font-size: 24px; color: var(--blue); display: block; margin-bottom: 8px;"></i>
               <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">ERP Systems</div>
               <div style="font-size: 11px; color: var(--text2);">SAP, Oracle, NetSuite</div>
               <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
             </div>
-            <div style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
-              <i class="bi bi-cloud" style="font-size: 24px; color: var(--green); display: block; margin-bottom: 8px;"></i>
+            <div
+              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
+              <i class="bi bi-cloud"
+                style="font-size: 24px; color: var(--green); display: block; margin-bottom: 8px;"></i>
               <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">Cloud Billing</div>
               <div style="font-size: 11px; color: var(--text2);">AWS, GCP, Azure</div>
               <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
             </div>
-            <div style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
-              <i class="bi bi-credit-card" style="font-size: 24px; color: var(--red); display: block; margin-bottom: 8px;"></i>
+            <div
+              style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm); text-align: center;">
+              <i class="bi bi-credit-card"
+                style="font-size: 24px; color: var(--red); display: block; margin-bottom: 8px;"></i>
               <div style="font-size: 13px; font-weight: 600; margin-bottom: 3px;">Procurement</div>
               <div style="font-size: 11px; color: var(--text2);">Coupa, Ariba</div>
               <div style="margin-top: 8px;"><span class="status-badge pending">Coming Soon</span></div>
@@ -151,4 +211,5 @@
   </div>
   <script src="js/dashboard.js"></script>
 </body>
+
 </html>

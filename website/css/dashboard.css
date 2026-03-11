@@ -720,6 +720,270 @@
   font-size: 20px; color: #fff;
   flex-shrink: 0;
 }
+
+/* ── Domain Cards ──────────────────────────────────────────── */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.domain-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.domain-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.domain-card.active {
+  border-color: var(--domain-color, var(--blue));
+  box-shadow: 0 0 0 2px var(--domain-color, var(--blue)), var(--shadow);
+}
+.domain-card-top {
+  height: 6px;
+  width: 100%;
+}
+.domain-card-body {
+  padding: 18px 18px 12px;
+}
+.domain-card-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.domain-card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.domain-stat { text-align: center; }
+.domain-stat-value {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.domain-stat-label {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+.domain-util-bar {
+  height: 6px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.domain-util-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+.domain-util-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--text3);
+}
+.domain-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  transition: background 0.15s;
+}
+.domain-card:hover .domain-card-action {
+  background: var(--blue-light);
+}
+
+/* ── Project Drill-Down Panel ─────────────────────────────── */
+.project-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r) var(--r) 0 0;
+  border-bottom: none;
+}
+.project-panel-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.project-panel-sub {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+.project-list {
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--r) var(--r);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.project-row {
+  padding: 18px 20px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.project-row:last-child { border-bottom: none; }
+.project-row:hover { background: var(--bg); }
+.project-row-main { margin-bottom: 10px; }
+.project-row-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  margin-bottom: 3px;
+}
+.project-row-agency {
+  font-size: 12px;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.project-row-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+.project-row-stat-value {
+  font-size: 15px;
+  font-weight: 700;
+}
+.project-row-stat-label {
+  font-size: 10px;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+.project-row-bar {
+  height: 5px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.project-row-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+.project-row-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.project-row-footer .status-badge { margin-right: 6px; }
+.project-row-timeline {
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Project Detail Header ────────────────────────────────── */
+.project-detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.project-detail-domain {
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.project-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text2);
+}
+.project-detail-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Financial Breakdown table highlight ──────────────────── */
+.data-table tr.row-critical td {
+  background: rgba(234, 67, 53, 0.04);
+}
+.data-table tr.row-critical:hover td {
+  background: rgba(234, 67, 53, 0.08);
+}
+
+/* ── Hierarchy Visualization ──────────────────────────────── */
+.hierarchy-visual { text-align: center; }
+.hier-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.hier-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-weight: 700;
+}
+.hier-root { background: var(--blue-light); color: var(--blue); }
+.hier-mid { background: var(--green-light); color: var(--green); }
+.hier-mid2 { background: var(--yellow-light); color: #B06D00; }
+.hier-leaf { background: var(--red-light); color: var(--red); }
+.hier-arrow { color: var(--text3); font-size: 14px; }
+.hier-desc {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.hier-desc-item {
+  font-size: 12px;
+  color: var(--text2);
+}
+.hier-desc-item strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ── Spend Forecast Widget ──────────────────────────────── */
 .forecast-value {
   font-size: 24px;
   font-weight: 700;

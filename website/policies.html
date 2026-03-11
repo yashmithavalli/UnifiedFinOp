@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,10 +9,14 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
+
 <body>
   <div class="dash-layout">
     <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header"><div class="sidebar-logo">FO</div><div class="sidebar-brand">Unified<span>FinOps</span></div></div>
+      <div class="sidebar-header">
+        <div class="sidebar-logo">FO</div>
+        <div class="sidebar-brand">Unified<span>FinOps</span></div>
+      </div>
       <nav class="sidebar-nav">
         <div class="sidebar-section-title">Analytics</div>
         <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
@@ -19,23 +24,35 @@
         <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
         <div class="sidebar-section-title">Data</div>
         <a href="upload.html" class="sidebar-item"><i class="bi bi-cloud-arrow-up"></i> Data Upload</a>
+        <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
         <a href="policies.html" class="sidebar-item active"><i class="bi bi-shield-check"></i> Policies</a>
-        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span class="badge">3</span></a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+            class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
         <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
       </nav>
-      <div class="sidebar-footer"><div class="sidebar-user"><div class="sidebar-avatar">A</div><div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Finance Controller</div></div></div></div>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div>
+            <div class="sidebar-user-name">Admin</div>
+            <div class="sidebar-user-role">Finance Controller</div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <main class="dash-main">
       <div class="dash-topnav">
         <div class="dash-topnav-left">
           <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
-          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span class="dash-breadcrumb-active">Policies & Alerts</span></div>
+          <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
+              class="dash-breadcrumb-active">Policies & Alerts</span></div>
         </div>
-        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a></div>
+        <div class="dash-topnav-right"><a href="index.html" class="dash-icon-btn" title="Home"><i
+              class="bi bi-house"></i></a></div>
       </div>
 
       <div class="dash-content">
@@ -53,42 +70,52 @@
         <!-- Active Policies -->
         <div style="margin-bottom: 30px;">
           <div class="policy-card">
-            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-exclamation-triangle"></i></div>
+            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i
+                class="bi bi-exclamation-triangle"></i></div>
             <div class="policy-info">
               <div class="policy-name">Budget Overrun Alert</div>
-              <div class="policy-desc">If department spending exceeds 90% of allocated budget → trigger alert to Finance Manager</div>
+              <div class="policy-desc">If department spending exceeds 90% of allocated budget → trigger alert to Finance
+                Manager</div>
             </div>
             <div class="policy-toggle active"></div>
           </div>
           <div class="policy-card">
-            <div class="policy-icon" style="background: var(--yellow-light); color: #B06D00;"><i class="bi bi-shield-exclamation"></i></div>
+            <div class="policy-icon" style="background: var(--yellow-light); color: #B06D00;"><i
+                class="bi bi-shield-exclamation"></i></div>
             <div class="policy-info">
               <div class="policy-name">Large Purchase Approval</div>
-              <div class="policy-desc">If single purchase amount exceeds $10,000 → require Admin approval before processing</div>
+              <div class="policy-desc">If single purchase amount exceeds ₹10,00,000 → require Admin approval before
+                processing</div>
             </div>
             <div class="policy-toggle active"></div>
           </div>
           <div class="policy-card">
-            <div class="policy-icon" style="background: var(--blue-light); color: var(--blue);"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="policy-icon" style="background: var(--blue-light); color: var(--blue);"><i
+                class="bi bi-graph-up-arrow"></i></div>
             <div class="policy-info">
               <div class="policy-name">Spending Anomaly Detection</div>
-              <div class="policy-desc">If a vendor's monthly cost increases by more than 30% compared to previous month → flag for review</div>
+              <div class="policy-desc">If a vendor's monthly cost increases by more than 30% compared to previous month
+                → flag for review</div>
             </div>
             <div class="policy-toggle active"></div>
           </div>
           <div class="policy-card">
-            <div class="policy-icon" style="background: var(--green-light); color: var(--green);"><i class="bi bi-clock-history"></i></div>
+            <div class="policy-icon" style="background: var(--green-light); color: var(--green);"><i
+                class="bi bi-clock-history"></i></div>
             <div class="policy-info">
               <div class="policy-name">Duplicate Transaction Check</div>
-              <div class="policy-desc">If similar transaction (same vendor, amount, department) occurs within 24 hours → hold for verification</div>
+              <div class="policy-desc">If similar transaction (same vendor, amount, department) occurs within 24 hours →
+                hold for verification</div>
             </div>
             <div class="policy-toggle"></div>
           </div>
           <div class="policy-card">
-            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-lock"></i></div>
+            <div class="policy-icon" style="background: var(--red-light); color: var(--red);"><i class="bi bi-lock"></i>
+            </div>
             <div class="policy-info">
               <div class="policy-name">Quarterly Budget Freeze</div>
-              <div class="policy-desc">If department has used 100% of quarterly budget → block new transactions until next quarter</div>
+              <div class="policy-desc">If department has used 100% of quarterly budget → block new transactions until
+                next quarter</div>
             </div>
             <div class="policy-toggle"></div>
           </div>
@@ -106,8 +133,9 @@
           <div class="alert-item">
             <div class="alert-dot critical"></div>
             <div style="flex: 1;">
-              <div class="alert-title">Budget Exceeded — Marketing Department</div>
-              <div class="alert-desc">Marketing has used 93% of their $300K budget. Projected to exceed limit by end of month.</div>
+              <div class="alert-title">Budget Exceeded — TNEB</div>
+              <div class="alert-desc">TNEB has used 93% of their ₹2.5 Cr budget. Projected to exceed limit by end of
+                month.</div>
               <div class="alert-time"><i class="bi bi-clock"></i> 2 hours ago</div>
             </div>
             <span class="status-badge flagged">Critical</span>
@@ -115,8 +143,9 @@
           <div class="alert-item">
             <div class="alert-dot warning"></div>
             <div style="flex: 1;">
-              <div class="alert-title">Irregular Spending Detected — Engineering</div>
-              <div class="alert-desc">AWS costs increased by 35% this month compared to average. Review recommended.</div>
+              <div class="alert-title">Irregular Spending Detected — Highways Department</div>
+              <div class="alert-desc">L&T Infra costs increased by 35% this month compared to average. Review
+                recommended.</div>
               <div class="alert-time"><i class="bi bi-clock"></i> 1 day ago</div>
             </div>
             <span class="status-badge pending">Warning</span>
@@ -124,8 +153,9 @@
           <div class="alert-item">
             <div class="alert-dot warning"></div>
             <div style="flex: 1;">
-              <div class="alert-title">Large Purchase Pending Approval</div>
-              <div class="alert-desc">Dell hardware purchase of $22,100 by Finance dept requires Admin approval.</div>
+              <div class="alert-title">Unapproved Vendor — Large Purchase Pending Approval</div>
+              <div class="alert-desc">Local Contractor XYZ station infrastructure purchase of ₹18,50,000 by Chennai
+                Metro Rail dept requires Admin approval.</div>
               <div class="alert-time"><i class="bi bi-clock"></i> 2 days ago</div>
             </div>
             <span class="status-badge pending">Pending</span>
@@ -134,7 +164,8 @@
             <div class="alert-dot info"></div>
             <div style="flex: 1;">
               <div class="alert-title">Policy Rule Triggered — Budget Freeze Warning</div>
-              <div class="alert-desc">Finance department approaching 92% budget utilization. Spending controls may activate soon.</div>
+              <div class="alert-desc">Chennai Metro Rail department approaching 92% budget utilization. Spending
+                controls may activate soon.</div>
               <div class="alert-time"><i class="bi bi-clock"></i> 3 days ago</div>
             </div>
             <span class="status-badge active">Info</span>
@@ -145,4 +176,5 @@
   </div>
   <script src="js/dashboard.js"></script>
 </body>
+
 </html>
