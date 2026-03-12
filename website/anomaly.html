@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Spend Anomaly Detection — Unified FinOps Platform</title>
+    <meta name="description"
+        content="AI-powered anomaly detection for abnormal spending patterns across departments and vendors." />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+    <div class="dash-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">FO</div>
+                <div class="sidebar-brand">Unified<span>FinOps</span></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-title">Analytics</div>
+                <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+                <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
+                <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+                <a href="ownership.html" class="sidebar-item"><i class="bi bi-diagram-3"></i> Spend Graph</a>
+                <div class="sidebar-section-title">Data</div>
+                <a href="upload.html" class="sidebar-item"><i class="bi bi-database-gear"></i> Data Lake</a>
+                <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
+                <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+                <div class="sidebar-section-title">Governance</div>
+                <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
+                <a href="anomaly.html" class="sidebar-item active"><i class="bi bi-robot"></i> AI Anomaly</a>
+                <div class="sidebar-section-title">System</div>
+                <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">A</div>
+                    <div>
+                        <div class="sidebar-user-name">Admin</div>
+                        <div class="sidebar-user-role">Finance Controller</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="dash-main">
+            <div class="dash-topnav">
+                <div class="dash-topnav-left">
+                    <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
+                    <div class="dash-breadcrumb"><span>FinOps</span><i class="bi bi-chevron-right"></i><span
+                            class="dash-breadcrumb-active">AI Spend Anomaly Detection</span></div>
+                </div>
+                <div class="dash-topnav-right">
+                    <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
+                </div>
+            </div>
+
+            <div class="dash-content">
+                <!-- Page Header -->
+                <div class="dash-page-header">
+                    <div>
+                        <h1 class="dash-page-title">AI Spend Anomaly Detection</h1>
+                        <p class="dash-page-subtitle">Intelligent monitoring of financial activity — proactive budget
+                            leak detection</p>
+                    </div>
+                </div>
+
+                <!-- ── KPI Summary ─────────────────────────────────── -->
+                <div class="pe-kpi-row">
+                    <div class="pe-kpi">
+                        <div class="pe-kpi-icon" style="background: var(--red-light); color: var(--red);"><i
+                                class="bi bi-exclamation-octagon"></i></div>
+                        <div>
+                            <div class="pe-kpi-value" id="kpiTotal">—</div>
+                            <div class="pe-kpi-label">Anomalies Detected</div>
+                        </div>
+                    </div>
+                    <div class="pe-kpi">
+                        <div class="pe-kpi-icon" style="background: #FDECEA; color: #C62828;"><i
+                                class="bi bi-x-octagon"></i></div>
+                        <div>
+                            <div class="pe-kpi-value" id="kpiCritical">—</div>
+                            <div class="pe-kpi-label">Critical</div>
+                        </div>
+                    </div>
+                    <div class="pe-kpi">
+                        <div class="pe-kpi-icon" style="background: var(--yellow-light); color: #B06D00;"><i
+                                class="bi bi-exclamation-triangle"></i></div>
+                        <div>
+                            <div class="pe-kpi-value" id="kpiWarnings">—</div>
+                            <div class="pe-kpi-label">Warnings</div>
+                        </div>
+                    </div>
+                    <div class="pe-kpi">
+                        <div class="pe-kpi-icon" style="background: var(--green-light); color: var(--green);"><i
+                                class="bi bi-currency-rupee"></i></div>
+                        <div>
+                            <div class="pe-kpi-value" id="kpiSavings">—</div>
+                            <div class="pe-kpi-label">Potential Savings</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Data Lake Indicator ──────────────────────────── -->
+                <div class="pe-datalake-bar">
+                    <i class="bi bi-cpu"></i>
+                    <span>AI models analyze spending data from the <strong>Unified FinOps Data Lake</strong> — using
+                        Z-Score analysis and Isolation Forest algorithms to detect anomalies in real-time.</span>
+                    <span id="mlStatus"
+                        style="margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;background:var(--green-light);color:var(--green);white-space:nowrap;">
+                        <i class="bi bi-lightning-charge-fill"></i> ML ENGINE LIVE
+                    </span>
+                </div>
+
+                <!-- ── Filters ─────────────────────────────────────── -->
+                <div class="ad-filter-bar">
+                    <select id="filterDept">
+                        <option value="all">All Departments</option>
+                    </select>
+                    <select id="filterSeverity">
+                        <option value="all">All Severities</option>
+                        <option value="critical">Critical</option>
+                        <option value="warning">Warning</option>
+                    </select>
+                </div>
+
+                <!-- ── Anomaly Alert Cards ─────────────────────────── -->
+                <div class="fi-section-header">
+                    <div class="fi-section-title">Spending Anomaly Alerts</div>
+                    <div class="fi-ai-badge"><i class="bi bi-robot"></i> AI DETECTED</div>
+                </div>
+
+                <div class="ad-grid" id="anomalyGrid">
+                    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);">
+                        <i class="bi bi-hourglass-split" style="font-size:24px;"></i>
+                        <div style="margin-top:8px;">Running ML models on spending data...</div>
+                    </div>
+                </div>
+
+                <!-- ── AI Insights Panel ───────────────────────────── -->
+                <div class="fi-section-header">
+                    <div class="fi-section-title">AI Insights &amp; Recommendations</div>
+                    <div class="fi-ai-badge"><i class="bi bi-lightbulb"></i> SMART</div>
+                </div>
+
+                <div class="ai-insights-grid" id="insightsGrid"></div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script>
+        // ══════════════════════════════════════════════════════
+        // FETCH FROM ML BACKEND & RENDER DYNAMICALLY
+        // ══════════════════════════════════════════════════════
+
+        let allAnomalies = [];
+
+        async function loadAnomalies() {
+            try {
+                const res = await fetch('/api/anomalies');
+                const data = await res.json();
+
+                if (!data.success) {
+                    document.getElementById('mlStatus').style.background = 'var(--red-light)';
+                    document.getElementById('mlStatus').style.color = 'var(--red)';
+                    document.getElementById('mlStatus').innerHTML = '<i class="bi bi-exclamation-circle"></i> ML ENGINE OFFLINE';
+                    document.getElementById('anomalyGrid').innerHTML =
+                        '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--red);">' +
+                        '<i class="bi bi-exclamation-triangle" style="font-size:24px;"></i>' +
+                        '<div style="margin-top:8px;">' + (data.error || 'ML engine unavailable') + '</div>' +
+                        '<div style="margin-top:4px;font-size:11px;color:var(--text3);">Run: python ml/anomaly_engine.py</div></div>';
+                    return;
+                }
+
+                allAnomalies = data.anomalies;
+
+                // Update KPIs from ML results
+                document.getElementById('kpiTotal').textContent = data.summary.total_anomalies;
+                document.getElementById('kpiCritical').textContent = data.summary.critical;
+                document.getElementById('kpiWarnings').textContent = data.summary.warnings;
+                const savingsL = (data.summary.potential_savings / 100000).toFixed(1);
+                document.getElementById('kpiSavings').textContent = '\u20B9' + savingsL + 'L';
+
+                // Populate department filter dynamically
+                const depts = [...new Set(data.anomalies.map(a => a.department))];
+                const deptSelect = document.getElementById('filterDept');
+                depts.forEach(d => {
+                    const opt = document.createElement('option');
+                    opt.value = d;
+                    opt.textContent = d;
+                    deptSelect.appendChild(opt);
+                });
+
+                // Render anomaly cards
+                renderCards(data.anomalies);
+
+                // Render AI insights
+                renderInsights(data.insights);
+
+                // Update models badge
+                document.getElementById('mlStatus').innerHTML =
+                    '<i class="bi bi-lightning-charge-fill"></i> ML ENGINE LIVE \u2014 ' +
+                    data.models_used.join(' + ');
+
+            } catch (err) {
+                console.error('ML fetch error:', err);
+                document.getElementById('mlStatus').style.background = 'var(--red-light)';
+                document.getElementById('mlStatus').style.color = 'var(--red)';
+                document.getElementById('mlStatus').innerHTML = '<i class="bi bi-exclamation-circle"></i> CONNECTION ERROR';
+            }
+        }
+
+        // ── Render Anomaly Cards ──
+        function renderCards(anomalies) {
+            const grid = document.getElementById('anomalyGrid');
+            grid.innerHTML = '';
+
+            if (anomalies.length === 0) {
+                grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--green);"><i class="bi bi-check-circle" style="font-size:24px;"></i><div style="margin-top:8px;">No anomalies detected.</div></div>';
+                return;
+            }
+
+            anomalies.forEach((a, i) => {
+                const isCritical = a.severity === 'critical';
+                const accentColor = isCritical ? 'var(--red)' : 'var(--yellow)';
+                const iconBg = isCritical ? 'var(--red-light)' : 'var(--yellow-light)';
+                const iconColor = isCritical ? 'var(--red)' : '#B06D00';
+                const icon = isCritical ? 'bi-exclamation-octagon-fill' : 'bi-exclamation-triangle-fill';
+                const sevIcon = isCritical ? 'bi-x-circle-fill' : 'bi-exclamation-triangle-fill';
+                const normalL = (a.normal_spend / 100000).toFixed(1);
+                const currentL = (a.current_spend / 100000).toFixed(1);
+                const chartColor = isCritical ? '#EA4335' : '#F9AB00';
+
+                // Time ago
+                const detected = new Date(a.detected_at);
+                const hoursAgo = Math.round((Date.now() - detected.getTime()) / 3600000);
+                const timeStr = hoursAgo < 24 ? hoursAgo + 'h ago' : Math.round(hoursAgo / 24) + ' day(s) ago';
+
+                let causesHTML = '';
+                (a.causes || []).forEach(c => {
+                    causesHTML += '<div class="ad-cause-item"><i class="bi bi-exclamation-circle-fill"></i> ' + c + '</div>';
+                });
+
+                const card = document.createElement('div');
+                card.className = 'ad-card';
+                card.setAttribute('data-dept', a.department);
+                card.setAttribute('data-severity', a.severity);
+                card.style.animation = 'fadeSlideIn 0.4s ease';
+
+                const sevLabel = isCritical ? 'Critical' : 'Warning';
+
+                card.innerHTML =
+                    '<div class="ad-card-accent" style="background:' + accentColor + ';"></div>' +
+                    '<div class="ad-card-body">' +
+                    '<div class="ad-card-top"><div><div class="ad-card-title-row">' +
+                    '<div class="ad-card-icon" style="background:' + iconBg + ';color:' + iconColor + ';"><i class="bi ' + icon + '"></i></div>' +
+                    '<div><div class="ad-card-name">' + a.category + ' Anomaly Detected</div>' +
+                    '<div class="ad-card-dept">' + a.department + ' \u2014 ' + a.vendor + '</div></div>' +
+                    '</div></div>' +
+                    '<span class="ad-severity ' + a.severity + '"><i class="bi ' + sevIcon + '"></i> ' + sevLabel + '</span></div>' +
+                    '<div class="ad-spend-row">' +
+                    '<div class="ad-spend-item"><div class="ad-spend-label">Normal Weekly Spend</div><div class="ad-spend-value">\u20B9' + normalL + 'L</div></div>' +
+                    '<div class="ad-spend-item"><div class="ad-spend-label">Current Weekly Spend</div><div class="ad-spend-value current">\u20B9' + currentL + 'L</div></div>' +
+                    '</div>' +
+                    '<div class="ad-deviation ' + a.severity + '"><i class="bi bi-arrow-up-right"></i> +' + a.deviation + '% Deviation</div>' +
+                    '<div class="ad-chart-wrap"><div class="ad-chart-label">Trend \u2014 Normal vs Current (ML data)</div><canvas id="mlChart' + i + '"></canvas></div>' +
+                    '<div class="ad-causes"><div class="ad-causes-title">Possible Causes</div>' + causesHTML + '</div>' +
+                    '<div class="ad-card-footer">' +
+                    '<span class="ad-method"><i class="bi bi-cpu"></i> ' + a.method + '</span>' +
+                    '<span class="ad-timestamp"><i class="bi bi-clock"></i> Detected ' + timeStr + '</span>' +
+                    '</div></div>';
+
+                grid.appendChild(card);
+
+                // Draw chart after DOM insertion
+                requestAnimationFrame(() => {
+                    drawChart({
+                        id: 'mlChart' + i,
+                        normal: a.trend_normal,
+                        current: a.trend_current,
+                        color: chartColor
+                    });
+                });
+            });
+        }
+
+        // ── Render AI Insights ──
+        function renderInsights(insights) {
+            const grid = document.getElementById('insightsGrid');
+            grid.innerHTML = '';
+            (insights || []).forEach(ins => {
+                const card = document.createElement('div');
+                card.className = 'ai-insight-card';
+                card.innerHTML =
+                    '<div class="ai-insight-icon" style="background:' + ins.iconBg + ';color:' + ins.iconColor + ';"><i class="bi ' + ins.icon + '"></i></div>' +
+                    '<div><div class="ai-insight-title">' + ins.title + '</div>' +
+                    '<div class="ai-insight-desc">' + ins.desc + '</div></div>';
+                grid.appendChild(card);
+            });
+        }
+
+        // ── Draw Mini Trend Chart ──
+        function drawChart(cfg) {
+            const canvas = document.getElementById(cfg.id);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const w = canvas.parentElement.clientWidth - 24;
+            const h = 60;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.scale(dpr, dpr);
+
+            const all = cfg.normal.concat(cfg.current);
+            const max = Math.max.apply(null, all) * 1.1;
+            const min = Math.min.apply(null, all) * 0.9;
+            const pts = cfg.current.length;
+            const stepX = w / (pts - 1);
+
+            function toY(v) { return h - ((v - min) / (max - min)) * h; }
+
+            // Normal baseline (gray dashed)
+            ctx.beginPath();
+            ctx.setLineDash([4, 3]);
+            ctx.strokeStyle = '#B0B0B0';
+            ctx.lineWidth = 1.5;
+            cfg.normal.forEach(function (v, i) {
+                i === 0 ? ctx.moveTo(i * stepX, toY(v)) : ctx.lineTo(i * stepX, toY(v));
+            });
+            ctx.stroke();
+
+            // Current trend (colored solid)
+            ctx.beginPath();
+            ctx.setLineDash([]);
+            ctx.strokeStyle = cfg.color;
+            ctx.lineWidth = 2;
+            cfg.current.forEach(function (v, i) {
+                i === 0 ? ctx.moveTo(i * stepX, toY(v)) : ctx.lineTo(i * stepX, toY(v));
+            });
+            ctx.stroke();
+
+            // Fill under current
+            ctx.lineTo(w, h);
+            ctx.lineTo(0, h);
+            ctx.closePath();
+            ctx.fillStyle = cfg.color + '12';
+            ctx.fill();
+        }
+
+        // ── Filters ──
+        document.getElementById('filterDept').addEventListener('change', applyFilters);
+        document.getElementById('filterSeverity').addEventListener('change', applyFilters);
+
+        function applyFilters() {
+            const dept = document.getElementById('filterDept').value;
+            const sev = document.getElementById('filterSeverity').value;
+            document.querySelectorAll('.ad-card').forEach(function (card) {
+                const cardDept = card.getAttribute('data-dept');
+                const cardSev = card.getAttribute('data-severity');
+                const deptMatch = dept === 'all' || cardDept === dept;
+                const sevMatch = sev === 'all' || cardSev === sev;
+                card.style.display = (deptMatch && sevMatch) ? '' : 'none';
+            });
+        }
+
+        // ── Load on page ready ──
+        loadAnomalies();
+    </script>
+</body>
+
+</html>

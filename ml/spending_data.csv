@@ -1,0 +1,65 @@
+department,category,vendor,week,amount,budget
+Transport Infrastructure,Road Construction,Larsen & Toubro,W1,210000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W2,195000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W3,220000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W4,205000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W5,198000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W6,215000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W7,200000,1500000
+Transport Infrastructure,Road Construction,Larsen & Toubro,W8,890000,1500000
+Chennai Metro Rail,Station Development,HCC Ltd,W1,320000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W2,310000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W3,335000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W4,325000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W5,318000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W6,330000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W7,315000,2500000
+Chennai Metro Rail,Station Development,HCC Ltd,W8,480000,2500000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W1,120000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W2,115000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W3,118000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W4,122000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W5,119000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W6,116000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W7,121000,800000
+TIDCO,SaaS Subscriptions,Microsoft Azure,W8,285000,800000
+TNEB,Equipment Procurement,Siemens India,W1,500000,3000000
+TNEB,Equipment Procurement,Siemens India,W2,480000,3000000
+TNEB,Equipment Procurement,Siemens India,W3,510000,3000000
+TNEB,Equipment Procurement,Siemens India,W4,490000,3000000
+TNEB,Equipment Procurement,Siemens India,W5,505000,3000000
+TNEB,Equipment Procurement,Siemens India,W6,495000,3000000
+TNEB,Equipment Procurement,Siemens India,W7,485000,3000000
+TNEB,Equipment Procurement,Siemens India,W8,840000,3000000
+Highways,Bridge Maintenance,Afcons Infrastructure,W1,280000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W2,275000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W3,290000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W4,285000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W5,278000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W6,282000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W7,288000,1800000
+Highways,Bridge Maintenance,Afcons Infrastructure,W8,295000,1800000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W1,180000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W2,175000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W3,185000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W4,178000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W5,182000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W6,176000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W7,180000,1200000
+Health & Family Welfare,Medical Supplies,Apollo Hospitals,W8,183000,1200000
+School Education,Digital Classrooms,Tata Consulting,W1,150000,900000
+School Education,Digital Classrooms,Tata Consulting,W2,145000,900000
+School Education,Digital Classrooms,Tata Consulting,W3,155000,900000
+School Education,Digital Classrooms,Tata Consulting,W4,148000,900000
+School Education,Digital Classrooms,Tata Consulting,W5,152000,900000
+School Education,Digital Classrooms,Tata Consulting,W6,147000,900000
+School Education,Digital Classrooms,Tata Consulting,W7,151000,900000
+School Education,Digital Classrooms,Tata Consulting,W8,149000,900000
+Agriculture,Irrigation Works,Jain Irrigation,W1,95000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W2,90000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W3,98000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W4,92000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W5,96000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W6,91000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W7,94000,600000
+Agriculture,Irrigation Works,Jain Irrigation,W8,97000,600000

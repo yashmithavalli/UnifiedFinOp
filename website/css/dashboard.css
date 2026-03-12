@@ -2830,3 +2830,489 @@
     flex-direction: column;
   }
 }
+
+/* ── Policy Modal ─────────────────────────────────────── */
+.pe-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.pe-modal-overlay.open {
+  display: flex;
+}
+
+.pe-modal {
+  background: var(--card);
+  border-radius: var(--r);
+  padding: 28px;
+  width: 520px;
+  max-width: 92vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: peModalIn 0.3s ease;
+}
+
+@keyframes peModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pe-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pe-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pe-modal-sub {
+  font-size: 13px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.pe-modal-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text3);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.pe-modal-close:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.pe-field {
+  margin-bottom: 14px;
+}
+
+.pe-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 5px;
+}
+
+.pe-field input,
+.pe-field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pe-field input:focus,
+.pe-field select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.pe-field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.pe-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.pe-btn-cancel {
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pe-btn-cancel:hover {
+  background: var(--bg2);
+  color: var(--text);
+}
+
+.pe-btn-create {
+  padding: 9px 20px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+
+.pe-btn-create:hover {
+  background: #3b78e7;
+}
+
+/* ══════════════════════════════════════════════════════════
+   AI SPEND ANOMALY DETECTION
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Filter Bar ───────────────────────────────────────── */
+.ad-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.ad-filter-bar select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  min-width: 160px;
+}
+
+.ad-filter-bar select:focus {
+  border-color: var(--blue);
+}
+
+/* ── Anomaly Card Grid ────────────────────────────────── */
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* ── Anomaly Card ─────────────────────────────────────── */
+.ad-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: all 0.25s;
+}
+
+.ad-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.ad-card-accent {
+  height: 4px;
+  width: 100%;
+}
+
+.ad-card-body {
+  padding: 20px;
+}
+
+/* ── Card Header ──────────────────────────────────────── */
+.ad-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.ad-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ad-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.ad-card-name {
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.ad-card-dept {
+  font-size: 11.5px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+/* ── Severity Badge ───────────────────────────────────── */
+.ad-severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.ad-severity.critical {
+  background: var(--red-light);
+  color: var(--red);
+}
+
+.ad-severity.warning {
+  background: var(--yellow-light);
+  color: #B06D00;
+}
+
+/* ── Spend Comparison Row ─────────────────────────────── */
+.ad-spend-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ad-spend-item {
+  flex: 1;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+
+.ad-spend-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+
+.ad-spend-value {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.ad-spend-value.current {
+  color: var(--red);
+}
+
+/* ── Deviation Badge ──────────────────────────────────── */
+.ad-deviation {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.ad-deviation.critical {
+  background: rgba(234, 67, 53, 0.08);
+  color: var(--red);
+  border: 1px solid rgba(234, 67, 53, 0.2);
+}
+
+.ad-deviation.warning {
+  background: rgba(251, 188, 4, 0.08);
+  color: #B06D00;
+  border: 1px solid rgba(251, 188, 4, 0.25);
+}
+
+/* ── Mini Trend Chart ─────────────────────────────────── */
+.ad-chart-wrap {
+  margin-bottom: 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 12px 6px;
+}
+
+.ad-chart-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+.ad-chart-wrap canvas {
+  width: 100% !important;
+  height: 60px !important;
+}
+
+/* ── Possible Causes ──────────────────────────────────── */
+.ad-causes {
+  margin-bottom: 14px;
+}
+
+.ad-causes-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text2);
+  margin-bottom: 6px;
+}
+
+.ad-cause-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text2);
+  padding: 3px 0;
+}
+
+.ad-cause-item i {
+  font-size: 10px;
+  color: var(--red);
+}
+
+/* ── Card Footer ──────────────────────────────────────── */
+.ad-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.ad-method {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--blue-light);
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ad-timestamp {
+  font-size: 10.5px;
+  color: var(--text3);
+}
+
+/* ── AI Insights Panel ────────────────────────────────── */
+.ai-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.ai-insight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: all 0.2s;
+}
+
+.ai-insight-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.ai-insight-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.ai-insight-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.ai-insight-desc {
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ── Responsive Anomaly Detection ─────────────────────── */
+@media (max-width: 1100px) {
+  .ad-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .ad-spend-row {
+    flex-direction: column;
+  }
+}

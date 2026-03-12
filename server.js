@@ -317,6 +317,47 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
+// ══════════════════════════════════════════════════════════
+// AI ANOMALY DETECTION PROXY
+// ══════════════════════════════════════════════════════════
+
+app.get('/api/anomalies', async (req, res) => {
+  try {
+    // Forward request to Python ML engine
+    const http = require('http');
+    const options = { hostname: 'localhost', port: 5001, path: '/detect', method: 'GET', timeout: 5000 };
+
+    const proxyReq = http.request(options, (proxyRes) => {
+      let data = '';
+      proxyRes.on('data', chunk => data += chunk);
+      proxyRes.on('end', () => {
+        try {
+          res.json(JSON.parse(data));
+        } catch (e) {
+          res.status(500).json({ success: false, error: 'Invalid ML engine response' });
+        }
+      });
+    });
+
+    proxyReq.on('error', () => {
+      res.status(503).json({
+        success: false,
+        error: 'ML engine not running. Start it with: python ml/anomaly_engine.py'
+      });
+    });
+
+    proxyReq.on('timeout', () => {
+      proxyReq.destroy();
+      res.status(504).json({ success: false, error: 'ML engine timeout' });
+    });
+
+    proxyReq.end();
+  } catch (err) {
+    console.error('Anomaly proxy error:', err);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
 // ── Start Server ─────────────────────────────────────────
 async function start() {
   await connectDB();

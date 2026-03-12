@@ -31,6 +31,7 @@
         <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
         <div class="sidebar-section-title">Governance</div>
         <a href="policies.html" class="sidebar-item active"><i class="bi bi-shield-check"></i> Policy Engine</a>
+        <a href="anomaly.html" class="sidebar-item"><i class="bi bi-robot"></i> AI Anomaly</a>
         <a href="policies.html#events" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
             class="badge">3</span></a>
         <div class="sidebar-section-title">System</div>
@@ -390,59 +391,203 @@
       </div>
     </main>
   </div>
+
+  <!-- ═══ ADD POLICY MODAL ═══ -->
+  <div class="pe-modal-overlay" id="policyModal">
+    <div class="pe-modal">
+      <div class="pe-modal-header">
+        <div>
+          <div class="pe-modal-title">Create New Policy</div>
+          <div class="pe-modal-sub">Define an automated financial governance rule</div>
+        </div>
+        <button class="pe-modal-close" onclick="closePolicyModal()"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form id="addPolicyForm" onsubmit="return createPolicy(event)">
+        <div class="pe-field">
+          <label>Policy Name *</label>
+          <input type="text" id="policyName" placeholder="e.g. Contract Value Limit" required />
+        </div>
+        <div class="pe-field">
+          <label>Description</label>
+          <input type="text" id="policyDesc" placeholder="Brief description of what this policy enforces" />
+        </div>
+        <div class="pe-field">
+          <label>Trigger Condition *</label>
+          <input type="text" id="policyCond" placeholder="e.g. Contract value exceeds ₹50 Lakhs without tender"
+            required />
+        </div>
+        <div class="pe-field">
+          <label>Action When Triggered *</label>
+          <input type="text" id="policyAction" placeholder="e.g. Block contract & escalate to review board" required />
+        </div>
+        <div class="pe-field-row">
+          <div class="pe-field" style="flex:1;">
+            <label>Category</label>
+            <select id="policyIcon">
+              <option value="bi-wallet2" data-color="#EA4335">Budget</option>
+              <option value="bi-person-check" data-color="#34A853">Vendor</option>
+              <option value="bi-layers" data-color="#B06D00">Compliance</option>
+              <option value="bi-clock-history" data-color="#4285F4">Licensing</option>
+              <option value="bi-graph-up-arrow" data-color="#6C63FF">Anomaly</option>
+              <option value="bi-shield-lock" data-color="#0D47A1">Security</option>
+            </select>
+          </div>
+          <div class="pe-field" style="flex:1;">
+            <label>Initial Status</label>
+            <select id="policyStatus">
+              <option value="active">Active</option>
+              <option value="warning">Warning</option>
+            </select>
+          </div>
+        </div>
+        <div class="pe-modal-actions">
+          <button type="button" class="pe-btn-cancel" onclick="closePolicyModal()">Cancel</button>
+          <button type="submit" class="pe-btn-create"><i class="bi bi-plus-lg"></i> Create Policy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/dashboard.js"></script>
   <script>
-    (function () {
-      // Toggle on/off for policies
-      document.querySelectorAll('.pe-toggle input').forEach(toggle => {
-        toggle.addEventListener('change', function () {
-          const card = this.closest('.pe-card');
-          const statusBadge = card.querySelector('.pe-status');
-          const accent = card.querySelector('.pe-card-accent');
-          if (!this.checked) {
-            card.style.opacity = '0.55';
-            statusBadge.className = 'pe-status';
-            statusBadge.innerHTML = '<i class="bi bi-pause-circle"></i> Paused';
-            statusBadge.style.background = 'var(--bg)';
-            statusBadge.style.color = 'var(--text3)';
-            accent.style.background = 'var(--border2)';
-          } else {
-            card.style.opacity = '1';
-            const status = card.getAttribute('data-status');
-            accent.style.background = '';
-            statusBadge.style.background = '';
-            statusBadge.style.color = '';
-            if (status === 'triggered') {
-              statusBadge.className = 'pe-status triggered';
-              statusBadge.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Triggered';
-            } else if (status === 'warning') {
-              statusBadge.className = 'pe-status warning';
-              statusBadge.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Warning';
-            } else {
-              statusBadge.className = 'pe-status active';
-              statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Active';
-            }
-          }
-          // Update KPI counts
-          updateKPIs();
-        });
-      });
+    // ── Modal open/close ──
+    function openPolicyModal() {
+      document.getElementById('policyModal').classList.add('open');
+    }
+    function closePolicyModal() {
+      document.getElementById('policyModal').classList.remove('open');
+      document.getElementById('addPolicyForm').reset();
+    }
+    // Close on overlay click
+    document.getElementById('policyModal').addEventListener('click', function (e) {
+      if (e.target === this) closePolicyModal();
+    });
 
-      function updateKPIs() {
-        let active = 0, triggered = 0, warning = 0;
-        document.querySelectorAll('.pe-card').forEach(card => {
-          const toggle = card.querySelector('.pe-toggle input');
-          if (!toggle.checked) return;
-          const s = card.getAttribute('data-status');
-          if (s === 'active') active++;
-          else if (s === 'triggered') triggered++;
-          else if (s === 'warning') warning++;
-        });
-        document.getElementById('kpiActive').textContent = active;
-        document.getElementById('kpiTriggered').textContent = triggered;
-        document.getElementById('kpiWarning').textContent = warning;
+    // Wire up the + Add Policy button
+    document.querySelector('.btn-primary').addEventListener('click', openPolicyModal);
+
+    // ── Create new policy card ──
+    function createPolicy(e) {
+      e.preventDefault();
+      const name = document.getElementById('policyName').value.trim();
+      const desc = document.getElementById('policyDesc').value.trim();
+      const cond = document.getElementById('policyCond').value.trim();
+      const action = document.getElementById('policyAction').value.trim();
+      const iconSel = document.getElementById('policyIcon');
+      const icon = iconSel.value;
+      const color = iconSel.options[iconSel.selectedIndex].getAttribute('data-color');
+      const status = document.getElementById('policyStatus').value;
+
+      const statusHTML = status === 'warning'
+        ? '<span class="pe-status warning"><i class="bi bi-exclamation-triangle-fill"></i> Warning</span>'
+        : '<span class="pe-status active"><i class="bi bi-check-circle-fill"></i> Active</span>';
+
+      const accentColor = status === 'warning' ? 'var(--yellow)' : color;
+
+      const card = document.createElement('div');
+      card.className = 'pe-card';
+      card.setAttribute('data-status', status);
+      card.style.animation = 'fadeSlideIn 0.4s ease';
+      card.innerHTML = `
+        <div class="pe-card-accent" style="background: ${accentColor};"></div>
+        <div class="pe-card-body">
+          <div class="pe-card-header">
+            <div>
+              <div class="pe-card-title-row">
+                <div class="pe-card-icon" style="background: ${color}18; color: ${color};"><i class="bi ${icon}"></i></div>
+                <div class="pe-card-name">${name}</div>
+              </div>
+              <div class="pe-card-desc">${desc || 'Custom financial governance policy.'}</div>
+            </div>
+            <label class="pe-toggle">
+              <input type="checkbox" checked />
+              <div class="pe-toggle-track"></div>
+              <div class="pe-toggle-thumb"></div>
+            </label>
+          </div>
+          <div class="pe-rule-block">
+            <div class="pe-rule-row">
+              <span class="pe-rule-label condition"><i class="bi bi-lightning-charge"></i> Condition</span>
+              ${cond}
+            </div>
+            <div class="pe-rule-row">
+              <span class="pe-rule-label action"><i class="bi bi-play-circle"></i> Action</span>
+              ${action}
+            </div>
+          </div>
+          <div class="pe-card-footer">
+            ${statusHTML}
+            <span style="font-size: 11px; color: var(--text3);"><i class="bi bi-clock"></i> Just created</span>
+          </div>
+        </div>
+      `;
+
+      document.querySelector('.pe-grid').appendChild(card);
+
+      // Attach toggle listener to new card
+      const toggle = card.querySelector('.pe-toggle input');
+      toggle.addEventListener('change', handleToggle);
+
+      closePolicyModal();
+      updateKPIs();
+
+      // Scroll to new card
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // ── Toggle handler ──
+    function handleToggle() {
+      const card = this.closest('.pe-card');
+      const statusBadge = card.querySelector('.pe-status');
+      const accent = card.querySelector('.pe-card-accent');
+      if (!this.checked) {
+        card.style.opacity = '0.55';
+        statusBadge.className = 'pe-status';
+        statusBadge.innerHTML = '<i class="bi bi-pause-circle"></i> Paused';
+        statusBadge.style.background = 'var(--bg)';
+        statusBadge.style.color = 'var(--text3)';
+        accent.style.background = 'var(--border2)';
+      } else {
+        card.style.opacity = '1';
+        const status = card.getAttribute('data-status');
+        accent.style.background = '';
+        statusBadge.style.background = '';
+        statusBadge.style.color = '';
+        if (status === 'triggered') {
+          statusBadge.className = 'pe-status triggered';
+          statusBadge.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Triggered';
+        } else if (status === 'warning') {
+          statusBadge.className = 'pe-status warning';
+          statusBadge.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Warning';
+        } else {
+          statusBadge.className = 'pe-status active';
+          statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Active';
+        }
       }
-    })();
+      updateKPIs();
+    }
+
+    // Attach toggle handler to existing cards
+    document.querySelectorAll('.pe-toggle input').forEach(t => t.addEventListener('change', handleToggle));
+
+    // ── KPI Update ──
+    function updateKPIs() {
+      let active = 0, triggered = 0, warning = 0, total = 0;
+      document.querySelectorAll('.pe-card').forEach(card => {
+        total++;
+        const toggle = card.querySelector('.pe-toggle input');
+        if (!toggle.checked) return;
+        const s = card.getAttribute('data-status');
+        if (s === 'active') active++;
+        else if (s === 'triggered') triggered++;
+        else if (s === 'warning') warning++;
+      });
+      document.getElementById('kpiActive').textContent = active;
+      document.getElementById('kpiTriggered').textContent = triggered;
+      document.getElementById('kpiWarning').textContent = warning;
+      // Update total rules count too
+      document.querySelectorAll('.pe-kpi-value')[3].textContent = total;
+    }
   </script>
 </body>
 
