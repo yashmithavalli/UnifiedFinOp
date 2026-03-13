@@ -6,6 +6,7 @@ on spending data to detect anomalies in real-time.
 """
 
 import os
+import io
 import json
 from datetime import datetime, timedelta
 import random
@@ -13,7 +14,7 @@ import random
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import IsolationForest
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -245,14 +246,21 @@ def generate_insights(anomalies):
     return insights
 
 
-@app.route('/detect', methods=['GET'])
+@app.route('/detect', methods=['GET', 'POST'])
 def detect_anomalies():
     """
     Main API endpoint — runs both detection methods
     and returns combined results.
+    GET  = use default spending_data.csv
+    POST = use uploaded CSV file
     """
     try:
-        df = load_data()
+        if request.method == 'POST' and 'file' in request.files:
+            file = request.files['file']
+            content = file.read().decode('utf-8')
+            df = pd.read_csv(io.StringIO(content))
+        else:
+            df = load_data()
 
         # Run both detection methods
         zscore_results = zscore_detection(df)
@@ -318,6 +326,319 @@ def detect_anomalies():
         }), 500
 
 
+# ═══════════════════════════════════════════════════════════
+#  UNIVERSAL CSV ANALYSIS — Smart Column Detection
+# ═══════════════════════════════════════════════════════════
+
+def detect_columns(df):
+    """
+    Auto-detect column roles from any CSV.
+    Returns dict with 'numeric', 'categorical', 'datetime', 'group_by' keys.
+    """
+    numeric_cols = []
+    categorical_cols = []
+    datetime_cols = []
+
+    for col in df.columns:
+        # Try numeric
+        numeric_series = pd.to_numeric(df[col], errors='coerce')
+        non_null_ratio = numeric_series.notna().mean()
+
+        if non_null_ratio > 0.7 and df[col].nunique() > 2:
+            numeric_cols.append(col)
+            continue
+
+        # Try datetime
+        try:
+            pd.to_datetime(df[col], errors='raise', infer_datetime_format=True)
+            datetime_cols.append(col)
+            continue
+        except Exception:
+            pass
+
+        # Categorical — low-to-medium cardinality strings
+        if df[col].dtype == object and df[col].nunique() < len(df) * 0.5:
+            categorical_cols.append(col)
+
+    # Pick best group-by column: categorical with moderate cardinality
+    group_by = None
+    if categorical_cols:
+        best = sorted(categorical_cols, key=lambda c: abs(df[c].nunique() - 5))
+        group_by = best[0]
+
+    return {
+        'numeric': numeric_cols,
+        'categorical': categorical_cols,
+        'datetime': datetime_cols,
+        'group_by': group_by
+    }
+
+
+def universal_zscore(df, numeric_cols, group_col):
+    """
+    Z-Score anomaly detection across all numeric columns.
+    Groups by group_col if available, otherwise treats whole dataset.
+    """
+    anomalies = []
+
+    groups = df[group_col].unique() if group_col else ['All Data']
+
+    for grp in groups:
+        grp_data = df[df[group_col] == grp] if group_col else df
+
+        for col in numeric_cols:
+            values = pd.to_numeric(grp_data[col], errors='coerce').dropna().values
+            if len(values) < 3:
+                continue
+
+            historical = values[:-1]
+            current = values[-1]
+            mean = np.mean(historical)
+            std = np.std(historical)
+
+            if std == 0:
+                continue
+
+            z = (current - mean) / std
+
+            if abs(z) > 2.0:
+                deviation = round(((current - mean) / mean) * 100, 1) if mean != 0 else 0
+                anomalies.append({
+                    'group': str(grp),
+                    'column': col,
+                    'normal_value': round(float(mean), 2),
+                    'current_value': round(float(current), 2),
+                    'deviation': deviation,
+                    'z_score': round(float(z), 2),
+                    'severity': 'critical' if abs(z) > 3 else 'warning',
+                    'method': 'Z-Score Analysis',
+                    'trend': [round(float(x), 2) for x in values]
+                })
+
+    return anomalies
+
+
+def universal_iforest(df, numeric_cols, group_col):
+    """
+    Isolation Forest on all numeric columns combined.
+    Returns per-row anomalies with group context.
+    """
+    anomalies = []
+
+    # Build feature matrix from numeric columns
+    feature_df = df[numeric_cols].copy()
+    for col in numeric_cols:
+        feature_df[col] = pd.to_numeric(feature_df[col], errors='coerce')
+    feature_df = feature_df.fillna(feature_df.median())
+
+    if feature_df.shape[0] < 5 or feature_df.shape[1] == 0:
+        return anomalies
+
+    model = IsolationForest(
+        n_estimators=100,
+        contamination=min(0.15, max(0.01, 5.0 / len(feature_df))),
+        random_state=42
+    )
+    predictions = model.fit_predict(feature_df.values)
+    scores = model.decision_function(feature_df.values)
+
+    for i, (pred, score) in enumerate(zip(predictions, scores)):
+        if pred == -1:
+            row = df.iloc[i]
+            grp = str(row[group_col]) if group_col else 'All Data'
+
+            # Find which numeric column deviates most
+            worst_col = None
+            worst_dev = 0
+            for col in numeric_cols:
+                val = pd.to_numeric(row[col], errors='coerce')
+                col_mean = feature_df[col].mean()
+                if pd.isna(val) or col_mean == 0:
+                    continue
+                dev = abs((val - col_mean) / col_mean) * 100
+                if dev > worst_dev:
+                    worst_dev = dev
+                    worst_col = col
+
+            if worst_col and worst_dev > 20:
+                val = float(pd.to_numeric(row[worst_col], errors='coerce'))
+                col_mean = float(feature_df[worst_col].mean())
+
+                # Get group trend
+                if group_col:
+                    trend_data = pd.to_numeric(
+                        df[df[group_col] == row[group_col]][worst_col], errors='coerce'
+                    ).dropna().values
+                else:
+                    trend_data = feature_df[worst_col].values
+
+                anomalies.append({
+                    'group': grp,
+                    'column': worst_col,
+                    'normal_value': round(col_mean, 2),
+                    'current_value': round(val, 2),
+                    'deviation': round(worst_dev, 1),
+                    'anomaly_score': round(float(-score), 3),
+                    'severity': 'critical' if worst_dev > 100 else 'warning',
+                    'method': 'Isolation Forest',
+                    'trend': [round(float(x), 2) for x in trend_data[-10:]]
+                })
+
+    return anomalies
+
+
+@app.route('/analyze', methods=['POST'])
+def analyze_csv():
+    """
+    Universal CSV Analysis Endpoint.
+    Accepts ANY CSV, auto-detects columns, runs anomaly detection.
+    """
+    try:
+        if 'file' not in request.files:
+            return jsonify({
+                'success': False,
+                'error': 'No file uploaded. Please upload a CSV file.'
+            }), 400
+
+        file = request.files['file']
+        if not file.filename.lower().endswith('.csv'):
+            return jsonify({
+                'success': False,
+                'error': 'Please upload a .csv file.'
+            }), 400
+
+        content = file.read().decode('utf-8')
+        df = pd.read_csv(io.StringIO(content))
+
+        if df.empty or df.shape[0] < 3:
+            return jsonify({
+                'success': False,
+                'error': 'CSV must contain at least 3 rows of data.'
+            }), 400
+
+        # ── Step 1: Detect columns ──
+        col_info = detect_columns(df)
+
+        if not col_info['numeric']:
+            return jsonify({
+                'success': False,
+                'error': 'No numeric columns detected in the CSV. At least one numeric column is required for anomaly detection.'
+            }), 400
+
+        group_col = col_info['group_by']
+
+        # ── Step 2: Run detection ──
+        zscore_results = universal_zscore(df, col_info['numeric'], group_col)
+        iforest_results = universal_iforest(df, col_info['numeric'], group_col)
+
+        # Merge — prefer Z-Score where duplicates
+        seen = set()
+        combined = []
+
+        for a in zscore_results:
+            key = (a['group'], a['column'])
+            if key not in seen:
+                a['detected_at'] = (datetime.now() - timedelta(
+                    hours=random.randint(1, 24)
+                )).strftime('%Y-%m-%d %H:%M')
+                combined.append(a)
+                seen.add(key)
+
+        for a in iforest_results:
+            key = (a['group'], a['column'])
+            if key not in seen:
+                a['detected_at'] = (datetime.now() - timedelta(
+                    hours=random.randint(1, 24)
+                )).strftime('%Y-%m-%d %H:%M')
+                combined.append(a)
+                seen.add(key)
+
+        combined.sort(key=lambda x: (
+            0 if x['severity'] == 'critical' else 1,
+            -abs(x['deviation'])
+        ))
+
+        # ── Step 3: Summary stats ──
+        critical_count = sum(1 for a in combined if a['severity'] == 'critical')
+        warning_count = sum(1 for a in combined if a['severity'] == 'warning')
+
+        # ── Step 4: Data preview ──
+        preview_rows = df.head(5).fillna('').to_dict(orient='records')
+
+        # ── Step 5: Generate smart insights ──
+        insights = []
+        for i, anomaly in enumerate(combined[:4]):
+            templates = [
+                {
+                    'icon': 'bi-graph-up-arrow',
+                    'iconBg': '#FDECEA',
+                    'iconColor': '#C62828',
+                    'title': f"Spike in {anomaly['column']}",
+                    'desc': f"{anomaly['group']} shows a {anomaly['deviation']}% deviation in {anomaly['column']}. Current value: {anomaly['current_value']} vs normal: {anomaly['normal_value']}."
+                },
+                {
+                    'icon': 'bi-exclamation-diamond',
+                    'iconBg': '#FFF8E1',
+                    'iconColor': '#B06D00',
+                    'title': f"Outlier in {anomaly['group']}",
+                    'desc': f"The {anomaly['column']} metric for {anomaly['group']} deviates by {anomaly['deviation']}%. Investigate recent changes or data entry errors."
+                },
+                {
+                    'icon': 'bi-bar-chart-line',
+                    'iconBg': '#E3F2FD',
+                    'iconColor': '#1565C0',
+                    'title': f"Review {anomaly['column']} Trend",
+                    'desc': f"Statistical analysis flagged {anomaly['group']} {anomaly['column']} as anomalous ({anomaly['method']}). Consider reviewing the data source."
+                },
+                {
+                    'icon': 'bi-shield-exclamation',
+                    'iconBg': '#EDE7F6',
+                    'iconColor': '#6C63FF',
+                    'title': f"Anomaly Alert: {anomaly['group']}",
+                    'desc': f"Multiple indicators suggest unusual activity in {anomaly['group']}. The {anomaly['column']} value of {anomaly['current_value']} is {anomaly['deviation']}% above normal."
+                }
+            ]
+            insights.append(templates[i % 4])
+
+        return jsonify({
+            'success': True,
+            'timestamp': datetime.now().isoformat(),
+            'models_used': ['Z-Score Analysis', 'Isolation Forest'],
+            'file_info': {
+                'rows': int(df.shape[0]),
+                'columns': int(df.shape[1]),
+                'column_names': list(df.columns),
+                'numeric_columns': col_info['numeric'],
+                'categorical_columns': col_info['categorical'],
+                'group_by': group_col
+            },
+            'preview': preview_rows,
+            'summary': {
+                'total_anomalies': len(combined),
+                'critical': critical_count,
+                'warnings': warning_count
+            },
+            'anomalies': combined,
+            'insights': insights
+        })
+
+    except pd.errors.EmptyDataError:
+        return jsonify({
+            'success': False,
+            'error': 'The CSV file is empty or could not be parsed.'
+        }), 400
+    except UnicodeDecodeError:
+        return jsonify({
+            'success': False,
+            'error': 'File encoding not supported. Please upload a UTF-8 encoded CSV.'
+        }), 400
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Analysis failed: {str(e)}'
+        }), 500
+
+
 @app.route('/health', methods=['GET'])
 def health():
     """Health check endpoint."""
@@ -325,6 +646,7 @@ def health():
         'status': 'running',
         'engine': 'FinOps AI Anomaly Detection',
         'models': ['Z-Score', 'Isolation Forest'],
+        'endpoints': ['/detect', '/analyze', '/health'],
         'timestamp': datetime.now().isoformat()
     })
 

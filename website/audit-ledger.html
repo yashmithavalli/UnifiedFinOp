@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit Ledger — Unified FinOps Platform</title>
+  <meta name="description"
+    content="Smart Contract Execution & Audit Ledger — Immutable record of all financial governance decisions." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/audit-ledger.css" />
+</head>
+
+<body>
+  <div class="dash-layout">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">FO</div>
+        <div class="sidebar-brand">Unified<span>FinOps</span></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-title">Analytics</div>
+        <a href="dashboard.html" class="sidebar-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+        <a href="departments.html" class="sidebar-item"><i class="bi bi-building"></i> Departments</a>
+        <a href="vendors.html" class="sidebar-item"><i class="bi bi-shop"></i> Vendors</a>
+        <a href="ownership.html" class="sidebar-item"><i class="bi bi-diagram-3"></i> Spend Graph</a>
+
+        <div class="sidebar-section-title">Data</div>
+        <a href="upload.html" class="sidebar-item"><i class="bi bi-database-gear"></i> Data Lake</a>
+        <a href="erp.html" class="sidebar-item"><i class="bi bi-plug"></i> ERP Integration</a>
+        <a href="reports.html" class="sidebar-item"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+
+        <div class="sidebar-section-title">Governance</div>
+        <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
+        <a href="anomaly.html" class="sidebar-item"><i class="bi bi-robot"></i> AI Anomaly</a>
+        <a href="audit-ledger.html" class="sidebar-item active"><i class="bi bi-journal-bookmark"></i> Audit Ledger</a>
+        <a href="policies.html#alerts" class="sidebar-item"><i class="bi bi-bell"></i> Alerts <span
+            class="badge">5</span></a>
+
+        <div class="sidebar-section-title">System</div>
+        <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">A</div>
+          <div>
+            <div class="sidebar-user-name">Admin</div>
+            <div class="sidebar-user-role">Finance Controller</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="dash-main">
+      <!-- Top Bar -->
+      <div class="dash-topnav">
+        <div class="dash-topnav-left">
+          <button class="dash-menu-btn" id="dashMenuBtn"><i class="bi bi-list"></i></button>
+          <div class="dash-breadcrumb">
+            <span>FinOps</span>
+            <i class="bi bi-chevron-right"></i>
+            <span class="dash-breadcrumb-active">Audit Ledger</span>
+          </div>
+        </div>
+        <div class="dash-topnav-right">
+          <div class="dash-search">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search ledger..." />
+          </div>
+          <button class="dash-icon-btn" title="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="notif-dot"></span>
+          </button>
+          <a href="index.html" class="dash-icon-btn" title="Home"><i class="bi bi-house"></i></a>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div class="dash-content">
+
+        <!-- ══════════════════════════════════════════════════
+             PAGE HEADER
+        ══════════════════════════════════════════════════ -->
+        <div class="dash-page-header">
+          <div>
+            <h1 class="dash-page-title">Smart Contract Execution & Audit Ledger</h1>
+            <p class="dash-page-subtitle">Immutable governance records — FY 2025-26 — Tamil Nadu</p>
+          </div>
+          <div class="dash-header-actions">
+            <button class="btn-secondary" onclick="window.print()"><i class="bi bi-download"></i> Export</button>
+            <button class="btn-secondary" id="verifyIntegrityBtn"><i class="bi bi-shield-check"></i> Verify Integrity</button>
+            <button class="btn-primary" onclick="openAddModal()"><i class="bi bi-plus-lg"></i> Add Entry</button>
+          </div>
+        </div>
+
+        <!-- Header Description -->
+        <p class="ledger-description">
+          All financial governance decisions are recorded in an immutable audit ledger using smart-contract-style
+          policy execution to ensure transparency and accountability. Every approval, rejection, and policy override
+          is cryptographically hashed and permanently stored for auditing and compliance.
+        </p>
+
+        <!-- ══════════════════════════════════════════════════
+             PIPELINE FLOW VISUALIZATION
+        ══════════════════════════════════════════════════ -->
+        <div class="fi-section-header">
+          <div class="fi-section-title">Governance Pipeline</div>
+          <div class="fi-ai-badge"><i class="bi bi-link-45deg"></i> CHAIN VERIFIED</div>
+        </div>
+
+        <div class="ledger-pipeline">
+          <div class="ledger-pipeline-stage">
+            <div class="ledger-pipeline-icon policy"><i class="bi bi-shield-check"></i></div>
+            <div class="ledger-pipeline-num">Step 01</div>
+            <div class="ledger-pipeline-title">Policy Engine</div>
+            <div class="ledger-pipeline-desc">Rules evaluate every transaction against configured governance policies</div>
+          </div>
+          <div class="ledger-pipeline-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="ledger-pipeline-stage">
+            <div class="ledger-pipeline-icon contract"><i class="bi bi-file-earmark-lock"></i></div>
+            <div class="ledger-pipeline-num">Step 02</div>
+            <div class="ledger-pipeline-title">Smart Contract Execution</div>
+            <div class="ledger-pipeline-desc">Automated decision engine enforces approval, blocking, or escalation</div>
+          </div>
+          <div class="ledger-pipeline-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="ledger-pipeline-stage">
+            <div class="ledger-pipeline-icon immutable"><i class="bi bi-journal-bookmark"></i></div>
+            <div class="ledger-pipeline-num">Step 03</div>
+            <div class="ledger-pipeline-title">Immutable Ledger</div>
+            <div class="ledger-pipeline-desc">Every decision is SHA-256 hashed and permanently written to the audit trail</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             KPI SUMMARY
+        ══════════════════════════════════════════════════ -->
+        <div class="ledger-kpi-grid">
+          <div class="ledger-kpi">
+            <div class="ledger-kpi-top">
+              <div class="ledger-kpi-icon total"><i class="bi bi-journal-text"></i></div>
+              <div class="ledger-kpi-badge up"><i class="bi bi-arrow-up-short"></i> 12%</div>
+            </div>
+            <div class="ledger-kpi-value" id="kpiTotal">0</div>
+            <div class="ledger-kpi-label">Total Events</div>
+          </div>
+          <div class="ledger-kpi">
+            <div class="ledger-kpi-top">
+              <div class="ledger-kpi-icon approve"><i class="bi bi-check-circle"></i></div>
+              <div class="ledger-kpi-badge up"><i class="bi bi-arrow-up-short"></i> 8%</div>
+            </div>
+            <div class="ledger-kpi-value" id="kpiApproved">0</div>
+            <div class="ledger-kpi-label">Approved</div>
+          </div>
+          <div class="ledger-kpi">
+            <div class="ledger-kpi-top">
+              <div class="ledger-kpi-icon block"><i class="bi bi-x-circle"></i></div>
+              <div class="ledger-kpi-badge down"><i class="bi bi-arrow-down-short"></i> 5%</div>
+            </div>
+            <div class="ledger-kpi-value" id="kpiBlocked">0</div>
+            <div class="ledger-kpi-label">Blocked</div>
+          </div>
+          <div class="ledger-kpi">
+            <div class="ledger-kpi-top">
+              <div class="ledger-kpi-icon trigger"><i class="bi bi-exclamation-triangle"></i></div>
+              <div class="ledger-kpi-badge up"><i class="bi bi-arrow-up-short"></i> 3%</div>
+            </div>
+            <div class="ledger-kpi-value" id="kpiTriggered">0</div>
+            <div class="ledger-kpi-label">Policy Triggers & Overrides</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             IMMUTABILITY INDICATOR
+        ══════════════════════════════════════════════════ -->
+        <div class="immutability-strip">
+          <i class="bi bi-lock-fill"></i>
+          <span>All records are cryptographically sealed and cannot be modified. Each entry is verified by SHA-256 hash.</span>
+          <div class="chain-dots">
+            <div class="chain-dot"></div>
+            <div class="chain-dot"></div>
+            <div class="chain-dot"></div>
+            <div class="chain-dot"></div>
+            <div class="chain-dot"></div>
+            <div class="chain-dot"></div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             CSV UPLOAD ZONE
+        ══════════════════════════════════════════════════ -->
+        <div class="csv-upload-zone" id="csvDropZone">
+          <div class="csv-upload-inner">
+            <div class="csv-upload-icon"><i class="bi bi-cloud-arrow-up-fill"></i></div>
+            <div class="csv-upload-text">
+              <strong>Import Ledger Entries from CSV</strong>
+              <span>Drag & drop or click to upload. Columns: department, project, vendor, policy, action, approver, status</span>
+            </div>
+            <input type="file" id="csvFileInput" accept=".csv" style="display:none" />
+            <button class="csv-upload-btn" onclick="document.getElementById('csvFileInput').click()">
+              <i class="bi bi-file-earmark-arrow-up"></i> Choose File
+            </button>
+          </div>
+          <div class="csv-upload-progress" id="uploadSpinner" style="display:none">
+            <div class="spinner"></div>
+            <span>Hashing & importing entries…</span>
+          </div>
+          <div class="csv-upload-status" id="uploadStatusText"></div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             VERIFICATION RESULT PANEL
+        ══════════════════════════════════════════════════ -->
+        <div id="verifyResultPanel" style="display:none"></div>
+
+        <!-- ══════════════════════════════════════════════════
+             FILTER BAR
+        ══════════════════════════════════════════════════ -->
+        <div class="ledger-section-header">
+          <div class="ledger-section-title"><i class="bi bi-funnel"></i> Governance Event Log</div>
+        </div>
+
+        <div class="ledger-filter-bar">
+          <span class="filter-label"><i class="bi bi-funnel"></i> Filters:</span>
+          <select id="filterDept">
+            <option value="">All Departments</option>
+          </select>
+          <select id="filterVendor">
+            <option value="">All Vendors</option>
+          </select>
+          <select id="filterPolicy">
+            <option value="">All Policies</option>
+          </select>
+          <input type="text" id="filterSearch" placeholder="Search events…" />
+          <div class="ledger-filter-count" id="filterCount"></div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             AUDIT TABLE
+        ══════════════════════════════════════════════════ -->
+        <div class="ledger-table-wrap">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th>Event ID</th>
+                <th>Timestamp</th>
+                <th>Department / Project</th>
+                <th>Vendor</th>
+                <th>Policy Triggered</th>
+                <th>Action Taken</th>
+                <th>Approved By</th>
+                <th>Status</th>
+                <th>Cryptographic Hash</th>
+              </tr>
+            </thead>
+            <tbody id="ledgerBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══ ADD ENTRY MODAL ═══ -->
+  <div class="al-modal-overlay" id="addEntryModal">
+    <div class="al-modal">
+      <div class="al-modal-header">
+        <div>
+          <div class="al-modal-title">Add Governance Event</div>
+          <div class="al-modal-sub">This entry will be SHA-256 hashed and permanently stored</div>
+        </div>
+        <button class="al-modal-close" onclick="closeAddModal()"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <form id="addEntryForm">
+        <div class="al-field-row">
+          <div class="al-field">
+            <label>Department *</label>
+            <input type="text" id="entryDept" placeholder="e.g. Transport Infrastructure" required />
+          </div>
+          <div class="al-field">
+            <label>Project *</label>
+            <input type="text" id="entryProject" placeholder="e.g. Chennai Metro Phase 2" required />
+          </div>
+        </div>
+        <div class="al-field-row">
+          <div class="al-field">
+            <label>Vendor *</label>
+            <input type="text" id="entryVendor" placeholder="e.g. Larsen & Toubro" required />
+          </div>
+          <div class="al-field">
+            <label>Policy Triggered *</label>
+            <select id="entryPolicy" required>
+              <option value="Department Budget Limit">Department Budget Limit</option>
+              <option value="Large Purchase Approval">Large Purchase Approval</option>
+              <option value="Vendor Compliance Check">Vendor Compliance Check</option>
+              <option value="Budget Overrun Alert">Budget Overrun Alert</option>
+              <option value="Spending Anomaly Detection">Spending Anomaly Detection</option>
+              <option value="Duplicate Transaction Check">Duplicate Transaction Check</option>
+            </select>
+          </div>
+        </div>
+        <div class="al-field-row">
+          <div class="al-field">
+            <label>Action Taken *</label>
+            <input type="text" id="entryAction" placeholder="e.g. Approval Required" required />
+          </div>
+          <div class="al-field">
+            <label>Responsible Approver *</label>
+            <input type="text" id="entryApprover" placeholder="e.g. Finance Controller" required />
+          </div>
+        </div>
+        <div class="al-field">
+          <label>Status *</label>
+          <select id="entryStatus" required>
+            <option value="approved">Approved</option>
+            <option value="blocked">Blocked</option>
+            <option value="triggered">Policy Triggered</option>
+            <option value="override">Override</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+        <div class="al-hash-preview">
+          <i class="bi bi-lock-fill"></i>
+          A unique SHA-256 cryptographic hash will be generated server-side from all fields above.
+        </div>
+        <div class="al-modal-actions">
+          <button type="button" class="al-btn-cancel" onclick="closeAddModal()">Cancel</button>
+          <button type="submit" class="al-btn-create"><i class="bi bi-plus-lg"></i> Create & Hash Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/audit-ledger.js"></script>
+</body>
+
+</html>

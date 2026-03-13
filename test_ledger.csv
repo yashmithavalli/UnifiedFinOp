@@ -1,0 +1,6 @@
+department,project,vendor,policy,action,approver,status
+Defense Manufacturing,INS Vikrant Maintenance,Cochin Shipyard,Large Purchase Approval,Approval Required,Defense Secretary,approved
+Logistics & Ports,Chennai Port Expansion,Adani Ports,Budget Overrun Alert,Policy Triggered,Port Authority Chair,triggered
+Digital Economy,State Data Centre,Infosys Limited,Vendor Compliance Check,Auto-Approved,System,approved
+Agriculture,Smart Irrigation System,Jain Irrigation,Department Budget Limit,Blocked — Over Budget,Finance Controller,blocked
+Tourism,Beach Beautification — Marina,L&T Construction,Spending Anomaly Detection,Under Review,Tourism Secretary,triggered

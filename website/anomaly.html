@@ -32,6 +32,7 @@
                 <div class="sidebar-section-title">Governance</div>
                 <a href="policies.html" class="sidebar-item"><i class="bi bi-shield-check"></i> Policy Engine</a>
                 <a href="anomaly.html" class="sidebar-item active"><i class="bi bi-robot"></i> AI Anomaly</a>
+                <a href="audit-ledger.html" class="sidebar-item"><i class="bi bi-journal-bookmark"></i> Audit Ledger</a>
                 <div class="sidebar-section-title">System</div>
                 <a href="#" class="sidebar-item"><i class="bi bi-gear"></i> Settings</a>
             </nav>
@@ -113,6 +114,274 @@
                         style="margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px;background:var(--green-light);color:var(--green);white-space:nowrap;">
                         <i class="bi bi-lightning-charge-fill"></i> ML ENGINE LIVE
                     </span>
+                </div>
+
+                <!-- ── Upload Your Own Data — Drag & Drop Zone ─────── -->
+                <style>
+                    .upload-zone {
+                        background: linear-gradient(135deg, #f0f4ff 0%, #e8f5e9 50%, #fff3e0 100%);
+                        border: 2px dashed #90CAF9;
+                        border-radius: 16px;
+                        padding: 28px 32px;
+                        margin-bottom: 24px;
+                        transition: all 0.3s ease;
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .upload-zone::before {
+                        content: '';
+                        position: absolute;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        background: linear-gradient(135deg, rgba(66,133,244,0.04), rgba(52,168,83,0.04));
+                        opacity: 0;
+                        transition: opacity 0.3s;
+                    }
+                    .upload-zone.drag-over {
+                        border-color: var(--blue);
+                        background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+                        transform: scale(1.005);
+                        box-shadow: 0 4px 24px rgba(66,133,244,0.15);
+                    }
+                    .upload-zone.drag-over::before { opacity: 1; }
+                    .upload-zone-top {
+                        display: flex;
+                        align-items: center;
+                        gap: 18px;
+                        flex-wrap: wrap;
+                    }
+                    .upload-zone-info { flex: 1; min-width: 240px; }
+                    .upload-zone-title {
+                        font-weight: 700;
+                        font-size: 15px;
+                        color: var(--text1);
+                        margin-bottom: 6px;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+                    .upload-zone-title i {
+                        font-size: 20px;
+                        color: var(--blue);
+                        animation: pulse-icon 2s ease-in-out infinite;
+                    }
+                    @keyframes pulse-icon {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.15); }
+                    }
+                    .upload-zone-desc {
+                        font-size: 12px;
+                        color: var(--text3);
+                        line-height: 1.6;
+                    }
+                    .upload-zone-desc strong { color: var(--text2); }
+                    .upload-btn {
+                        background: linear-gradient(135deg, #4285F4, #1a73e8);
+                        color: #fff;
+                        border: none;
+                        padding: 12px 28px;
+                        border-radius: 12px;
+                        font-weight: 700;
+                        font-size: 13px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        transition: all 0.25s;
+                        box-shadow: 0 2px 8px rgba(66,133,244,0.3);
+                    }
+                    .upload-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 16px rgba(66,133,244,0.4);
+                    }
+                    .upload-reset-btn {
+                        background: #f5f5f5;
+                        color: var(--text2);
+                        border: 1px solid #e0e0e0;
+                        padding: 10px 20px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        font-size: 13px;
+                        cursor: pointer;
+                        display: none;
+                        align-items: center;
+                        gap: 6px;
+                        transition: all 0.2s;
+                    }
+                    .upload-reset-btn:hover { background: #eeeeee; }
+                    .upload-status {
+                        font-size: 11px;
+                        font-weight: 600;
+                        padding: 4px 12px;
+                        border-radius: 8px;
+                        transition: all 0.3s;
+                    }
+                    /* ── Analysis results section ── */
+                    .custom-analysis-section {
+                        display: none;
+                        margin-top: 20px;
+                        padding-top: 20px;
+                        border-top: 1px dashed #e0e0e0;
+                        animation: fadeSlideIn 0.4s ease;
+                    }
+                    .col-chips {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        margin: 10px 0;
+                    }
+                    .col-chip {
+                        padding: 4px 12px;
+                        border-radius: 20px;
+                        font-size: 11px;
+                        font-weight: 600;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 4px;
+                    }
+                    .col-chip.numeric {
+                        background: #E3F2FD;
+                        color: #1565C0;
+                    }
+                    .col-chip.categorical {
+                        background: #F3E5F5;
+                        color: #7B1FA2;
+                    }
+                    .col-chip.groupby {
+                        background: #FFF8E1;
+                        color: #F57F17;
+                        border: 1px solid #FFECB3;
+                    }
+                    .data-preview-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 11px;
+                        margin: 12px 0;
+                        border-radius: 10px;
+                        overflow: hidden;
+                    }
+                    .data-preview-table th {
+                        background: #f5f7fa;
+                        padding: 8px 12px;
+                        text-align: left;
+                        font-weight: 700;
+                        color: var(--text2);
+                        border-bottom: 2px solid #e0e0e0;
+                    }
+                    .data-preview-table td {
+                        padding: 6px 12px;
+                        border-bottom: 1px solid #f0f0f0;
+                        color: var(--text2);
+                    }
+                    .data-preview-table tr:hover td {
+                        background: #f8f9ff;
+                    }
+                    .custom-kpi-row {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                        gap: 12px;
+                        margin: 16px 0;
+                    }
+                    .custom-kpi {
+                        background: #fff;
+                        border: 1px solid #f0f0f0;
+                        border-radius: 12px;
+                        padding: 14px 16px;
+                        text-align: center;
+                    }
+                    .custom-kpi-value {
+                        font-size: 22px;
+                        font-weight: 800;
+                        color: var(--text1);
+                    }
+                    .custom-kpi-label {
+                        font-size: 10px;
+                        color: var(--text3);
+                        margin-top: 2px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.5px;
+                    }
+                    .upload-progress {
+                        display: none;
+                        margin-top: 16px;
+                        text-align: center;
+                        padding: 20px;
+                    }
+                    .upload-progress .spinner {
+                        width: 36px; height: 36px;
+                        border: 3px solid #e0e0e0;
+                        border-top-color: var(--blue);
+                        border-radius: 50%;
+                        animation: spin 0.8s linear infinite;
+                        margin: 0 auto 10px;
+                    }
+                    @keyframes spin { to { transform: rotate(360deg); } }
+                </style>
+
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-zone-top">
+                        <div class="upload-zone-info">
+                            <div class="upload-zone-title">
+                                <i class="bi bi-cloud-arrow-up-fill"></i>
+                                Analyze Any CSV with AI
+                            </div>
+                            <div class="upload-zone-desc">
+                                <strong>Drag & drop</strong> or click to upload any CSV file. Our AI engine will
+                                <strong>auto-detect</strong> numeric columns, identify groupings, and run
+                                Z-Score + Isolation Forest anomaly detection — <strong>no fixed schema required</strong>.
+                            </div>
+                        </div>
+                        <input type="file" id="csvUpload" accept=".csv" style="display:none;" />
+                        <button class="upload-btn" onclick="document.getElementById('csvUpload').click()" id="uploadBtn">
+                            <i class="bi bi-file-earmark-arrow-up"></i> Upload CSV
+                        </button>
+                        <button class="upload-reset-btn" id="resetBtn" onclick="resetCustomAnalysis()">
+                            <i class="bi bi-arrow-counterclockwise"></i> Clear Results
+                        </button>
+                        <span class="upload-status" id="uploadStatus"></span>
+                    </div>
+
+                    <!-- Progress spinner -->
+                    <div class="upload-progress" id="uploadProgress">
+                        <div class="spinner"></div>
+                        <div style="font-size:13px;font-weight:600;color:var(--text2);">Running AI models on your data...</div>
+                        <div style="font-size:11px;color:var(--text3);margin-top:4px;">Z-Score Analysis + Isolation Forest</div>
+                    </div>
+
+                    <!-- Custom Analysis Results -->
+                    <div class="custom-analysis-section" id="customAnalysis">
+                        <div style="font-weight:700;font-size:14px;color:var(--text1);margin-bottom:8px;">
+                            <i class="bi bi-file-earmark-check" style="color:var(--green);margin-right:4px;"></i>
+                            <span id="customFileName">file.csv</span>
+                            <span id="customFileStats" style="font-weight:400;font-size:11px;color:var(--text3);margin-left:8px;"></span>
+                        </div>
+
+                        <!-- Detected Columns -->
+                        <div style="font-size:11px;color:var(--text3);margin-bottom:4px;font-weight:600;">DETECTED COLUMNS</div>
+                        <div class="col-chips" id="colChips"></div>
+
+                        <!-- Data Preview -->
+                        <div style="font-size:11px;color:var(--text3);margin:12px 0 4px;font-weight:600;">DATA PREVIEW (first 5 rows)</div>
+                        <div style="overflow-x:auto;border-radius:10px;border:1px solid #f0f0f0;">
+                            <table class="data-preview-table" id="dataPreview"></table>
+                        </div>
+
+                        <!-- Custom KPIs -->
+                        <div class="custom-kpi-row" id="customKpis"></div>
+
+                        <!-- Custom Anomaly Cards -->
+                        <div class="fi-section-header" style="margin-top:16px;">
+                            <div class="fi-section-title">Custom Data — Anomaly Alerts</div>
+                            <div class="fi-ai-badge"><i class="bi bi-robot"></i> AI DETECTED</div>
+                        </div>
+                        <div class="ad-grid" id="customAnomalyGrid"></div>
+
+                        <!-- Custom Insights -->
+                        <div class="fi-section-header" style="margin-top:16px;">
+                            <div class="fi-section-title">Custom Data — AI Insights</div>
+                            <div class="fi-ai-badge"><i class="bi bi-lightbulb"></i> SMART</div>
+                        </div>
+                        <div class="ai-insights-grid" id="customInsightsGrid"></div>
+                    </div>
                 </div>
 
                 <!-- ── Filters ─────────────────────────────────────── -->
@@ -367,6 +636,233 @@
                 const deptMatch = dept === 'all' || cardDept === dept;
                 const sevMatch = sev === 'all' || cardSev === sev;
                 card.style.display = (deptMatch && sevMatch) ? '' : 'none';
+            });
+        }
+
+        // ══════════════════════════════════════════════════
+        // DRAG & DROP + CSV UPLOAD → /api/analyze
+        // ══════════════════════════════════════════════════
+
+        const uploadZone = document.getElementById('uploadZone');
+
+        // Drag events
+        ['dragenter', 'dragover'].forEach(evt => {
+            uploadZone.addEventListener(evt, function (e) {
+                e.preventDefault();
+                uploadZone.classList.add('drag-over');
+            });
+        });
+        ['dragleave', 'drop'].forEach(evt => {
+            uploadZone.addEventListener(evt, function (e) {
+                e.preventDefault();
+                uploadZone.classList.remove('drag-over');
+            });
+        });
+        uploadZone.addEventListener('drop', function (e) {
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.toLowerCase().endsWith('.csv')) {
+                analyzeCSV(file);
+            } else {
+                const status = document.getElementById('uploadStatus');
+                status.textContent = 'Please drop a .csv file';
+                status.style.color = 'var(--red)';
+            }
+        });
+
+        // File input handler
+        document.getElementById('csvUpload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) analyzeCSV(file);
+            e.target.value = '';
+        });
+
+        // Reset custom analysis
+        function resetCustomAnalysis() {
+            document.getElementById('customAnalysis').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById('uploadStatus').textContent = '';
+            document.getElementById('uploadProgress').style.display = 'none';
+        }
+
+        // ── Main analyze function ──
+        async function analyzeCSV(file) {
+            const status = document.getElementById('uploadStatus');
+            const progress = document.getElementById('uploadProgress');
+            const section = document.getElementById('customAnalysis');
+
+            status.textContent = '';
+            section.style.display = 'none';
+            progress.style.display = 'block';
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const res = await fetch('/api/analyze', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                progress.style.display = 'none';
+
+                if (!data.success) {
+                    status.textContent = '✗ ' + (data.error || 'Analysis failed');
+                    status.style.color = 'var(--red)';
+                    status.style.background = '#FDECEA';
+                    return;
+                }
+
+                // Show results section
+                section.style.display = 'block';
+                document.getElementById('resetBtn').style.display = 'flex';
+
+                // File info
+                document.getElementById('customFileName').textContent = file.name;
+                document.getElementById('customFileStats').textContent =
+                    data.file_info.rows + ' rows × ' + data.file_info.columns + ' columns';
+
+                // Column chips
+                const chipsEl = document.getElementById('colChips');
+                chipsEl.innerHTML = '';
+                (data.file_info.numeric_columns || []).forEach(function (c) {
+                    const chip = document.createElement('span');
+                    chip.className = 'col-chip numeric';
+                    chip.innerHTML = '<i class="bi bi-hash"></i> ' + c;
+                    chipsEl.appendChild(chip);
+                });
+                (data.file_info.categorical_columns || []).forEach(function (c) {
+                    const isGroup = c === data.file_info.group_by;
+                    const chip = document.createElement('span');
+                    chip.className = 'col-chip ' + (isGroup ? 'groupby' : 'categorical');
+                    chip.innerHTML = '<i class="bi ' + (isGroup ? 'bi-collection' : 'bi-tag') + '"></i> ' + c + (isGroup ? ' (group by)' : '');
+                    chipsEl.appendChild(chip);
+                });
+
+                // Data preview table
+                const table = document.getElementById('dataPreview');
+                if (data.preview && data.preview.length > 0) {
+                    const cols = Object.keys(data.preview[0]);
+                    let html = '<thead><tr>';
+                    cols.forEach(function (c) { html += '<th>' + c + '</th>'; });
+                    html += '</tr></thead><tbody>';
+                    data.preview.forEach(function (row) {
+                        html += '<tr>';
+                        cols.forEach(function (c) {
+                            let val = row[c];
+                            if (typeof val === 'number') val = val.toLocaleString();
+                            html += '<td>' + (val !== null && val !== undefined ? val : '') + '</td>';
+                        });
+                        html += '</tr>';
+                    });
+                    html += '</tbody>';
+                    table.innerHTML = html;
+                }
+
+                // Custom KPIs
+                const kpis = document.getElementById('customKpis');
+                kpis.innerHTML =
+                    '<div class="custom-kpi"><div class="custom-kpi-value" style="color:var(--red);">' + data.summary.total_anomalies + '</div><div class="custom-kpi-label">Anomalies Found</div></div>' +
+                    '<div class="custom-kpi"><div class="custom-kpi-value" style="color:#C62828;">' + data.summary.critical + '</div><div class="custom-kpi-label">Critical</div></div>' +
+                    '<div class="custom-kpi"><div class="custom-kpi-value" style="color:#B06D00;">' + data.summary.warnings + '</div><div class="custom-kpi-label">Warnings</div></div>' +
+                    '<div class="custom-kpi"><div class="custom-kpi-value" style="color:var(--blue);">' + data.file_info.numeric_columns.length + '</div><div class="custom-kpi-label">Columns Analyzed</div></div>';
+
+                // Render custom anomaly cards
+                renderCustomCards(data.anomalies);
+
+                // Render custom insights
+                renderInsightsIn(data.insights, 'customInsightsGrid');
+
+                // Status badge
+                status.textContent = '✓ ' + data.summary.total_anomalies + ' anomalies detected';
+                status.style.color = 'var(--green)';
+                status.style.background = 'var(--green-light)';
+
+                document.getElementById('mlStatus').innerHTML =
+                    '<i class="bi bi-lightning-charge-fill"></i> ML ENGINE LIVE — ' +
+                    data.models_used.join(' + ');
+
+            } catch (err) {
+                progress.style.display = 'none';
+                status.textContent = '✗ Upload failed: ' + err.message;
+                status.style.color = 'var(--red)';
+                status.style.background = '#FDECEA';
+            }
+        }
+
+        // ── Render Custom Anomaly Cards (universal schema) ──
+        function renderCustomCards(anomalies) {
+            const grid = document.getElementById('customAnomalyGrid');
+            grid.innerHTML = '';
+
+            if (!anomalies || anomalies.length === 0) {
+                grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--green);"><i class="bi bi-check-circle" style="font-size:24px;"></i><div style="margin-top:8px;">No anomalies detected in your data \u2014 all values within normal range.</div></div>';
+                return;
+            }
+
+            anomalies.forEach(function (a, i) {
+                var isCritical = a.severity === 'critical';
+                var accentColor = isCritical ? 'var(--red)' : 'var(--yellow)';
+                var iconBg = isCritical ? 'var(--red-light)' : 'var(--yellow-light)';
+                var iconColor = isCritical ? 'var(--red)' : '#B06D00';
+                var icon = isCritical ? 'bi-exclamation-octagon-fill' : 'bi-exclamation-triangle-fill';
+                var sevIcon = isCritical ? 'bi-x-circle-fill' : 'bi-exclamation-triangle-fill';
+                var sevLabel = isCritical ? 'Critical' : 'Warning';
+                var chartColor = isCritical ? '#EA4335' : '#F9AB00';
+
+                var detected = new Date(a.detected_at);
+                var hoursAgo = Math.round((Date.now() - detected.getTime()) / 3600000);
+                var timeStr = hoursAgo < 24 ? hoursAgo + 'h ago' : Math.round(hoursAgo / 24) + ' day(s) ago';
+
+                var card = document.createElement('div');
+                card.className = 'ad-card';
+                card.style.animation = 'fadeSlideIn 0.4s ease ' + (i * 0.08) + 's both';
+
+                card.innerHTML =
+                    '<div class="ad-card-accent" style="background:' + accentColor + ';"></div>' +
+                    '<div class="ad-card-body">' +
+                    '<div class="ad-card-top"><div><div class="ad-card-title-row">' +
+                    '<div class="ad-card-icon" style="background:' + iconBg + ';color:' + iconColor + ';"><i class="bi ' + icon + '"></i></div>' +
+                    '<div><div class="ad-card-name">' + a.column + ' Anomaly</div>' +
+                    '<div class="ad-card-dept">' + a.group + '</div></div>' +
+                    '</div></div>' +
+                    '<span class="ad-severity ' + a.severity + '"><i class="bi ' + sevIcon + '"></i> ' + sevLabel + '</span></div>' +
+                    '<div class="ad-spend-row">' +
+                    '<div class="ad-spend-item"><div class="ad-spend-label">Normal (' + a.column + ')</div><div class="ad-spend-value">' + a.normal_value.toLocaleString() + '</div></div>' +
+                    '<div class="ad-spend-item"><div class="ad-spend-label">Current Value</div><div class="ad-spend-value current">' + a.current_value.toLocaleString() + '</div></div>' +
+                    '</div>' +
+                    '<div class="ad-deviation ' + a.severity + '"><i class="bi bi-arrow-up-right"></i> ' + (a.deviation > 0 ? '+' : '') + a.deviation + '% Deviation</div>' +
+                    '<div class="ad-chart-wrap"><div class="ad-chart-label">Trend — ' + a.column + ' (' + a.method + ')</div><canvas id="customChart' + i + '"></canvas></div>' +
+                    '<div class="ad-card-footer">' +
+                    '<span class="ad-method"><i class="bi bi-cpu"></i> ' + a.method + '</span>' +
+                    '<span class="ad-timestamp"><i class="bi bi-clock"></i> Detected ' + timeStr + '</span>' +
+                    '</div></div>';
+
+                grid.appendChild(card);
+
+                // Draw trend chart
+                if (a.trend && a.trend.length > 1) {
+                    requestAnimationFrame(function () {
+                        drawChart({
+                            id: 'customChart' + i,
+                            normal: a.trend.slice(0, -1),
+                            current: a.trend,
+                            color: chartColor
+                        });
+                    });
+                }
+            });
+        }
+
+        // ── Render Insights into a specified container ──
+        function renderInsightsIn(insights, containerId) {
+            var grid = document.getElementById(containerId);
+            grid.innerHTML = '';
+            (insights || []).forEach(function (ins) {
+                var card = document.createElement('div');
+                card.className = 'ai-insight-card';
+                card.innerHTML =
+                    '<div class="ai-insight-icon" style="background:' + ins.iconBg + ';color:' + ins.iconColor + ';"><i class="bi ' + ins.icon + '"></i></div>' +
+                    '<div><div class="ai-insight-title">' + ins.title + '</div>' +
+                    '<div class="ai-insight-desc">' + ins.desc + '</div></div>';
+                grid.appendChild(card);
             });
         }
 

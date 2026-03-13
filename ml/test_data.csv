@@ -1,0 +1,57 @@
+department,category,vendor,week,amount,budget
+IT Department,Cloud Services,Amazon AWS,W1,120000,900000
+IT Department,Cloud Services,Amazon AWS,W2,115000,900000
+IT Department,Cloud Services,Amazon AWS,W3,125000,900000
+IT Department,Cloud Services,Amazon AWS,W4,118000,900000
+IT Department,Cloud Services,Amazon AWS,W5,122000,900000
+IT Department,Cloud Services,Amazon AWS,W6,119000,900000
+IT Department,Cloud Services,Amazon AWS,W7,121000,900000
+IT Department,Cloud Services,Amazon AWS,W8,450000,900000
+HR Department,Payroll Software,Zoho Payroll,W1,85000,600000
+HR Department,Payroll Software,Zoho Payroll,W2,82000,600000
+HR Department,Payroll Software,Zoho Payroll,W3,88000,600000
+HR Department,Payroll Software,Zoho Payroll,W4,84000,600000
+HR Department,Payroll Software,Zoho Payroll,W5,86000,600000
+HR Department,Payroll Software,Zoho Payroll,W6,83000,600000
+HR Department,Payroll Software,Zoho Payroll,W7,87000,600000
+HR Department,Payroll Software,Zoho Payroll,W8,310000,600000
+Marketing,Digital Ads,Google Ads,W1,200000,1500000
+Marketing,Digital Ads,Google Ads,W2,195000,1500000
+Marketing,Digital Ads,Google Ads,W3,210000,1500000
+Marketing,Digital Ads,Google Ads,W4,198000,1500000
+Marketing,Digital Ads,Google Ads,W5,205000,1500000
+Marketing,Digital Ads,Google Ads,W6,192000,1500000
+Marketing,Digital Ads,Google Ads,W7,202000,1500000
+Marketing,Digital Ads,Google Ads,W8,205000,1500000
+Operations,Fleet Management,Tata Motors,W1,350000,2000000
+Operations,Fleet Management,Tata Motors,W2,340000,2000000
+Operations,Fleet Management,Tata Motors,W3,360000,2000000
+Operations,Fleet Management,Tata Motors,W4,345000,2000000
+Operations,Fleet Management,Tata Motors,W5,355000,2000000
+Operations,Fleet Management,Tata Motors,W6,348000,2000000
+Operations,Fleet Management,Tata Motors,W7,352000,2000000
+Operations,Fleet Management,Tata Motors,W8,780000,2000000
+Finance,Audit Services,Deloitte India,W1,160000,1000000
+Finance,Audit Services,Deloitte India,W2,155000,1000000
+Finance,Audit Services,Deloitte India,W3,165000,1000000
+Finance,Audit Services,Deloitte India,W4,158000,1000000
+Finance,Audit Services,Deloitte India,W5,162000,1000000
+Finance,Audit Services,Deloitte India,W6,157000,1000000
+Finance,Audit Services,Deloitte India,W7,161000,1000000
+Finance,Audit Services,Deloitte India,W8,163000,1000000
+R&D,Lab Equipment,Thermo Fisher,W1,280000,1800000
+R&D,Lab Equipment,Thermo Fisher,W2,270000,1800000
+R&D,Lab Equipment,Thermo Fisher,W3,290000,1800000
+R&D,Lab Equipment,Thermo Fisher,W4,275000,1800000
+R&D,Lab Equipment,Thermo Fisher,W5,285000,1800000
+R&D,Lab Equipment,Thermo Fisher,W6,272000,1800000
+R&D,Lab Equipment,Thermo Fisher,W7,282000,1800000
+R&D,Lab Equipment,Thermo Fisher,W8,680000,1800000
+Logistics,Warehouse Rental,DHL Supply Chain,W1,95000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W2,92000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W3,98000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W4,94000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W5,96000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W6,93000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W7,95000,700000
+Logistics,Warehouse Rental,DHL Supply Chain,W8,97000,700000
